@@ -1,10 +1,14 @@
 var controls = document.querySelectorAll('.controls');
-for(var i=0; i<controls.length; i++){
+var slides = document.querySelectorAll('.slides__item');
+var indicators = document.querySelectorAll('.indicators__item');
+
+
+
+var i;
+for(i=0; i<controls.length; i++){
   controls[i].style.display = 'inline-block';
 }
 
-var slides = document.querySelectorAll('.slides__item');
-var indicators = document.querySelectorAll('.indicators__item');
 var currentSlide = 0;
 var slideInterval = setInterval(nextSlide,2000);
 
@@ -25,8 +29,11 @@ function goToSlide(n){
 }
 
 
+
 var playing = true;
 var pauseButton = document.getElementById('pause');
+
+pauseButton.addEventListener('click', pauseButtonAction);
 
 function pauseSlideshow(){
   pauseButton.innerHTML = '&#9658;'; // play character
@@ -40,38 +47,40 @@ function playSlideshow(){
   slideInterval = setInterval(nextSlide,2000);
 }
 
-pauseButton.onclick = function(){
-  if(playing){ pauseSlideshow(); }
-  else{ playSlideshow(); }
-};
+function pauseButtonAction (){
+  if (playing) {
+    pauseSlideshow();
+  } else {
+    playSlideshow();
+  }
+}
+
+
 
 var next = document.getElementById('next');
 var previous = document.getElementById('previous');
 
-var slide1 = document.getElementById('slide-1');
-var slide2 = document.getElementById('slide-2');
-var slide3 = document.getElementById('slide-3');
+next.addEventListener('click', nextSlideAction);
+previous.addEventListener('click', previousSlideAction);
 
-next.onclick = function(){
+function nextSlideAction () {
   pauseSlideshow();
   nextSlide();
-};
-previous.onclick = function(){
+}
+
+function previousSlideAction () {
   pauseSlideshow();
   previousSlide();
-};
+}
 
-slide1.onclick = function(){
-  pauseSlideshow();
-  goToSlide(0);
-};
 
-slide2.onclick = function(){
-  pauseSlideshow();
-  goToSlide(1);
-};
 
-slide3.onclick = function(){
+function goToSlideOnClick () {
+  var n = this.getAttribute('data-slide-to') - 1;
   pauseSlideshow();
-  goToSlide(2);
-};
+  goToSlide(n);
+}
+
+for(i=0; i<indicators.length; i++) {
+  indicators[i].addEventListener('click', goToSlideOnClick);
+}
