@@ -56,6 +56,16 @@
   background-image: url("../img/slide3.jpg");
 }
 
+.slides__item:nth-of-type(4) {
+  background-color: green;
+  background-image: url("../img/slide4.jpg");
+}
+
+.slides__item:nth-of-type(5) {
+  background-color: green;
+  background-image: url("../img/slide5.jpg");
+}
+
 .controls {
   position: absolute;
   top: 0px;
