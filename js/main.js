@@ -1,6 +1,6 @@
 
-var controls = document.querySelectorAll('.controls');
 var slides = document.querySelectorAll('.slides__item');
+var indContainer = document.querySelector('.indicators');
 var indicators = document.querySelectorAll('.indicators__item');
 
 // carousel basic engine
@@ -65,13 +65,13 @@ pauseButton.addEventListener('click', pauseClickHandler);
 nextButton.addEventListener('click', nextClickHandler);
 previousButton.addEventListener('click', previousClickHandler);
 
-var indicatorClickHandler = function () {
-  var n = this.getAttribute('data-slide-to') - 1;
-  pauseSlideShow();
-  gotoSlide(n);
-};
+// используем делегирование для оптимизации обработчика событий
+indContainer.addEventListener('click', function (e) {
+  var target = e.target;
 
-
-for(var i = indicators.length; i--;) {
-  indicators[i].addEventListener('click', indicatorClickHandler);
-}
+  if ( target.classList.contains('indicators__item') ) {
+    var n = target.getAttribute('data-slide-to') - 1;
+    pauseSlideShow();
+    gotoSlide(n);
+  }
+});
