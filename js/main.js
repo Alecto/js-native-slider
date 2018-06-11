@@ -39,9 +39,9 @@ var slideInterval = setInterval(nextSlide, 2000);
 
 // controls and indicators
 var playing = true;
-var pauseButton = document.getElementById('pause');
-var nextButton = document.getElementById('next');
-var previousButton = document.getElementById('previous');
+var pauseButton = document.querySelector('#pause');
+var nextButton = document.querySelector('#next');
+var previousButton = document.querySelector('#previous');
 
 var pauseClickHandler = function () {
   if (playing) {
