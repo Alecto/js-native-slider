@@ -3,9 +3,12 @@ var slides = document.querySelectorAll('.slides__item');
 var indContainer = document.querySelector('.indicators');
 var indicators = document.querySelectorAll('.indicators__item');
 
+// activate controls, if javascript is enabled
+indContainer.style.display = 'flex'; // flex
+document.querySelector('.controls').style.display = 'block'; // block
+
 // carousel basic engine
 var currentSlide = 0;
-
 
 var gotoSlide = function (n) {
   slides[currentSlide].classList.toggle('active');
