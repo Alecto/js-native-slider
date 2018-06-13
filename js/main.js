@@ -3,6 +3,10 @@ var slides = document.querySelectorAll('.slides__item');
 var indContainer = document.querySelector('.indicators');
 var indicators = document.querySelectorAll('.indicators__item');
 
+var LEFT_ARROW = 37;
+var RIGHT_ARROW = 39;
+var SPACE = 32;
+
 // activate controls, if javascript is enabled
 indContainer.style.display = 'flex'; // flex
 document.querySelector('.controls').style.display = 'block'; // block
@@ -78,3 +82,12 @@ indContainer.addEventListener('click', function (e) {
     gotoSlide(n);
   }
 });
+
+// клавиатурное управление
+var keyControlHandler = function (e) {
+  if (e.keyCode === LEFT_ARROW) { previousClickHandler(); }
+  if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
+  if (e.keyCode === SPACE) { pauseClickHandler(); }
+};
+
+document.addEventListener('keydown', keyControlHandler);
