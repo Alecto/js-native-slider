@@ -31,13 +31,13 @@ var previousSlide = function () {
 };
 
 var pauseSlideShow = function () {
-  pauseButton.innerHTML = '&#9658;'; // play character
+  pauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // fa-pause
   playing = false;
   clearInterval(slideInterval);
 };
 
 var playSlideShow = function () {
-  pauseButton.innerHTML = '&#10074;&#10074;'; // pause character
+  pauseButton.innerHTML = '<i class="fas fa-play"></i>'; // fa-play
   playing = true;
   slideInterval = setInterval(nextSlide,2000);
 };
