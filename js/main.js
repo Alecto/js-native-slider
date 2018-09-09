@@ -1,61 +1,59 @@
+'use strict';
 
-var slides = document.querySelectorAll('.slides__item');
-var indContainer = document.querySelector('.indicators');
-var indicators = document.querySelectorAll('.indicators__item');
+var slides        = document.querySelectorAll('.slides__item');
+var indContainer  = document.querySelector('.indicators');
+var indItems      = document.querySelectorAll('.indicators__item');
+var currentSlide  = 0;
 
-var LEFT_ARROW = 37;
-var RIGHT_ARROW = 39;
-var SPACE = 32;
+const LEFT_ARROW  = 37;
+const RIGHT_ARROW = 39;
+const SPACE       = 32;
+const FA_PAUSE    = '<i class="fas fa-pause"></i>';
+const FA_PLAY     = '<i class="fas fa-play"></i>';
 
 // activate controls, if javascript is enabled
 indContainer.style.display = 'flex'; // flex
 document.querySelector('.controls').style.display = 'block'; // block
 
 // carousel basic engine
-var currentSlide = 0;
-
 var gotoSlide = function (n) {
   slides[currentSlide].classList.toggle('active');
-  indicators[currentSlide].classList.toggle('active');
-  currentSlide = (n+slides.length)%slides.length;
+  indItems[currentSlide].classList.toggle('active');
+  currentSlide = (n + slides.length) % slides.length;
   slides[currentSlide].classList.toggle('active');
-  indicators[currentSlide].classList.toggle('active');
+  indItems[currentSlide].classList.toggle('active');
 };
 
 var nextSlide = function () {
-  gotoSlide(currentSlide+1);
+  gotoSlide(currentSlide + 1);
 };
 
 var previousSlide = function () {
-  gotoSlide(currentSlide-1);
+  gotoSlide(currentSlide - 1);
 };
 
 var pauseSlideShow = function () {
-  pauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // fa-pause
-  playing = false;
+  pauseBtn.innerHTML = FA_PAUSE;
+  playbackStatus = false;
   clearInterval(slideInterval);
 };
 
 var playSlideShow = function () {
-  pauseButton.innerHTML = '<i class="fas fa-play"></i>'; // fa-play
-  playing = true;
-  slideInterval = setInterval(nextSlide,2000);
+  pauseBtn.innerHTML = FA_PLAY;
+  playbackStatus = true;
+  slideInterval = setInterval(nextSlide, 2000);
 };
 
 var slideInterval = setInterval(nextSlide, 2000);
 
-// controls and indicators
-var playing = true;
-var pauseButton = document.querySelector('#pause');
-var nextButton = document.querySelector('#next');
-var previousButton = document.querySelector('#previous');
+// controls
+var playbackStatus = true;
+var pauseBtn = document.querySelector('.indicators__pause');
+var nextBtn  = document.querySelector('.controls__next');
+var prevBtn  = document.querySelector('.controls__prev');
 
 var pauseClickHandler = function () {
-  if (playing) {
-    pauseSlideShow();
-  } else {
-    playSlideShow();
-  }
+  playbackStatus ? pauseSlideShow() : playSlideShow();
 };
 
 var nextClickHandler = function () {
@@ -63,29 +61,32 @@ var nextClickHandler = function () {
   nextSlide();
 };
 
-var previousClickHandler = function () {
+var prevClickHandler = function () {
   pauseSlideShow();
   previousSlide();
 };
 
-pauseButton.addEventListener('click', pauseClickHandler);
-nextButton.addEventListener('click', nextClickHandler);
-previousButton.addEventListener('click', previousClickHandler);
+pauseBtn.addEventListener('click', pauseClickHandler);
+nextBtn.addEventListener('click', nextClickHandler);
+prevBtn.addEventListener('click', prevClickHandler);
 
-// используем делегирование для оптимизации обработчика событий
-indContainer.addEventListener('click', function (e) {
-  var target = e.target;
+// indicators
+var indClickHandler = function (e) {
+  let target = e.target;
 
   if ( target.classList.contains('indicators__item') ) {
-    var n = target.getAttribute('data-slide-to') - 1;
+    let n = target.getAttribute('data-slide-to') - 1;
     pauseSlideShow();
     gotoSlide(n);
   }
-});
+};
 
-// клавиатурное управление
+// use delegation to optimize the event handler
+indContainer.addEventListener('click', indClickHandler);
+
+// set keyboard controls
 var keyControlHandler = function (e) {
-  if (e.keyCode === LEFT_ARROW) { previousClickHandler(); }
+  if (e.keyCode === LEFT_ARROW) { prevClickHandler(); }
   if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
   if (e.keyCode === SPACE) { pauseClickHandler(); }
 };

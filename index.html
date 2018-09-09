@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Slider JS</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <div class="container">
+  <div class="carousel">
 
-    <ul class="slides" id="slides">
+    <ul class="slides">
       <li class="slides__item active"></li>
       <li class="slides__item"></li>
       <li class="slides__item"></li>
@@ -20,21 +20,21 @@
     </ul>
 
     <div class="controls">
-      <div class="controls__item controls__prev" id="previous">
+      <div class="controls__item controls__prev">
         <i class="fas fa-chevron-left"></i>
       </div>
-      <div class="controls__item controls__next" id="next">
+      <div class="controls__item controls__next">
         <i class="fas fa-chevron-right"></i>
       </div>
     </div>
 
     <div class="indicators">
-      <span class="indicators__pause" id="pause"><i class="fas fa-play"></i></span>
-      <span class="indicators__item active" data-slide-to="1" id="slide-1">1</span>
-      <span class="indicators__item" data-slide-to="2" id="slide-2">2</span>
-      <span class="indicators__item" data-slide-to="3" id="slide-3">3</span>
-      <span class="indicators__item" data-slide-to="4" id="slide-4">4</span>
-      <span class="indicators__item" data-slide-to="5" id="slide-5">5</span>
+      <span class="indicators__pause"><i class="fas fa-play"></i></span>
+      <span class="indicators__item active" data-slide-to="1">1</span>
+      <span class="indicators__item" data-slide-to="2">2</span>
+      <span class="indicators__item" data-slide-to="3">3</span>
+      <span class="indicators__item" data-slide-to="4">4</span>
+      <span class="indicators__item" data-slide-to="5">5</span>
     </div>
 
   </div>
