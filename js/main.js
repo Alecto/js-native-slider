@@ -1,8 +1,8 @@
 'use strict';
 
-var slides        = document.querySelectorAll('.slides__item');
-var indContainer  = document.querySelector('.indicators');
-var indItems      = document.querySelectorAll('.indicators__item');
+var $slides        = $('.slides__item');
+var $indContainer  = $('.indicators');
+var $indItems      = $('.indicators__item');
 var currentSlide  = 0;
 
 const LEFT_ARROW  = 37;
@@ -12,16 +12,16 @@ const FA_PAUSE    = '<i class="fas fa-pause"></i>';
 const FA_PLAY     = '<i class="fas fa-play"></i>';
 
 // activate controls, if javascript is enabled
-indContainer.style.display = 'flex'; // flex
-document.querySelector('.controls').style.display = 'block'; // block
+$indContainer.css('display', 'flex'); // flex
+$('.controls').css('display', 'block'); // block
 
 // carousel basic engine
 var gotoSlide = function (n) {
-  slides[currentSlide].classList.toggle('active');
-  indItems[currentSlide].classList.toggle('active');
-  currentSlide = (n + slides.length) % slides.length;
-  slides[currentSlide].classList.toggle('active');
-  indItems[currentSlide].classList.toggle('active');
+  $($slides[currentSlide]).toggleClass('active');
+  $($indItems[currentSlide]).toggleClass('active');
+  currentSlide = (n + $slides.length) % $slides.length;
+  $($slides[currentSlide]).toggleClass('active');
+  $($indItems[currentSlide]).toggleClass('active');
 };
 
 var nextSlide = function () {
@@ -33,13 +33,13 @@ var previousSlide = function () {
 };
 
 var pauseSlideShow = function () {
-  pauseBtn.innerHTML = FA_PAUSE;
+  $pauseBtn.html(FA_PAUSE);
   playbackStatus = false;
   clearInterval(slideInterval);
 };
 
 var playSlideShow = function () {
-  pauseBtn.innerHTML = FA_PLAY;
+  $pauseBtn.html(FA_PLAY);
   playbackStatus = true;
   slideInterval = setInterval(nextSlide, 2000);
 };
@@ -48,9 +48,9 @@ var slideInterval = setInterval(nextSlide, 2000);
 
 // controls
 var playbackStatus = true;
-var pauseBtn = document.querySelector('.indicators__pause');
-var nextBtn  = document.querySelector('.controls__next');
-var prevBtn  = document.querySelector('.controls__prev');
+var $pauseBtn = $('.indicators__pause');
+var $nextBtn  = $('.controls__next');
+var $prevBtn  = $('.controls__prev');
 
 var pauseClickHandler = function () {
   playbackStatus ? pauseSlideShow() : playSlideShow();
@@ -66,23 +66,19 @@ var prevClickHandler = function () {
   previousSlide();
 };
 
-pauseBtn.addEventListener('click', pauseClickHandler);
-nextBtn.addEventListener('click', nextClickHandler);
-prevBtn.addEventListener('click', prevClickHandler);
+$pauseBtn.on('click', pauseClickHandler);
+$nextBtn.on('click', nextClickHandler);
+$prevBtn.on('click', prevClickHandler);
 
 // indicators
 var indClickHandler = function (e) {
-  let target = e.target;
-
-  if ( target.classList.contains('indicators__item') ) {
-    let n = target.getAttribute('data-slide-to') - 1;
-    pauseSlideShow();
-    gotoSlide(n);
-  }
+  let n = $(this).attr('data-slide-to') - 1;
+  pauseSlideShow();
+  gotoSlide(n);
 };
 
 // use delegation to optimize the event handler
-indContainer.addEventListener('click', indClickHandler);
+$indContainer.on('click', '.indicators__item', indClickHandler);
 
 // set keyboard controls
 var keyControlHandler = function (e) {
@@ -91,4 +87,4 @@ var keyControlHandler = function (e) {
   if (e.keyCode === SPACE) { pauseClickHandler(); }
 };
 
-document.addEventListener('keydown', keyControlHandler);
+$(document).on('keydown', keyControlHandler);
