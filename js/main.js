@@ -75,7 +75,7 @@ var indClickHandler = function (e) {
   let target = e.target;
 
   if ( target.classList.contains('indicators__item') ) {
-    let n = target.getAttribute('data-slide-to') - 1;
+    let n = +target.getAttribute('data-slide-to');
     pauseSlideShow();
     gotoSlide(n);
   }
