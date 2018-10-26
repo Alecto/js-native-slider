@@ -1,22 +1,22 @@
 'use strict';
 
-var $slides        = $('.slides__item');
-var $indContainer  = $('.indicators');
-var $indItems      = $('.indicators__item');
-var currentSlide  = 0;
+let $slides        = $('.slides__item'),
+    $indContainer  = $('.indicators'),
+    $indItems      = $('.indicators__item'),
+    currentSlide  = 0;
 
-const LEFT_ARROW  = 37;
-const RIGHT_ARROW = 39;
-const SPACE       = 32;
-const FA_PAUSE    = '<i class="fas fa-pause"></i>';
-const FA_PLAY     = '<i class="fas fa-play"></i>';
+const LEFT_ARROW  = 37,
+      RIGHT_ARROW = 39,
+      SPACE       = 32,
+      FA_PAUSE    = '<i class="fas fa-pause"></i>',
+      FA_PLAY     = '<i class="fas fa-play"></i>';
 
 // activate controls, if javascript is enabled
 $indContainer.css('display', 'flex'); // flex
 $('.controls').css('display', 'block'); // block
 
 // carousel basic engine
-var gotoSlide = function (n) {
+let gotoSlide = function (n) {
   $($slides[currentSlide]).toggleClass('active');
   $($indItems[currentSlide]).toggleClass('active');
   currentSlide = (n + $slides.length) % $slides.length;
@@ -24,44 +24,44 @@ var gotoSlide = function (n) {
   $($indItems[currentSlide]).toggleClass('active');
 };
 
-var nextSlide = function () {
+let nextSlide = function () {
   gotoSlide(currentSlide + 1);
 };
 
-var previousSlide = function () {
+let previousSlide = function () {
   gotoSlide(currentSlide - 1);
 };
 
-var pauseSlideShow = function () {
+let pauseSlideShow = function () {
   $pauseBtn.html(FA_PAUSE);
   playbackStatus = false;
   clearInterval(slideInterval);
 };
 
-var playSlideShow = function () {
+let playSlideShow = function () {
   $pauseBtn.html(FA_PLAY);
   playbackStatus = true;
   slideInterval = setInterval(nextSlide, 2000);
 };
 
-var slideInterval = setInterval(nextSlide, 2000);
+let slideInterval = setInterval(nextSlide, 2000);
 
 // controls
-var playbackStatus = true;
-var $pauseBtn = $('.indicators__pause');
-var $nextBtn  = $('.controls__next');
-var $prevBtn  = $('.controls__prev');
+let playbackStatus = true,
+    $pauseBtn = $('.indicators__pause'),
+    $nextBtn  = $('.controls__next'),
+    $prevBtn  = $('.controls__prev');
 
-var pauseClickHandler = function () {
+let pauseClickHandler = function () {
   playbackStatus ? pauseSlideShow() : playSlideShow();
 };
 
-var nextClickHandler = function () {
+let nextClickHandler = function () {
   pauseSlideShow();
   nextSlide();
 };
 
-var prevClickHandler = function () {
+let prevClickHandler = function () {
   pauseSlideShow();
   previousSlide();
 };
@@ -71,8 +71,8 @@ $nextBtn.on('click', nextClickHandler);
 $prevBtn.on('click', prevClickHandler);
 
 // indicators
-var indClickHandler = function (e) {
-  let n = $(this).attr('data-slide-to') - 1;
+let indClickHandler = function (e) {
+  let n = +$(this).attr('data-slide-to');
   pauseSlideShow();
   gotoSlide(n);
 };
@@ -81,7 +81,7 @@ var indClickHandler = function (e) {
 $indContainer.on('click', '.indicators__item', indClickHandler);
 
 // set keyboard controls
-var keyControlHandler = function (e) {
+let keyControlHandler = function (e) {
   if (e.keyCode === LEFT_ARROW) { prevClickHandler(); }
   if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
   if (e.keyCode === SPACE) { pauseClickHandler(); }

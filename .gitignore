@@ -1,4 +1,5 @@
 .idea/
+./assets/scss-comb/
 *.bat
 *.json
 gulpfile.js
