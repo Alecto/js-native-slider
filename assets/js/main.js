@@ -16,7 +16,7 @@ indContainer.style.display = 'flex'; // flex
 document.querySelector('.controls').style.display = 'block'; // block
 
 // carousel basic engine
-let gotoSlide = function (n) {
+let gotoSlide = (n) => {
   slideItems[currentSlide].classList.toggle('active');
   indItems[currentSlide].classList.toggle('active');
   currentSlide = (n + slideItems.length) % slideItems.length;
@@ -24,21 +24,21 @@ let gotoSlide = function (n) {
   indItems[currentSlide].classList.toggle('active');
 };
 
-let nextSlide = function () {
+let nextSlide = () => {
   gotoSlide(currentSlide + 1);
 };
 
-let previousSlide = function () {
+let previousSlide = () => {
   gotoSlide(currentSlide - 1);
 };
 
-let pauseSlideShow = function () {
+let pauseSlideShow = () => {
   pauseBtn.innerHTML = FA_PAUSE;
   playbackStatus = false;
   clearInterval(slideInterval);
 };
 
-let playSlideShow = function () {
+let playSlideShow = () => {
   pauseBtn.innerHTML = FA_PLAY;
   playbackStatus = true;
   slideInterval = setInterval(nextSlide, 2000);
@@ -52,16 +52,16 @@ let playbackStatus = true,
     nextBtn  = document.querySelector('.controls__next'),
     prevBtn  = document.querySelector('.controls__prev');
 
-let pauseClickHandler = function () {
+let pauseClickHandler = () => {
   playbackStatus ? pauseSlideShow() : playSlideShow();
 };
 
-let nextClickHandler = function () {
+let nextClickHandler = () => {
   pauseSlideShow();
   nextSlide();
 };
 
-let prevClickHandler = function () {
+let prevClickHandler = () => {
   pauseSlideShow();
   previousSlide();
 };
@@ -71,7 +71,7 @@ nextBtn.addEventListener('click', nextClickHandler);
 prevBtn.addEventListener('click', prevClickHandler);
 
 // indicators
-let indClickHandler = function (e) {
+let indClickHandler = (e) => {
   let target = e.target;
 
   if ( target.classList.contains('indicators__item') ) {
@@ -85,7 +85,7 @@ let indClickHandler = function (e) {
 indContainer.addEventListener('click', indClickHandler);
 
 // set keyboard controls
-let keyControlHandler = function (e) {
+let keyControlHandler = (e) => {
   if (e.keyCode === LEFT_ARROW) { prevClickHandler(); }
   if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
   if (e.keyCode === SPACE) { pauseClickHandler(); }
