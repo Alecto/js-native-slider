@@ -16,7 +16,7 @@ $indContainer.css('display', 'flex'); // flex
 $('.controls').css('display', 'block'); // block
 
 // carousel basic engine
-let gotoSlide = function (n) {
+let gotoSlide = (n) => {
   $($slides[currentSlide]).toggleClass('active');
   $($indItems[currentSlide]).toggleClass('active');
   currentSlide = (n + $slides.length) % $slides.length;
@@ -24,21 +24,21 @@ let gotoSlide = function (n) {
   $($indItems[currentSlide]).toggleClass('active');
 };
 
-let nextSlide = function () {
+let nextSlide = () => {
   gotoSlide(currentSlide + 1);
 };
 
-let previousSlide = function () {
+let previousSlide = () => {
   gotoSlide(currentSlide - 1);
 };
 
-let pauseSlideShow = function () {
+let pauseSlideShow = () => {
   $pauseBtn.html(FA_PAUSE);
   playbackStatus = false;
   clearInterval(slideInterval);
 };
 
-let playSlideShow = function () {
+let playSlideShow = () => {
   $pauseBtn.html(FA_PLAY);
   playbackStatus = true;
   slideInterval = setInterval(nextSlide, 2000);
@@ -52,16 +52,16 @@ let playbackStatus = true,
     $nextBtn  = $('.controls__next'),
     $prevBtn  = $('.controls__prev');
 
-let pauseClickHandler = function () {
+let pauseClickHandler = () => {
   playbackStatus ? pauseSlideShow() : playSlideShow();
 };
 
-let nextClickHandler = function () {
+let nextClickHandler = () => {
   pauseSlideShow();
   nextSlide();
 };
 
-let prevClickHandler = function () {
+let prevClickHandler = () => {
   pauseSlideShow();
   previousSlide();
 };
@@ -71,7 +71,7 @@ $nextBtn.on('click', nextClickHandler);
 $prevBtn.on('click', prevClickHandler);
 
 // indicators
-let indClickHandler = function (e) {
+let indClickHandler = (e) => {
   let n = +$(this).attr('data-slide-to');
   pauseSlideShow();
   gotoSlide(n);
@@ -81,7 +81,7 @@ let indClickHandler = function (e) {
 $indContainer.on('click', '.indicators__item', indClickHandler);
 
 // set keyboard controls
-let keyControlHandler = function (e) {
+let keyControlHandler = (e) => {
   if (e.keyCode === LEFT_ARROW) { prevClickHandler(); }
   if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
   if (e.keyCode === SPACE) { pauseClickHandler(); }
