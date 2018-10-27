@@ -35,8 +35,6 @@ const path = {
   scss: {
     folder: SCSS + '/',
     files: SCSS + '/**/*.scss',
-    combFolder: SCSS + '-comb/',
-    combFiles: SCSS + '-comb/**/*.scss',
   },
   css: {
     folder: CSS + '/',
@@ -76,7 +74,7 @@ function comb () {
 }
 
 function scss () {
-  return src(path.scss.combFiles)
+  return src(path.scss.files)
     .pipe(sourcemaps.init())
     .pipe(csscomb('.csscomb.json')
       .on("error", notify.onError(function (error) {
