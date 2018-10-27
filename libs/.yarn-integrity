@@ -1,0 +1,16 @@
+{
+  "systemParams": "win32-x64-64",
+  "modulesFolders": [
+    "libs"
+  ],
+  "flags": [],
+  "linkedModules": [],
+  "topLevelPatterns": [
+    "@fortawesome/fontawesome-free@^5.4.2"
+  ],
+  "lockfileEntries": {
+    "@fortawesome/fontawesome-free@^5.4.2": "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.4.2.tgz#b2d782da69c45ea61954291e2615a8f7741c96b2"
+  },
+  "files": [],
+  "artifacts": {}
+}
