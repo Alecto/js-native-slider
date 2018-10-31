@@ -1,3 +1,6 @@
-.idea/
+temp/
 *.bat
-*.json
+
+# IntellijIdea files
+.idea/
+*/scss-comb/

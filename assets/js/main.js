@@ -71,7 +71,7 @@ $nextBtn.on('click', nextClickHandler);
 $prevBtn.on('click', prevClickHandler);
 
 // indicators
-let indClickHandler = (e) => {
+let indClickHandler = function (e) {
   let n = +$(this).attr('data-slide-to');
   pauseSlideShow();
   gotoSlide(n);
