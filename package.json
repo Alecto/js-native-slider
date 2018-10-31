@@ -2,7 +2,7 @@
   "name": "js-native-slider",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/Alecto/js-native-slider",
+  "repository": "https://github.com/Alecto/js-native-slider.git",
   "author": "Alecto <fomenkoandrey@inbox.ru>",
   "license": "MIT",
   "devDependencies": {},
