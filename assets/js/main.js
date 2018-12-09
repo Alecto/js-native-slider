@@ -71,10 +71,10 @@ $nextBtn.on('click', nextClickHandler);
 $prevBtn.on('click', prevClickHandler);
 
 // indicators
-let indClickHandler = function (e) {
-  let n = +$(this).attr('data-slide-to');
+let indClickHandler = (e) => {
+  const target = e.target;
   pauseSlideShow();
-  gotoSlide(n);
+  gotoSlide(+target.getAttribute('data-slide-to'));
 };
 
 // use delegation to optimize the event handler
