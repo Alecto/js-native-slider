@@ -5,9 +5,9 @@ let slideItems    = document.querySelectorAll('.slides__item'),
     indItems      = document.querySelectorAll('.indicators__item'),
     currentSlide  = 0;
 
-const LEFT_ARROW  = 37,
-      RIGHT_ARROW = 39,
-      SPACE       = 32,
+const LEFT_ARROW  = 'ArrowLeft',
+      RIGHT_ARROW = 'ArrowRight',
+      SPACE       = ' ',
       FA_PAUSE    = '<i class="fas fa-pause"></i>',
       FA_PLAY     = '<i class="fas fa-play"></i>';
 
@@ -17,68 +17,67 @@ document.querySelector('.controls').style.display = 'block'; // block
 
 // carousel basic engine
 let gotoSlide = (n) => {
-  slideItems[currentSlide].classList.toggle('active');
-  indItems[currentSlide].classList.toggle('active');
-  currentSlide = (n + slideItems.length) % slideItems.length;
-  slideItems[currentSlide].classList.toggle('active');
-  indItems[currentSlide].classList.toggle('active');
+    slideItems[currentSlide].classList.toggle('active');
+    indItems[currentSlide].classList.toggle('active');
+    currentSlide = (n + slideItems.length) % slideItems.length;
+    slideItems[currentSlide].classList.toggle('active');
+    indItems[currentSlide].classList.toggle('active');
 };
 
 let nextSlide = () => {
-  gotoSlide(currentSlide + 1);
+    gotoSlide(currentSlide + 1);
 };
 
 let previousSlide = () => {
-  gotoSlide(currentSlide - 1);
+    gotoSlide(currentSlide - 1);
 };
 
 let pauseSlideShow = () => {
-  pauseBtn.innerHTML = FA_PAUSE;
-  playbackStatus = false;
-  clearInterval(slideInterval);
+    pausePlayBtn.innerHTML = FA_PAUSE;
+    playbackStatus = false;
+    clearInterval(slideInterval);
 };
 
 let playSlideShow = () => {
-  pauseBtn.innerHTML = FA_PLAY;
-  playbackStatus = true;
-  slideInterval = setInterval(nextSlide, 2000);
+    pausePlayBtn.innerHTML = FA_PLAY;
+    playbackStatus = true;
+    slideInterval = setInterval(nextSlide, 2000);
 };
 
 let slideInterval = setInterval(nextSlide, 2000);
 
 // controls
 let playbackStatus = true,
-    pauseBtn = document.querySelector('.indicators__pause'),
+    pausePlayBtn = document.querySelector('.indicators__pause'),
     nextBtn  = document.querySelector('.controls__next'),
     prevBtn  = document.querySelector('.controls__prev');
 
 let pauseClickHandler = () => {
-  playbackStatus ? pauseSlideShow() : playSlideShow();
+    playbackStatus ? pauseSlideShow() : playSlideShow();
 };
 
 let nextClickHandler = () => {
-  pauseSlideShow();
-  nextSlide();
+    pauseSlideShow();
+    nextSlide();
 };
 
 let prevClickHandler = () => {
-  pauseSlideShow();
-  previousSlide();
+    pauseSlideShow();
+    previousSlide();
 };
 
-pauseBtn.addEventListener('click', pauseClickHandler);
+pausePlayBtn.addEventListener('click', pauseClickHandler);
 nextBtn.addEventListener('click', nextClickHandler);
 prevBtn.addEventListener('click', prevClickHandler);
 
 // indicators
 let indClickHandler = (e) => {
-  let target = e.target;
+    let target = e.target;
 
-  if ( target.classList.contains('indicators__item') ) {
-    let n = +target.getAttribute('data-slide-to');
-    pauseSlideShow();
-    gotoSlide(n);
-  }
+    if ( target.classList.contains('indicators__item') ) {
+        pauseSlideShow();
+        gotoSlide(+target.getAttribute('data-slide-to'));
+    }
 };
 
 // use delegation to optimize the event handler
@@ -86,9 +85,9 @@ indContainer.addEventListener('click', indClickHandler);
 
 // set keyboard controls
 let keyControlHandler = (e) => {
-  if (e.keyCode === LEFT_ARROW) { prevClickHandler(); }
-  if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
-  if (e.keyCode === SPACE) { pauseClickHandler(); }
+    if (e.key === LEFT_ARROW) { prevClickHandler(); }
+    if (e.key === RIGHT_ARROW) { nextClickHandler(); }
+    if (e.key === SPACE) { pauseClickHandler(); }
 };
 
 document.addEventListener('keydown', keyControlHandler);
