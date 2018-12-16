@@ -1,15 +1,16 @@
 'use strict';
 
-let $slides        = $('.slides__item'),
-    $indContainer  = $('.indicators'),
-    $indItems      = $('.indicators__item'),
-    currentSlide  = 0;
+let $slides     = $('.slides__item'),
+    $indContainer = $('.indicators'),
+    $indItems   = $('.indicators__item'),
+    currentSlide = 0,
+    carouselInterval = 2000;
 
-const LEFT_ARROW  = 37,
-      RIGHT_ARROW = 39,
-      SPACE       = 32,
-      FA_PAUSE    = '<i class="fas fa-pause"></i>',
-      FA_PLAY     = '<i class="fas fa-play"></i>';
+const SPACE     = ' ',
+    LEFT_ARROW  = 'ArrowLeft',
+    RIGHT_ARROW = 'ArrowRight',
+    FA_PAUSE    = '<i class="fas fa-pause"></i>',
+    FA_PLAY     = '<i class="fas fa-play"></i>';
 
 // activate controls, if javascript is enabled
 $indContainer.css('display', 'flex'); // flex
@@ -17,64 +18,57 @@ $('.controls').css('display', 'block'); // block
 
 // carousel basic engine
 let gotoSlide = (n) => {
-  $($slides[currentSlide]).toggleClass('active');
-  $($indItems[currentSlide]).toggleClass('active');
-  currentSlide = (n + $slides.length) % $slides.length;
-  $($slides[currentSlide]).toggleClass('active');
-  $($indItems[currentSlide]).toggleClass('active');
+    $($slides[currentSlide]).toggleClass('active');
+    $($indItems[currentSlide]).toggleClass('active');
+    currentSlide = (n + $slides.length) % $slides.length;
+    $($slides[currentSlide]).toggleClass('active');
+    $($indItems[currentSlide]).toggleClass('active');
 };
 
-let nextSlide = () => {
-  gotoSlide(currentSlide + 1);
-};
+let nextSlide = () => gotoSlide(currentSlide + 1);
 
-let previousSlide = () => {
-  gotoSlide(currentSlide - 1);
-};
+let previousSlide = () => gotoSlide(currentSlide - 1);
 
 let pauseSlideShow = () => {
-  $pauseBtn.html(FA_PAUSE);
-  playbackStatus = false;
-  clearInterval(slideInterval);
+    $pausePlayBtn.html(FA_PAUSE);
+    playbackStatus = false;
+    clearInterval(slideInterval);
 };
 
 let playSlideShow = () => {
-  $pauseBtn.html(FA_PLAY);
-  playbackStatus = true;
-  slideInterval = setInterval(nextSlide, 2000);
+    $pausePlayBtn.html(FA_PLAY);
+    playbackStatus = true;
+    slideInterval = setInterval(nextSlide, carouselInterval);
 };
 
-let slideInterval = setInterval(nextSlide, 2000);
+let slideInterval = setInterval(nextSlide, carouselInterval);
 
 // controls
 let playbackStatus = true,
-    $pauseBtn = $('.indicators__pause'),
-    $nextBtn  = $('.controls__next'),
-    $prevBtn  = $('.controls__prev');
+    $pausePlayBtn = $('.indicators__pause'),
+    $nextBtn = $('.controls__next'),
+    $prevBtn = $('.controls__prev');
 
-let pauseClickHandler = () => {
-  playbackStatus ? pauseSlideShow() : playSlideShow();
-};
+let pausePlayClickHandler = () => playbackStatus ? pauseSlideShow() : playSlideShow();
 
 let nextClickHandler = () => {
-  pauseSlideShow();
-  nextSlide();
+    pauseSlideShow();
+    nextSlide();
 };
 
 let prevClickHandler = () => {
-  pauseSlideShow();
-  previousSlide();
+    pauseSlideShow();
+    previousSlide();
 };
 
-$pauseBtn.on('click', pauseClickHandler);
+$pausePlayBtn.on('click', pausePlayClickHandler);
 $nextBtn.on('click', nextClickHandler);
 $prevBtn.on('click', prevClickHandler);
 
 // indicators
 let indClickHandler = (e) => {
-  const target = e.target;
-  pauseSlideShow();
-  gotoSlide(+target.getAttribute('data-slide-to'));
+    pauseSlideShow();
+    gotoSlide(+e.target.getAttribute('data-slide-to'));
 };
 
 // use delegation to optimize the event handler
@@ -82,9 +76,9 @@ $indContainer.on('click', '.indicators__item', indClickHandler);
 
 // set keyboard controls
 let keyControlHandler = (e) => {
-  if (e.keyCode === LEFT_ARROW) { prevClickHandler(); }
-  if (e.keyCode === RIGHT_ARROW) { nextClickHandler(); }
-  if (e.keyCode === SPACE) { pauseClickHandler(); }
+    if (e.key === LEFT_ARROW) prevClickHandler();
+    if (e.key === RIGHT_ARROW) nextClickHandler();
+    if (e.key === SPACE) pausePlayClickHandler();
 };
 
 $(document).on('keydown', keyControlHandler);
