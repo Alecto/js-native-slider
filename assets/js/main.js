@@ -1,16 +1,14 @@
-'use strict';
+let slideItems = document.querySelectorAll('.slides__item');
+let indContainer = document.querySelector('.indicators');
+let indItems = document.querySelectorAll('.indicators__item');
+let currentSlide = 0;
+let carouselInterval = 2000;
 
-let slideItems  = document.querySelectorAll('.slides__item'),
-    indContainer = document.querySelector('.indicators'),
-    indItems    = document.querySelectorAll('.indicators__item'),
-    currentSlide = 0,
-    carouselInterval = 2000;
-
-const SPACE     = ' ',
-    LEFT_ARROW  = 'ArrowLeft',
-    RIGHT_ARROW = 'ArrowRight',
-    FA_PAUSE    = '<i class="fas fa-pause"></i>',
-    FA_PLAY     = '<i class="fas fa-play"></i>';
+const SPACE = ' ';
+const LEFT_ARROW = 'ArrowLeft';
+const RIGHT_ARROW = 'ArrowRight';
+const FA_PAUSE = '<i class="fas fa-pause"></i>';
+const FA_PLAY = '<i class="fas fa-play"></i>';
 
 // activate controls, if javascript is enabled
 indContainer.style.display = 'flex'; // flex
@@ -29,6 +27,13 @@ let nextSlide = () => gotoSlide(currentSlide + 1);
 
 let previousSlide = () => gotoSlide(currentSlide - 1);
 
+// controls
+let playbackStatus = true;
+let pausePlayBtn = document.querySelector('.indicators__pause');
+let nextBtn = document.querySelector('.controls__next');
+let prevBtn = document.querySelector('.controls__prev');
+let slideInterval = setInterval(nextSlide, carouselInterval);
+
 let pauseSlideShow = () => {
     pausePlayBtn.innerHTML = FA_PAUSE;
     playbackStatus = false;
@@ -40,14 +45,6 @@ let playSlideShow = () => {
     playbackStatus = true;
     slideInterval = setInterval(nextSlide, carouselInterval);
 };
-
-let slideInterval = setInterval(nextSlide, carouselInterval);
-
-// controls
-let playbackStatus = true,
-    pausePlayBtn = document.querySelector('.indicators__pause'),
-    nextBtn  = document.querySelector('.controls__next'),
-    prevBtn  = document.querySelector('.controls__prev');
 
 let pausePlayClickHandler = () => playbackStatus ? pauseSlideShow() : playSlideShow();
 
@@ -69,7 +66,7 @@ prevBtn.addEventListener('click', prevClickHandler);
 let indClickHandler = (e) => {
     let target = e.target;
 
-    if ( target.classList.contains('indicators__item') ) {
+    if (target.classList.contains('indicators__item')) {
         pauseSlideShow();
         gotoSlide(+target.getAttribute('data-slide-to'));
     }
