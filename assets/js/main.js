@@ -77,9 +77,9 @@ indContainer.addEventListener('click', indClickHandler);
 
 // set keyboard controls
 let keyControlHandler = (e) => {
-    if (e.key === LEFT_ARROW) { prevClickHandler(); }
-    if (e.key === RIGHT_ARROW) { nextClickHandler(); }
-    if (e.key === SPACE) { pausePlayClickHandler(); }
+    if (e.key === LEFT_ARROW) prevClickHandler();
+    if (e.key === RIGHT_ARROW) nextClickHandler();
+    if (e.key === SPACE) pausePlayClickHandler();
 };
 
 document.addEventListener('keydown', keyControlHandler);
