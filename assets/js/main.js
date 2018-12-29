@@ -1,16 +1,14 @@
-'use strict';
+let $slides = $('.slides__item');
+let $indContainer = $('.indicators');
+let $indItems = $('.indicators__item');
+let currentSlide = 0;
+let carouselInterval = 2000;
 
-let $slides     = $('.slides__item'),
-    $indContainer = $('.indicators'),
-    $indItems   = $('.indicators__item'),
-    currentSlide = 0,
-    carouselInterval = 2000;
-
-const SPACE     = ' ',
-    LEFT_ARROW  = 'ArrowLeft',
-    RIGHT_ARROW = 'ArrowRight',
-    FA_PAUSE    = '<i class="fas fa-pause"></i>',
-    FA_PLAY     = '<i class="fas fa-play"></i>';
+const SPACE = ' ';
+const LEFT_ARROW = 'ArrowLeft';
+const RIGHT_ARROW = 'ArrowRight';
+const FA_PAUSE = '<i class="fas fa-pause"></i>';
+const FA_PLAY = '<i class="fas fa-play"></i>';
 
 // activate controls, if javascript is enabled
 $indContainer.css('display', 'flex'); // flex
@@ -29,6 +27,13 @@ let nextSlide = () => gotoSlide(currentSlide + 1);
 
 let previousSlide = () => gotoSlide(currentSlide - 1);
 
+// controls
+let playbackStatus = true;
+let $pausePlayBtn = $('.indicators__pause');
+let $nextBtn = $('.controls__next');
+let $prevBtn = $('.controls__prev');
+let slideInterval = setInterval(nextSlide, carouselInterval);
+
 let pauseSlideShow = () => {
     $pausePlayBtn.html(FA_PAUSE);
     playbackStatus = false;
@@ -40,14 +45,6 @@ let playSlideShow = () => {
     playbackStatus = true;
     slideInterval = setInterval(nextSlide, carouselInterval);
 };
-
-let slideInterval = setInterval(nextSlide, carouselInterval);
-
-// controls
-let playbackStatus = true,
-    $pausePlayBtn = $('.indicators__pause'),
-    $nextBtn = $('.controls__next'),
-    $prevBtn = $('.controls__prev');
 
 let pausePlayClickHandler = () => playbackStatus ? pauseSlideShow() : playSlideShow();
 
