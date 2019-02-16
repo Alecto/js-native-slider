@@ -35,9 +35,11 @@ let prevBtn = document.querySelector('.controls__prev');
 let slideInterval = setInterval(gotoNextSlide, carouselInterval);
 
 let pauseSlideShow = () => {
-    pausePlayBtn.innerHTML = FA_PAUSE;
-    playbackStatus = false;
-    clearInterval(slideInterval);
+    if (playbackStatus) {
+        pausePlayBtn.innerHTML = FA_PAUSE;
+        playbackStatus = false;
+        clearInterval(slideInterval);
+    }
 };
 
 let playSlideShow = () => {
@@ -49,12 +51,12 @@ let playSlideShow = () => {
 let clickPausePlayBtn = () => playbackStatus ? pauseSlideShow() : playSlideShow();
 
 let clickNextBtn = () => {
-    if (playbackStatus) pauseSlideShow();
+    pauseSlideShow();
     gotoNextSlide();
 };
 
 let clickPrevBtn = () => {
-    if (playbackStatus) pauseSlideShow();
+    pauseSlideShow();
     gotoPrevSlide();
 };
 
@@ -67,7 +69,7 @@ let clickIndicatorBtn = (e) => {
     let target = e.target;
 
     if (target.classList.contains('indicators__item')) {
-        if (playbackStatus) pauseSlideShow();
+        pauseSlideShow();
         gotoNSlide(+target.getAttribute('data-slide-to'));
     }
 };
