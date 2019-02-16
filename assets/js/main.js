@@ -15,7 +15,7 @@ $indContainer.css('display', 'flex'); // flex
 $('.controls').css('display', 'block'); // block
 
 // carousel basic engine
-let gotoSlide = (n) => {
+let gotoNSlide = (n) => {
     $($slides[currentSlide]).toggleClass('active');
     $($indItems[currentSlide]).toggleClass('active');
     currentSlide = (n + $slides.length) % $slides.length;
@@ -23,59 +23,61 @@ let gotoSlide = (n) => {
     $($indItems[currentSlide]).toggleClass('active');
 };
 
-let nextSlide = () => gotoSlide(currentSlide + 1);
+let gotoNextSlide = () => gotoNSlide(currentSlide + 1);
 
-let previousSlide = () => gotoSlide(currentSlide - 1);
+let gotoPrevSlide = () => gotoNSlide(currentSlide - 1);
 
 // controls
 let playbackStatus = true;
 let $pausePlayBtn = $('.indicators__pause');
 let $nextBtn = $('.controls__next');
 let $prevBtn = $('.controls__prev');
-let slideInterval = setInterval(nextSlide, carouselInterval);
+let slideInterval = setInterval(gotoNextSlide, carouselInterval);
 
 let pauseSlideShow = () => {
-    $pausePlayBtn.html(FA_PAUSE);
-    playbackStatus = false;
-    clearInterval(slideInterval);
+    if (playbackStatus) {
+        $pausePlayBtn.html(FA_PAUSE);
+        playbackStatus = false;
+        clearInterval(slideInterval);
+    }
 };
 
 let playSlideShow = () => {
     $pausePlayBtn.html(FA_PLAY);
     playbackStatus = true;
-    slideInterval = setInterval(nextSlide, carouselInterval);
+    slideInterval = setInterval(gotoNextSlide, carouselInterval);
 };
 
-let pausePlayClickHandler = () => playbackStatus ? pauseSlideShow() : playSlideShow();
+let clickPausePlayBtn = () => playbackStatus ? pauseSlideShow() : playSlideShow();
 
-let nextClickHandler = () => {
+let clickNextBtn = () => {
     pauseSlideShow();
-    nextSlide();
+    gotoNextSlide();
 };
 
-let prevClickHandler = () => {
+let clickPrevBtn = () => {
     pauseSlideShow();
-    previousSlide();
+    gotoPrevSlide();
 };
 
-$pausePlayBtn.on('click', pausePlayClickHandler);
-$nextBtn.on('click', nextClickHandler);
-$prevBtn.on('click', prevClickHandler);
+$pausePlayBtn.on('click', clickPausePlayBtn);
+$nextBtn.on('click', clickNextBtn);
+$prevBtn.on('click', clickPrevBtn);
 
 // indicators
-let indClickHandler = (e) => {
+let clickIndicatorBtn = (e) => {
     pauseSlideShow();
-    gotoSlide(+e.target.getAttribute('data-slide-to'));
+    gotoNSlide(+e.target.getAttribute('data-slide-to'));
 };
 
 // use delegation to optimize the event handler
-$indContainer.on('click', '.indicators__item', indClickHandler);
+$indContainer.on('click', '.indicators__item', clickIndicatorBtn);
 
 // set keyboard controls
-let keyControlHandler = (e) => {
-    if (e.key === LEFT_ARROW) prevClickHandler();
-    if (e.key === RIGHT_ARROW) nextClickHandler();
-    if (e.key === SPACE) pausePlayClickHandler();
+let pressKeyControl = (e) => {
+    if (e.key === LEFT_ARROW) clickPrevBtn();
+    if (e.key === RIGHT_ARROW) clickNextBtn();
+    if (e.key === SPACE) clickPausePlayBtn();
 };
 
-$(document).on('keydown', keyControlHandler);
+$(document).on('keydown', pressKeyControl);
