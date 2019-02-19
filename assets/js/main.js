@@ -37,14 +37,14 @@ let slideInterval = setInterval(gotoNextSlide, carouselInterval);
 let pauseSlideShow = () => {
     if (playbackStatus) {
         pausePlayBtn.innerHTML = FA_PAUSE;
-        playbackStatus = false;
+        playbackStatus = !playbackStatus;
         clearInterval(slideInterval);
     }
 };
 
 let playSlideShow = () => {
     pausePlayBtn.innerHTML = FA_PLAY;
-    playbackStatus = true;
+    playbackStatus = !playbackStatus;
     slideInterval = setInterval(gotoNextSlide, carouselInterval);
 };
 
