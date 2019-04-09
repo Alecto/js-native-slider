@@ -1,49 +1,65 @@
-
 .controls {
-    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
 
-    &__item {
-        position: absolute;
-        z-index: 2;
+.control {
+    position: absolute;
+    cursor: pointer;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+}
 
-        display: flex;
+.control__pause-play-btn {
+    left: calc(50% - 250px);
+    top: calc(50% - 250px);
+    padding: 0;
+    opacity: 0;
+    height: 500px;
+    transition: 0.5s;
 
-        width: 10%;
-        min-width: 50px;
-        height: 100%;
-        margin: 0;
-
-        cursor: pointer;
-
-        color: #ffffff;
-
-        font-size: 40px;
-
-        align-items: center;
-        justify-content: center;
+    &:hover {
+        opacity: 1;
     }
+}
 
-    &__next {
-        top: 0;
-        right: 0;
+.fa-play-circle,
+.fa-pause-circle {
+    font-size: 500px;
+    color: rgba(255, 255, 255, 0.4);
+}
 
-        background: linear-gradient(to left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+.control__prev-btn {
+    left: 0;
+    width: 10%;
 
-        &:hover,
-        &:focus {
-            background: linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-        }
+    &:hover {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
     }
+}
 
-    &__prev {
-        top: 0;
-        left: 0;
+.control__next-btn {
+    right: 0;
+    width: 10%;
 
-        background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
-
-        &:hover,
-        &:focus {
-            background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-        }
+    &:hover {
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
     }
+}
+
+.control__prev-btn:hover .far,
+.control__next-btn:hover .far {
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff;
+}
+
+.fa-arrow-alt-circle-left,
+.fa-arrow-alt-circle-right {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 50px;
 }
