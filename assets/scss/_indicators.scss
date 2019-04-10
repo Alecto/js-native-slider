@@ -1,9 +1,10 @@
 .indicators {
     position: absolute;
     z-index: 3;
-    left: calc(50% - 83px);
+    left: calc(50% - 87.5px);
     bottom: 0;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
+    padding: 0;
 }
 
 .indicator {
@@ -14,7 +15,8 @@
     background: none;
     height: 20px;
     width: 20px;
-    margin: 5px;
+    margin: 7.5px;
+    list-style-type: none;
 
     &.active {
         border-color: #ffffff;

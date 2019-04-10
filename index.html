@@ -11,32 +11,36 @@
 
 <body>
 
-    <ul class="slides">
-        <li class="slide active"></li>
-        <li class="slide"></li>
-        <li class="slide"></li>
-        <li class="slide"></li>
-        <li class="slide"></li>
-    </ul>
+    <div class="carousel">
 
-    <div class="indicators">
-        <button class="indicator active" data-slide-to="0"></button>
-        <button class="indicator" data-slide-to="1"></button>
-        <button class="indicator" data-slide-to="2"></button>
-        <button class="indicator" data-slide-to="3"></button>
-        <button class="indicator" data-slide-to="4"></button>
-    </div>
+        <ul class="slides">
+            <li class="slide active"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+        </ul>
 
-    <div class="controls">
-        <button id="pause-play-btn" class="control control__pause-play-btn">
-            <i class="far fa-pause-circle"></i>
-        </button>
-        <button id="prev-btn" class="control control__prev-btn">
-            <i class="far fa-arrow-alt-circle-left"></i>
-        </button>
-        <button id="next-btn" class="control control__next-btn">
-            <i class="far fa-arrow-alt-circle-right"></i>
-        </button>
+        <ul class="indicators">
+            <li class="indicator active" data-slide-to="0"></li>
+            <li class="indicator" data-slide-to="1"></li>
+            <li class="indicator" data-slide-to="2"></li>
+            <li class="indicator" data-slide-to="3"></li>
+            <li class="indicator" data-slide-to="4"></li>
+        </ul>
+
+        <div class="controls">
+            <span id="pause-play-btn" class="control control__pause-play-btn">
+                <i class="far fa-pause-circle"></i>
+            </span>
+            <span id="prev-btn" class="control control__prev-btn">
+                <i class="far fa-arrow-alt-circle-left"></i>
+            </span>
+            <span id="next-btn" class="control control__next-btn">
+                <i class="far fa-arrow-alt-circle-right"></i>
+            </span>
+        </div>
+        
     </div>
 
     <script src="assets/js/main.js"></script>

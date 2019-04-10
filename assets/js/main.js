@@ -1,78 +1,87 @@
-var slideItems = document.querySelectorAll('.slide');
-var indContainer = document.querySelector('.indicators');
-var indItems = document.querySelectorAll('.indicator');
-var btnPausePlay = document.querySelector('#pause-play-btn');
-var btnPrev = document.querySelector('#prev-btn');
-var btnNext = document.querySelector('#next-btn');
-var playingStatus = true;
-var currentSlide = 0;
-var timerId = null;
-var slideInterval = 2000;
+let slideItems = document.querySelectorAll('.slide');
+let indContainer = document.querySelector('.indicators');
+let indItems = document.querySelectorAll('.indicator');
+let currentSlide = 0;
+let carouselInterval = 2000;
 
-timerId = setInterval(nextSlide, slideInterval);
+const SPACE = ' ';
+const LEFT_ARROW = 'ArrowLeft';
+const RIGHT_ARROW = 'ArrowRight';
+const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
+const FA_PLAY = '<i class="far fa-play-circle"></i>';
 
-function goToSlide (n) {
+// activate controls, if javascript is enabled
+indContainer.style.display = 'flex'; // flex
+document.querySelector('.controls').style.display = 'block'; // block
+
+// carousel basic engine
+let gotoNSlide = (n) => {
     slideItems[currentSlide].classList.toggle('active');
     indItems[currentSlide].classList.toggle('active');
     currentSlide = (n + slideItems.length) % slideItems.length;
     slideItems[currentSlide].classList.toggle('active');
     indItems[currentSlide].classList.toggle('active');
-}
+};
 
-function nextSlide () {
-    goToSlide(currentSlide + 1);
-}
+let gotoNextSlide = () => gotoNSlide(currentSlide + 1);
 
-function prevSlide () {
-    goToSlide(currentSlide - 1);
-}
+let gotoPrevSlide = () => gotoNSlide(currentSlide - 1);
 
-function setPause () {
-    clearInterval(timerId);
-    playingStatus = false;
-    btnPausePlay.innerHTML = '<i class="far fa-play-circle"></i>';
-}
+// controls
+let playbackStatus = true;
+let pausePlayBtn = document.querySelector('#pause-play-btn');
+let nextBtn = document.querySelector('#next-btn');
+let prevBtn = document.querySelector('#prev-btn');
+let slideInterval = setInterval(gotoNextSlide, carouselInterval);
 
-function setPlay () {
-    playingStatus = true;
-    btnPausePlay.innerHTML = '<i class="far fa-pause-circle"></i>';
-    timerId = setInterval(nextSlide, slideInterval);
-}
+let pauseSlideShow = () => {
+    if (playbackStatus) {
+        pausePlayBtn.innerHTML = FA_PLAY;
+        playbackStatus = !playbackStatus;
+        clearInterval(slideInterval);
+    }
+};
 
-function clickPausePlay () {
-    if (playingStatus) setPause();
-    else setPlay();
-}
+let playSlideShow = () => {
+    pausePlayBtn.innerHTML = FA_PAUSE;
+    playbackStatus = !playbackStatus;
+    slideInterval = setInterval(gotoNextSlide, carouselInterval);
+};
 
-function clickPrev () {
-    setPause();
-    prevSlide();
-}
+let clickPausePlayBtn = () => playbackStatus ? pauseSlideShow() : playSlideShow();
 
-function clickNext () {
-    setPause();
-    nextSlide();
-}
+let clickNextBtn = () => {
+    pauseSlideShow();
+    gotoNextSlide();
+};
 
-btnPausePlay.addEventListener('click', clickPausePlay);
-btnPrev.addEventListener('click', clickPrev);
-btnNext.addEventListener('click', clickNext);
+let clickPrevBtn = () => {
+    pauseSlideShow();
+    gotoPrevSlide();
+};
 
-function clickIndicator (e) {
-    var target = e.target;
+pausePlayBtn.addEventListener('click', clickPausePlayBtn);
+nextBtn.addEventListener('click', clickNextBtn);
+prevBtn.addEventListener('click', clickPrevBtn);
+
+// indicators
+let clickIndicatorBtn = (e) => {
+    let target = e.target;
 
     if (target.classList.contains('indicator')) {
-        setPause();
-        goToSlide(+target.getAttribute('data-slide-to'));
+        pauseSlideShow();
+        gotoNSlide(+target.getAttribute('data-slide-to'));
     }
-}
+};
 
-indContainer.addEventListener('click', clickIndicator);
+// use delegation to optimize the event handler
+indContainer.addEventListener('click', clickIndicatorBtn);
 
-function keyControls (event) {
-    if (event.key === 'ArrowLeft') clickPrev();
-    if (event.key === 'ArrowRight') clickNext();
-    if (event.key === ' ') clickPausePlay();
-}
+// set keyboard controls
+let pressKeyControl = (e) => {
+    if (e.key === LEFT_ARROW) clickPrevBtn();
+    if (e.key === RIGHT_ARROW) clickNextBtn();
+    if (e.key === SPACE) clickPausePlayBtn();
+};
 
-document.addEventListener('keydown', keyControls);
+document.addEventListener('keydown', pressKeyControl);

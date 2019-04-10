@@ -3,6 +3,11 @@
   box-sizing: border-box;
 }
 
+html {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+}
+
 body {
   margin: 0;
 }
@@ -33,6 +38,14 @@ body {
   background-size: cover;
 }
 
+.slide a {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .slide.active {
   opacity: 1;
   z-index: 2;
@@ -60,7 +73,6 @@ body {
 
 .controls {
   position: absolute;
-  z-index: 2;
   width: 100%;
   height: 100%;
   top: 0;
@@ -73,6 +85,16 @@ body {
   border: none;
   outline: none;
   background: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  z-index: 2;
 }
 
 .control__pause-play-btn {
@@ -135,9 +157,10 @@ body {
 .indicators {
   position: absolute;
   z-index: 3;
-  left: calc(50% - 83px);
+  left: calc(50% - 87.5px);
   bottom: 0;
-  margin-bottom: 10px;
+  margin: 0 0 10px;
+  padding: 0;
 }
 
 .indicator {
@@ -148,7 +171,8 @@ body {
   background: none;
   height: 20px;
   width: 20px;
-  margin: 5px;
+  margin: 7.5px;
+  list-style-type: none;
 }
 
 .indicator.active {
