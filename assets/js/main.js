@@ -1,14 +1,14 @@
-let slideItems = document.querySelectorAll('.slides__item');
+let slideItems = document.querySelectorAll('.slide');
 let indContainer = document.querySelector('.indicators');
-let indItems = document.querySelectorAll('.indicators__item');
+let indItems = document.querySelectorAll('.indicator');
 let currentSlide = 0;
 let carouselInterval = 2000;
 
 const SPACE = ' ';
 const LEFT_ARROW = 'ArrowLeft';
 const RIGHT_ARROW = 'ArrowRight';
-const FA_PAUSE = '<i class="fas fa-pause"></i>';
-const FA_PLAY = '<i class="fas fa-play"></i>';
+const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
+const FA_PLAY = '<i class="far fa-play-circle"></i>';
 
 // activate controls, if javascript is enabled
 indContainer.style.display = 'flex'; // flex
@@ -29,21 +29,21 @@ let gotoPrevSlide = () => gotoNSlide(currentSlide - 1);
 
 // controls
 let playbackStatus = true;
-let pausePlayBtn = document.querySelector('.indicators__pause');
-let nextBtn = document.querySelector('.controls__next');
-let prevBtn = document.querySelector('.controls__prev');
+let pausePlayBtn = document.querySelector('#pause-play-btn');
+let nextBtn = document.querySelector('#next-btn');
+let prevBtn = document.querySelector('#prev-btn');
 let slideInterval = setInterval(gotoNextSlide, carouselInterval);
 
 let pauseSlideShow = () => {
     if (playbackStatus) {
-        pausePlayBtn.innerHTML = FA_PAUSE;
+        pausePlayBtn.innerHTML = FA_PLAY;
         playbackStatus = !playbackStatus;
         clearInterval(slideInterval);
     }
 };
 
 let playSlideShow = () => {
-    pausePlayBtn.innerHTML = FA_PLAY;
+    pausePlayBtn.innerHTML = FA_PAUSE;
     playbackStatus = !playbackStatus;
     slideInterval = setInterval(gotoNextSlide, carouselInterval);
 };
@@ -68,7 +68,7 @@ prevBtn.addEventListener('click', clickPrevBtn);
 let clickIndicatorBtn = (e) => {
     let target = e.target;
 
-    if (target.classList.contains('indicators__item')) {
+    if (target.classList.contains('indicator')) {
         pauseSlideShow();
         gotoNSlide(+target.getAttribute('data-slide-to'));
     }

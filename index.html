@@ -1,45 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Slider JS</title>
-  <link rel="stylesheet" href="libs/@fortawesome/fontawesome-free/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <title>Slider JS</title>
+    <link rel="stylesheet" href="libs/@fortawesome/fontawesome-free/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-  <div class="carousel">
+    <div class="carousel">
 
-    <ul class="slides">
-      <li class="slides__item active"><a href="#"></a></li>
-      <li class="slides__item"><a href="#"></a></li>
-      <li class="slides__item"><a href="#"></a></li>
-      <li class="slides__item"><a href="#"></a></li>
-      <li class="slides__item"><a href="#"></a></li>
-    </ul>
+        <ul class="slides">
+            <li class="slide active"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+            <li class="slide"><a href="#"></a></li>
+        </ul>
 
-    <div class="controls">
-      <div class="controls__item controls__prev">
-        <i class="fas fa-chevron-left"></i>
-      </div>
-      <div class="controls__item controls__next">
-        <i class="fas fa-chevron-right"></i>
-      </div>
+        <ul class="indicators">
+            <li class="indicator active" data-slide-to="0"></li>
+            <li class="indicator" data-slide-to="1"></li>
+            <li class="indicator" data-slide-to="2"></li>
+            <li class="indicator" data-slide-to="3"></li>
+            <li class="indicator" data-slide-to="4"></li>
+        </ul>
+
+        <div class="controls">
+            <span id="pause-play-btn" class="control control__pause-play-btn">
+                <i class="far fa-pause-circle"></i>
+            </span>
+            <span id="prev-btn" class="control control__prev-btn">
+                <i class="far fa-arrow-alt-circle-left"></i>
+            </span>
+            <span id="next-btn" class="control control__next-btn">
+                <i class="far fa-arrow-alt-circle-right"></i>
+            </span>
+        </div>
+        
     </div>
 
-    <div class="indicators">
-      <span class="indicators__pause"><i class="fas fa-play"></i></span>
-      <span class="indicators__item active" data-slide-to="0">1</span>
-      <span class="indicators__item" data-slide-to="1">2</span>
-      <span class="indicators__item" data-slide-to="2">3</span>
-      <span class="indicators__item" data-slide-to="3">4</span>
-      <span class="indicators__item" data-slide-to="4">5</span>
-    </div>
-
-  </div>
-
-  <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
 
 </body>
+
 </html>
