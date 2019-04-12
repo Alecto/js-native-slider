@@ -59,26 +59,6 @@ body {
   opacity: 1;
 }
 
-.slide:nth-of-type(1) {
-  background-image: url(../img/Dubaj.jpg);
-}
-
-.slide:nth-of-type(2) {
-  background-image: url(../img/Golden-Gate.jpg);
-}
-
-.slide:nth-of-type(3) {
-  background-image: url(../img/London.jpg);
-}
-
-.slide:nth-of-type(4) {
-  background-image: url(../img/Praga.jpg);
-}
-
-.slide:nth-of-type(5) {
-  background-image: url(../img/Sydney.jpg);
-}
-
 .controls {
   position: absolute;
   top: 0;
