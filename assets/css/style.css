@@ -1,6 +1,6 @@
 * {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 html {
@@ -14,28 +14,35 @@ body {
 
 .slides {
   position: relative;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
+
   height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+
   background: #000000;
 }
 
 .slide {
   position: absolute;
-  left: 0;
+  z-index: 1;
   top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
-  opacity: 0;
-  z-index: 1;
-  -webkit-transition: opacity 1s;
-  -o-transition: opacity 1s;
-  transition: opacity 1s;
-  font-size: 40px;
   padding: 40px;
+
+  -webkit-transition: opacity 1s;
+       -o-transition: opacity 1s;
+          transition: opacity 1s;
+
+  opacity: 0;
   background-position: 50% 50%;
   background-size: cover;
+
+  font-size: 40px;
 }
 
 .slide a {
@@ -47,8 +54,9 @@ body {
 }
 
 .slide.active {
-  opacity: 1;
   z-index: 2;
+
+  opacity: 1;
 }
 
 .slide:nth-of-type(1) {
@@ -73,110 +81,126 @@ body {
 
 .controls {
   position: absolute;
+  top: 0;
+
   width: 100%;
   height: 100%;
-  top: 0;
 }
 
 .control {
   position: absolute;
-  cursor: pointer;
-  height: 100%;
-  border: none;
-  outline: none;
-  background: none;
+  z-index: 2;
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+
+  height: 100%;
+
+  cursor: pointer;
+
+  border: none;
+  outline: none;
+  background: none;
+
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  z-index: 2;
 }
 
 .control__pause-play-btn {
-  left: calc(50% - 250px);
   top: calc(50% - 250px);
-  padding: 0;
-  opacity: 0;
+  left: calc(50% - 250px);
+
   height: 500px;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
+  padding: 0;
+
+  -webkit-transition: opacity 0.5s;
+       -o-transition: opacity 0.5s;
+          transition: opacity 0.5s;
+
+  opacity: 0;
 }
 
 .control__pause-play-btn:hover {
   opacity: 1;
-}
-
-.fa-play-circle,
-.fa-pause-circle {
-  font-size: 500px;
-  color: rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
 .control__prev-btn {
   left: 0;
+
   width: 10%;
 }
 
 .control__prev-btn:hover {
+  color: #ffffff;
   background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0)));
   background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  background: -o-linear-gradient(left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background:      -o-linear-gradient(left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background:         linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  text-shadow: 0 0 10px #ffffff;
 }
 
 .control__next-btn {
   right: 0;
+
   width: 10%;
 }
 
 .control__next-btn:hover {
+  color: #ffffff;
   background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0)));
   background: -webkit-linear-gradient(right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  background: -o-linear-gradient(right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-}
-
-.control__prev-btn:hover .far,
-.control__next-btn:hover .far {
-  color: #ffffff;
+  background:      -o-linear-gradient(right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background:         linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   text-shadow: 0 0 10px #ffffff;
 }
 
 .fa-arrow-alt-circle-left,
 .fa-arrow-alt-circle-right {
   color: rgba(255, 255, 255, 0.4);
+
   font-size: 50px;
+}
+
+.fa-play-circle,
+.fa-pause-circle {
+  color: rgba(255, 255, 255, 0.4);
+
+  font-size: 500px;
 }
 
 .indicators {
   position: absolute;
   z-index: 3;
-  left: calc(50% - 87.5px);
   bottom: 0;
+  left: calc(50% - 87.5px);
+
   margin: 0 0 10px;
   padding: 0;
 }
 
 .indicator {
+  width: 20px;
+  height: 20px;
+  margin: 7.5px;
+
+  list-style-type: none;
+
   cursor: pointer;
+
+  border: 3px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   outline: none;
-  border: 3px solid rgba(255, 255, 255, 0.4);
   background: none;
-  height: 20px;
-  width: 20px;
-  margin: 7.5px;
-  list-style-type: none;
 }
 
 .indicator.active {
   border-color: #ffffff;
   -webkit-box-shadow: 0 0 10px #ffffff;
-  box-shadow: 0 0 10px #ffffff;
+          box-shadow: 0 0 10px #ffffff;
 }
