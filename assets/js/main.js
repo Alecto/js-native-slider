@@ -86,10 +86,19 @@ let pressKeyControl = (e) => {
 
 document.addEventListener('keydown', pressKeyControl);
 
-// add swipe support with hummer.js
-// eslint-disable-next-line no-undef
-let hammer = new Hammer(document.querySelector('.carousel'));
+// add swipe support
+let carousel = document.querySelector('.carousel');
+let swipeStartX = null;
+let swipeEndX = null;
 
-hammer.get('swipe');
-hammer.on('swipeleft', () => clickPrevBtn());
-hammer.on('swiperight', () => clickNextBtn());
+let swipeStart = (e) => {
+  swipeStartX = e.changedTouches[0].pageX;
+};
+
+let swipeEnd = (e) => {
+  swipeEndX = e.changedTouches[0].pageX;
+  swipeStartX - swipeEndX  > 100 ? clickPrevBtn() : clickNextBtn();
+};
+
+carousel.addEventListener('touchstart', swipeStart);
+carousel.addEventListener('touchend', swipeEnd);
