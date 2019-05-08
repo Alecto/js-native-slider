@@ -1,29 +1,41 @@
 .indicators {
   position: absolute;
-  z-index: 3;
+  z-index: 1;
   bottom: 0;
-  left: calc(50% - 87.5px);
 
-  margin: 0 0 10px;
+  display: flex;
+
+  width: 100%;
+  height: 0;
+  margin: 0;
   padding: 0;
+
+  list-style: none;
+
+  justify-content: center;
 }
 
 .indicator {
   width: 20px;
   height: 20px;
-  margin: 7.5px;
+  margin: -40px 7.5px 0;
 
-  list-style-type: none;
-
-  cursor: pointer;
-
-  border: 3px solid rgba(#ffffff, 0.4);
+  border: 3px solid rgba($color-light, 0.4);
   border-radius: 50%;
   outline: none;
   background: none;
+  background-clip: padding-box;
+
+  @include lg-min {
+    cursor: pointer;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 
   &.active {
-    border-color: #ffffff;
-    box-shadow: 0 0 10px #ffffff;
+    border-color: $color-light;
+    box-shadow: 0 0 10px $color-light;
   }
 }

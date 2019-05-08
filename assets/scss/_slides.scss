@@ -7,12 +7,11 @@
 
   list-style-type: none;
 
-  background: #000000;
+  background: $color-dark;
 }
 
 .slide {
   position: absolute;
-  z-index: 1;
   top: 0;
   left: 0;
 
@@ -37,7 +36,7 @@
   }
 
   &.active {
-    z-index: 2;
+    z-index: 1;
 
     opacity: 1;
   }

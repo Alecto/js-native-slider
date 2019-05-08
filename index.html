@@ -1,7 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Slider JS</title>
   <link rel="stylesheet" href="libs/@fortawesome/fontawesome-free/css/all.min.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -11,32 +14,30 @@
 
 <div class="carousel">
 
-  <ul class="slides">
-    <li class="slide active" style="background-image: url(assets/img/Dubaj.jpg)"><a href="#"></a></li>
-    <li class="slide" style="background-image: url(assets/img/Golden-Gate.jpg)"><a href="#"></a></li>
-    <li class="slide" style="background-image: url(assets/img/London.jpg)"><a href="#"></a></li>
-    <li class="slide" style="background-image: url(assets/img/Praga.jpg)"><a href="#"></a></li>
-    <li class="slide" style="background-image: url(assets/img/Sydney.jpg)"><a href="#"></a></li>
-  </ul>
+  <div class="slides">
+    <div class="slide active" style="background-image: url(assets/img/Dubaj.jpg)"><!--<a href="#"></a>--></div>
+    <div class="slide" style="background-image: url(assets/img/Golden-Gate.jpg)"><!--<a href="#"></a>--></div>
+    <div class="slide" style="background-image: url(assets/img/London.jpg)"><!--<a href="#"></a>--></div>
+    <div class="slide" style="background-image: url(assets/img/Praga.jpg)"><!--<a href="#"></a>--></div>
+    <div class="slide" style="background-image: url(assets/img/Sydney.jpg)"><!--<a href="#"></a>--></div>
+  </div>
 
-  <ul class="indicators">
+  <ol class="indicators">
     <li class="indicator active" data-slide-to="0"></li>
     <li class="indicator" data-slide-to="1"></li>
     <li class="indicator" data-slide-to="2"></li>
     <li class="indicator" data-slide-to="3"></li>
     <li class="indicator" data-slide-to="4"></li>
-  </ul>
+  </ol>
 
   <div class="controls">
-    <span id="pause-play-btn" class="control control__pause-play-btn"><i class="far fa-pause-circle"></i></span>
-    <span id="prev-btn" class="control control__prev-btn"><i class="far fa-arrow-alt-circle-left"></i></span>
-    <span id="next-btn" class="control control__next-btn"><i class="far fa-arrow-alt-circle-right"></i></span>
+    <span id="pause-play-btn" class="control-pause"><i class="far fa-pause-circle"></i></span>
+    <span id="prev-btn" class="control-prev"><i class="fas fa-angle-left"></i></span>
+    <span id="next-btn" class="control-next"><i class="fas fa-angle-right"></i></span>
   </div>
 
 </div>
 
-<script src="libs/hammerjs/hammer.min.js"></script>
 <script src="assets/js/main.js"></script>
-
 </body>
 </html>

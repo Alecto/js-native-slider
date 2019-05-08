@@ -97,7 +97,8 @@ let swipeStart = (e) => {
 
 let swipeEnd = (e) => {
   swipeEndX = e.changedTouches[0].pageX;
-  swipeStartX - swipeEndX  > 100 ? clickPrevBtn() : clickNextBtn();
+  swipeStartX - swipeEndX >  100 && clickPrevBtn();
+  swipeStartX - swipeEndX < -100 && clickNextBtn();
 };
 
 carousel.addEventListener('touchstart', swipeStart);
