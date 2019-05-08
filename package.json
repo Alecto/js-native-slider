@@ -7,7 +7,6 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.2",
-    "hammerjs": "^2.0.8"
+    "@fortawesome/fontawesome-free": "^5.4.2"
   }
 }
