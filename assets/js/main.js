@@ -85,3 +85,12 @@ let pressKeyControl = (e) => {
 };
 
 document.addEventListener('keydown', pressKeyControl);
+
+var hammer = new Hammer(document.querySelector('.carousel'));
+hammer.get("swipe");
+hammer.on("swipeleft", function(){
+  clickPrevBtn();
+});
+hammer.on("swiperight", function(){
+  clickNextBtn();
+});
