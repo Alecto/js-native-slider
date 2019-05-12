@@ -1,6 +1,6 @@
 /*
  * @description
- *          Creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
+ *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
  * @revised 2018-02-06
  */
@@ -12,27 +12,23 @@ function Carousel(containerID = '.carousel', slideID = '.slide') {
 
   this.interval = 2000;
 
-  this.initConst();
-  this.initVar();
+  this.initProps();
   this.initControl();
   this.initIndicator();
   this.addElemListener();
 }
 
-/* initConst */
-Carousel.prototype.initConst = function () {
+/* initProps */
+Carousel.prototype.initProps = function () {
+  this.slidesCount = this.slideItems.length;
+  this.currentSlide = 0;
+  this.playbackStatus = true;
+
   this.C_SPACE = ' ';
   this.C_LEFT_ARROW = 'ArrowLeft';
   this.C_RIGHT_ARROW = 'ArrowRight';
   this.C_FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   this.C_FA_PLAY = '<i class="far fa-play-circle"></i>';
-};
-
-/* initConst */
-Carousel.prototype.initVar = function () {
-  this.slidesCount = this.slideItems.length;
-  this.currentSlide = 0;
-  this.playbackStatus = true;
 };
 
 /* initControl - dynamic creation of controls */
@@ -185,5 +181,3 @@ Carousel.prototype.init = function () {
     that.gotoNext();
   }, this.interval);
 };
-
-let carousel = new Carousel();
