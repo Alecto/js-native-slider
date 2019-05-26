@@ -24,25 +24,24 @@ Carousel.prototype.initProps = function () {
   this.currentSlide = 0;
   this.playbackStatus = true;
 
-  this.C_SPACE = ' ';
-  this.C_LEFT_ARROW = 'ArrowLeft';
-  this.C_RIGHT_ARROW = 'ArrowRight';
-  this.C_FA_PAUSE = '<i class="far fa-pause-circle"></i>';
-  this.C_FA_PLAY = '<i class="far fa-play-circle"></i>';
+  this.KEY_SPACE = ' ';
+  this.KEY_LEFT_ARROW = 'ArrowLeft';
+  this.KEY_RIGHT_ARROW = 'ArrowRight';
+  this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
+  this.FA_PLAY = '<i class="far fa-play-circle"></i>';
+  this.FA_PREV = '<i class="fas fa-angle-left"></i>';
+  this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
 };
 
 /* initControl - dynamic creation of controls */
 Carousel.prototype.initControl = function () {
   let controls = document.createElement('div');
-  const pause =
-    '<span id="pause-btn" class="control-pause"><i class="far fa-pause-circle"></i></span>';
-  const prev =
-    '<span id="prev-btn" class="control-prev"><i class="fas fa-angle-left"></i></span>';
-  const next =
-    '<span id="next-btn" class="control-next"><i class="fas fa-angle-right"></i></span>';
+  const PAUSE = `<span id="pause-btn" class="control-pause">${this.FA_PAUSE}</span>`;
+  const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
+  const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
 
   controls.setAttribute('class', 'controls');
-  controls.innerHTML = pause + prev + next;
+  controls.innerHTML = PAUSE + PREV + NEXT;
 
   this.container.appendChild(controls);
 
@@ -109,7 +108,7 @@ Carousel.prototype.gotoPrev = function () {
 /* pause */
 Carousel.prototype.pause = function () {
   if (this.playbackStatus) {
-    this.pauseBtn.innerHTML = this.C_FA_PLAY;
+    this.pauseBtn.innerHTML = this.FA_PLAY;
     this.playbackStatus = !this.playbackStatus;
     clearInterval(this.intervalID);
   }
@@ -117,7 +116,7 @@ Carousel.prototype.pause = function () {
 
 /* play */
 Carousel.prototype.play = function () {
-  this.pauseBtn.innerHTML = this.C_FA_PAUSE;
+  this.pauseBtn.innerHTML = this.FA_PAUSE;
   this.playbackStatus = !this.playbackStatus;
 
   let that = this;
@@ -156,9 +155,9 @@ Carousel.prototype.clickIndicator = function (e) {
 
 /* keyPress */
 Carousel.prototype.keyPress = function (e) {
-  if (e.key === this.C_LEFT_ARROW) this.clickPrev();
-  if (e.key === this.C_RIGHT_ARROW) this.clickNext();
-  if (e.key === this.C_SPACE) this.clickPause();
+  if (e.key === this.KEY_LEFT_ARROW) this.clickPrev();
+  if (e.key === this.KEY_RIGHT_ARROW) this.clickNext();
+  if (e.key === this.KEY_SPACE) this.clickPause();
 };
 
 /* swipeStart */
