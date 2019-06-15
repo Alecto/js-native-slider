@@ -5,178 +5,179 @@
  * @revised 2018-02-06
  */
 
-/* carousel object */
-function Carousel(containerID = '.carousel', slideID = '.slide') {
-  this.container = document.querySelector(containerID);
-  this.slideItems = this.container.querySelectorAll(slideID);
+/* Carousel Class */
+class Carousel {
+  constructor(containerID = ".carousel", slideID = ".slide") {
+    this.container = document.querySelector(containerID);
+    this.slideItems = this.container.querySelectorAll(slideID);
+  }
 
-  this.interval = 2000;
+  /* _initProps - initialization properties */
+  _initProps() {
+    this.slidesCount = this.slideItems.length;
+    this.currentSlide = 0;
+    this.playbackStatus = true;
+    this.interval = 2000;
 
-  this.initProps();
-  this.initControl();
-  this.initIndicator();
-  this.addElemListener();
-}
+    this.KEY_SPACE = " ";
+    this.KEY_LEFT_ARROW = "ArrowLeft";
+    this.KEY_RIGHT_ARROW = "ArrowRight";
+    this.FA_PAUSE = '<i class="far fa-_pause-circle"></i>';
+    this.FA_PLAY = '<i class="far fa-_play-circle"></i>';
+    this.FA_PREV = '<i class="fas fa-angle-left"></i>';
+    this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
+  }
 
-/* initProps */
-Carousel.prototype.initProps = function () {
-  this.slidesCount = this.slideItems.length;
-  this.currentSlide = 0;
-  this.playbackStatus = true;
+  /* _initControl - dynamic creation of controls */
+  _initControl() {
+    let controls = document.createElement("div");
+    const PAUSE = `<span id="pause-btn" class="control-pause">${this.FA_PAUSE}</span>`;
+    const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
+    const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
 
-  this.KEY_SPACE = ' ';
-  this.KEY_LEFT_ARROW = 'ArrowLeft';
-  this.KEY_RIGHT_ARROW = 'ArrowRight';
-  this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
-  this.FA_PLAY = '<i class="far fa-play-circle"></i>';
-  this.FA_PREV = '<i class="fas fa-angle-left"></i>';
-  this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
-};
+    controls.setAttribute("class", "controls");
+    controls.innerHTML = PAUSE + PREV + NEXT;
 
-/* initControl - dynamic creation of controls */
-Carousel.prototype.initControl = function () {
-  let controls = document.createElement('div');
-  const PAUSE = `<span id="pause-btn" class="control-pause">${this.FA_PAUSE}</span>`;
-  const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
-  const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
+    this.container.appendChild(controls);
 
-  controls.setAttribute('class', 'controls');
-  controls.innerHTML = PAUSE + PREV + NEXT;
+    this.pauseBtn = document.querySelector("#pause-btn");
+    this.nextBtn = document.querySelector("#next-btn");
+    this.prevBtn = document.querySelector("#prev-btn");
+  }
 
-  this.container.appendChild(controls);
+  /* _initIndicator - dynamic creation of indicators */
+  _initIndicator() {
+    let generate = () => {
+      let indicators = document.createElement("ol");
 
-  this.pauseBtn = document.querySelector('#pause-btn');
-  this.nextBtn = document.querySelector('#next-btn');
-  this.prevBtn = document.querySelector('#prev-btn');
-};
+      indicators.setAttribute("class", "indicators");
 
-/* initIndicator - dynamic creation of indicators */
-Carousel.prototype.initIndicator = function () {
-  let generate = () => {
-    let indicators = document.createElement('ol');
+      for (let i = 0, n = this.slidesCount; i < n; i++) {
+        let indicator = document.createElement("li");
 
-    indicators.setAttribute('class', 'indicators');
+        indicator.setAttribute("class", "indicator");
+        indicator.setAttribute("data-slide-to", `${i}`);
+        i === 0 && indicator.classList.add("active");
+        indicators.appendChild(indicator);
+      }
 
-    for (let i = 0, n = this.slidesCount; i < n; i++) {
-      let indicator = document.createElement('li');
+      return indicators;
+    };
 
-      indicator.setAttribute('class', 'indicator');
-      indicator.setAttribute('data-slide-to', `${i}`);
-      i === 0 && indicator.classList.add('active');
-      indicators.appendChild(indicator);
+    this.container.appendChild(generate());
+
+    this.indContainer = this.container.querySelector(".indicators");
+    this.indItems = this.container.querySelectorAll(".indicator");
+  }
+
+  /* _addElemListener - adding events to the elements */
+  _addElemListener() {
+    document.addEventListener("keydown", this._keyPress.bind(this));
+    this.pauseBtn.addEventListener("click", this.pausePlay.bind(this));
+    this.nextBtn.addEventListener("click", this.next.bind(this));
+    this.prevBtn.addEventListener("click", this.prev.bind(this));
+    this.indContainer.addEventListener("click", this._indicator.bind(this));
+    this.container.addEventListener("touchstart", this._swipeStart.bind(this));
+    this.container.addEventListener("touchend", this._swipeEnd.bind(this));
+  }
+
+  /* _gotoNth function */
+  _gotoNth(n) {
+    this.slideItems[this.currentSlide].classList.toggle("active");
+    this.indItems[this.currentSlide].classList.toggle("active");
+    this.currentSlide = (n + this.slidesCount) % this.slidesCount;
+    this.slideItems[this.currentSlide].classList.toggle("active");
+    this.indItems[this.currentSlide].classList.toggle("active");
+  }
+
+  /* _gotoNext function */
+  _gotoNext() {
+    this._gotoNth(this.currentSlide + 1);
+  }
+
+  /* _gotoNext function */
+  _gotoPrev() {
+    this._gotoNth(this.currentSlide - 1);
+  }
+
+  /* _pause function */
+  _pause() {
+    if (this.playbackStatus) {
+      this.pauseBtn.innerHTML = this.FA_PLAY;
+      this.playbackStatus = !this.playbackStatus;
+      clearInterval(this.intervalID);
     }
+  }
 
-    return indicators;
-  };
-
-  this.container.appendChild(generate());
-
-  this.indContainer = this.container.querySelector('.indicators');
-  this.indItems = this.container.querySelectorAll('.indicator');
-};
-
-/* addElemListener - adding events to the elements */
-Carousel.prototype.addElemListener = function () {
-  document.addEventListener('keydown', this.keyPress.bind(this));
-  this.pauseBtn.addEventListener('click', this.clickPause.bind(this));
-  this.nextBtn.addEventListener('click', this.clickNext.bind(this));
-  this.prevBtn.addEventListener('click', this.clickPrev.bind(this));
-  this.indContainer.addEventListener('click', this.clickIndicator.bind(this));
-  this.container.addEventListener('touchstart', this.swipeStart.bind(this));
-  this.container.addEventListener('touchend', this.swipeEnd.bind(this));
-};
-
-/* gotoNth */
-Carousel.prototype.gotoNth = function (n) {
-  this.slideItems[this.currentSlide].classList.toggle('active');
-  this.indItems[this.currentSlide].classList.toggle('active');
-  this.currentSlide = (n + this.slidesCount) % this.slidesCount;
-  this.slideItems[this.currentSlide].classList.toggle('active');
-  this.indItems[this.currentSlide].classList.toggle('active');
-};
-
-/* gotoNext */
-Carousel.prototype.gotoNext = function () {
-  this.gotoNth(this.currentSlide + 1);
-};
-
-/* gotoNext */
-Carousel.prototype.gotoPrev = function () {
-  this.gotoNth(this.currentSlide - 1);
-};
-
-/* pause */
-Carousel.prototype.pause = function () {
-  if (this.playbackStatus) {
-    this.pauseBtn.innerHTML = this.FA_PLAY;
+  /* _play function */
+  _play() {
+    this.pauseBtn.innerHTML = this.FA_PAUSE;
     this.playbackStatus = !this.playbackStatus;
-    clearInterval(this.intervalID);
+
+    let that = this;
+
+    this.intervalID = setInterval(() => {
+      that._gotoNext();
+    }, this.interval);
   }
-};
 
-/* play */
-Carousel.prototype.play = function () {
-  this.pauseBtn.innerHTML = this.FA_PAUSE;
-  this.playbackStatus = !this.playbackStatus;
+  /* _indicator function */
+  _indicator(e) {
+    let target = e.target;
 
-  let that = this;
-
-  this.intervalID = setInterval(() => {
-    that.gotoNext();
-  }, this.interval);
-};
-
-/* clickPause */
-Carousel.prototype.clickPause = function () {
-  this.playbackStatus ? this.pause() : this.play();
-};
-
-/* clickNext */
-Carousel.prototype.clickNext = function () {
-  this.pause();
-  this.gotoNext();
-};
-
-/* clickPrev */
-Carousel.prototype.clickPrev = function () {
-  this.pause();
-  this.gotoPrev();
-};
-
-/* clickIndicator */
-Carousel.prototype.clickIndicator = function (e) {
-  let target = e.target;
-
-  if (target.classList.contains('indicator')) {
-    this.pause();
-    this.gotoNth(+target.getAttribute('data-slide-to'));
+    if (target.classList.contains("indicator")) {
+      this._pause();
+      this._gotoNth(+target.getAttribute("data-slide-to"));
+    }
   }
-};
 
-/* keyPress */
-Carousel.prototype.keyPress = function (e) {
-  if (e.key === this.KEY_LEFT_ARROW) this.clickPrev();
-  if (e.key === this.KEY_RIGHT_ARROW) this.clickNext();
-  if (e.key === this.KEY_SPACE) this.clickPause();
-};
+  /* _keyPress function */
+  _keyPress(e) {
+    if (e.key === this.KEY_LEFT_ARROW) this.prev();
+    if (e.key === this.KEY_RIGHT_ARROW) this.next();
+    if (e.key === this.KEY_SPACE) this.pausePlay();
+  }
 
-/* swipeStart */
-Carousel.prototype.swipeStart = function (e) {
-  this.swipeStartX = e.changedTouches[0].pageX;
-};
+  /* _swipeStart function */
+  _swipeStart(e) {
+    this.swipeStartX = e.changedTouches[0].pageX;
+  }
 
-/* swipeEnd */
-Carousel.prototype.swipeEnd = function (e) {
-  this.swipeEndX = e.changedTouches[0].pageX;
-  this.swipeStartX - this.swipeEndX > 100 && this.clickPrev();
-  this.swipeStartX - this.swipeEndX < -100 && this.clickNext();
-};
+  /* _swipeEnd function */
+  _swipeEnd(e) {
+    this.swipeEndX = e.changedTouches[0].pageX;
+    this.swipeStartX - this.swipeEndX > 100 && this.prev();
+    this.swipeStartX - this.swipeEndX < -100 && this.next();
+  }
 
-/* init carousel */
-Carousel.prototype.init = function () {
-  let that = this;
+  /* pausePlay function */
+  pausePlay() {
+    this.playbackStatus ? this._pause() : this._play();
+  }
 
-  this.intervalID = setInterval(() => {
-    that.gotoNext();
-  }, this.interval);
-};
+  /* next function */
+  next() {
+    this._pause();
+    this._gotoNext();
+  }
+
+  /* prev function */
+  prev() {
+    this._pause();
+    this._gotoPrev();
+  }
+
+  /* init carousel function */
+  init() {
+    this._initProps();
+    this._initControl();
+    this._initIndicator();
+    this._addElemListener();
+
+    let that = this;
+
+    this.intervalID = setInterval(() => {
+      that._gotoNext();
+    }, this.interval);
+  }
+}

@@ -11,7 +11,7 @@ const comb = require('../../gulp/tasks/comb.js'),
 function watchFiles () {
     syncInit();
     watch($.path.scss.files, series(scss, mincss));
-    watch([$.path.js.files, '!' + $.path.js.filesMin], series(uglifyes, sync));
+    watch([$.path.js.files, '!' + $.path.js.filesMin], series(sync));
     watch($.path.html.files, sync);
 }
 
