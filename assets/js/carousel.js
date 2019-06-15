@@ -22,8 +22,8 @@ class Carousel {
     this.KEY_SPACE = " ";
     this.KEY_LEFT_ARROW = "ArrowLeft";
     this.KEY_RIGHT_ARROW = "ArrowRight";
-    this.FA_PAUSE = '<i class="far fa-_pause-circle"></i>';
-    this.FA_PLAY = '<i class="far fa-_play-circle"></i>';
+    this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
+    this.FA_PLAY = '<i class="far fa-play-circle"></i>';
     this.FA_PREV = '<i class="fas fa-angle-left"></i>';
     this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
   }
