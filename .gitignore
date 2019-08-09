@@ -1,6 +1,5 @@
-temp/
-*.bat
+node_modules/
+yarn.lock
 
 # IntellijIdea files
 .idea/
-*/scss-comb/
