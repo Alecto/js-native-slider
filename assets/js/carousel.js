@@ -7,17 +7,36 @@
 
 /* Carousel Class */
 class Carousel {
-  constructor(containerID = '.carousel', slideID = '.slide') {
-    this.container = document.querySelector(containerID);
-    this.slideItems = this.container.querySelectorAll(slideID);
+  constructor(s) {
+    let settings = this._initConfig(s);
+
+    this.container = document.querySelector(settings.containerID);
+    this.slideItems = document.querySelectorAll(settings.slideID);
+    this.interval = settings.interval;
   }
+
+  /* _initConfig - initialization of the config; no this, therefore arrow function used */
+  _initConfig = (s) => {
+    let settings = {
+      containerID: '.carousel',
+      interval: 5000,
+      slideID: '.slide',
+    };
+
+    if (s !== undefined) {
+      settings.containerID = s.containerID || '.carousel';
+      settings.interval = s.interval || 5000;
+      settings.slideID = s.slideID || '.slide';
+    }
+
+    return settings;
+  };
 
   /* _initProps - initialization properties */
   _initProps() {
     this.slidesCount = this.slideItems.length;
     this.currentSlide = 0;
     this.playbackStatus = true;
-    this.interval = 2000;
 
     this.KEY_SPACE = ' ';
     this.KEY_LEFT_ARROW = 'ArrowLeft';
@@ -146,8 +165,8 @@ class Carousel {
   /* _swipeEnd function */
   _swipeEnd(e) {
     this.swipeEndX = e.changedTouches[0].pageX;
-    this.swipeStartX - this.swipeEndX > 100 && this.prev();
-    this.swipeStartX - this.swipeEndX < -100 && this.next();
+    this.swipeStartX - this.swipeEndX > 100 && this.next();
+    this.swipeStartX - this.swipeEndX < -100 && this.prev();
   }
 
   /* pausePlay function */
