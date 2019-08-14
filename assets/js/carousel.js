@@ -96,8 +96,6 @@ class Carousel {
     this.nextBtn.addEventListener('click', this.next.bind(this));
     this.prevBtn.addEventListener('click', this.prev.bind(this));
     this.indContainer.addEventListener('click', this._indicator.bind(this));
-    this.container.addEventListener('touchstart', this._swipeStart.bind(this));
-    this.container.addEventListener('touchend', this._swipeEnd.bind(this));
   }
 
   /* _gotoNth function */
@@ -157,18 +155,6 @@ class Carousel {
     if (e.key === this.KEY_SPACE) this.pausePlay();
   }
 
-  /* _swipeStart function */
-  _swipeStart(e) {
-    this.swipeStartX = e.changedTouches[0].pageX;
-  }
-
-  /* _swipeEnd function */
-  _swipeEnd(e) {
-    this.swipeEndX = e.changedTouches[0].pageX;
-    this.swipeStartX - this.swipeEndX > 100 && this.next();
-    this.swipeStartX - this.swipeEndX < -100 && this.prev();
-  }
-
   /* pausePlay function */
   pausePlay() {
     this.playbackStatus ? this._pause() : this._play();
@@ -198,5 +184,29 @@ class Carousel {
     this.intervalID = setInterval(() => {
       that._gotoNext();
     }, this.interval);
+  }
+}
+
+class SwipeCarousel extends Carousel {
+  constructor(...args) {
+    super(...args); // В ES6 ключевое слово extends позволяет классу-потомку наследовать от родительского класса. Важно отметить, что конструктор класса-потомка должен вызывать super().
+  }
+
+  _addElemListener() {
+    super._addElemListener(); // В классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
+    this.container.addEventListener('touchstart', this._swipeStart.bind(this));
+    this.container.addEventListener('touchend', this._swipeEnd.bind(this));
+  }
+
+  /* _swipeStart function */
+  _swipeStart(e) {
+    this.swipeStartX = e.changedTouches[0].pageX;
+  }
+
+  /* _swipeEnd function */
+  _swipeEnd(e) {
+    this.swipeEndX = e.changedTouches[0].pageX;
+    this.swipeStartX - this.swipeEndX > 100 && this.next();
+    this.swipeStartX - this.swipeEndX < -100 && this.prev();
   }
 }
