@@ -7,7 +7,7 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.2",
-    "jquery": "^3.3.1"
+    "@fortawesome/fontawesome-free": "^5.12.1",
+    "jquery": "^3.4.1"
   }
 }

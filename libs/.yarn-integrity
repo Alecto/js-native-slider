@@ -1,17 +1,17 @@
 {
-  "systemParams": "win32-x64-64",
+  "systemParams": "win32-x64-72",
   "modulesFolders": [
     "libs"
   ],
   "flags": [],
   "linkedModules": [],
   "topLevelPatterns": [
-    "@fortawesome/fontawesome-free@^5.4.2",
-    "jquery@^3.3.1"
+    "@fortawesome/fontawesome-free@^5.12.1",
+    "jquery@^3.4.1"
   ],
   "lockfileEntries": {
-    "@fortawesome/fontawesome-free@^5.4.2": "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.7.2.tgz#1498c3eb78ee7c78c5488418707de90aaf58d5d7",
-    "jquery@^3.3.1": "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+    "@fortawesome/fontawesome-free@^5.12.1": "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.12.1.tgz#2a98fea9fbb8a606ddc79a4680034e9d5591c550",
+    "jquery@^3.4.1": "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
   },
   "files": [],
   "artifacts": {}
