@@ -7,6 +7,6 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.2"
+    "@fortawesome/fontawesome-free": "^5.12.1"
   }
 }

@@ -1,15 +1,15 @@
 {
-  "systemParams": "win32-x64-64",
+  "systemParams": "win32-x64-72",
   "modulesFolders": [
     "libs"
   ],
   "flags": [],
   "linkedModules": [],
   "topLevelPatterns": [
-    "@fortawesome/fontawesome-free@^5.4.2"
+    "@fortawesome/fontawesome-free@^5.12.1"
   ],
   "lockfileEntries": {
-    "@fortawesome/fontawesome-free@^5.4.2": "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.10.1.tgz#dec28ee02c3fc51da46d53ce4da9d5787312fbd7"
+    "@fortawesome/fontawesome-free@^5.12.1": "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.12.1.tgz#2a98fea9fbb8a606ddc79a4680034e9d5591c550"
   },
   "files": [],
   "artifacts": {}
