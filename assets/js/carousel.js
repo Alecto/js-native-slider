@@ -11,7 +11,7 @@ class Carousel {
     let settings = this._initConfig(s);
 
     this.container = document.querySelector(settings.containerID);
-    this.slideItems = document.querySelectorAll(settings.slideID);
+    this.slideItems = this.container.querySelectorAll(settings.slideID);
     this.interval = settings.interval;
   }
 
@@ -59,9 +59,9 @@ class Carousel {
 
     this.container.appendChild(controls);
 
-    this.pauseBtn = document.querySelector('#pause-btn');
-    this.nextBtn = document.querySelector('#next-btn');
-    this.prevBtn = document.querySelector('#prev-btn');
+    this.pauseBtn = this.container.querySelector('#pause-btn');
+    this.nextBtn = this.container.querySelector('#next-btn');
+    this.prevBtn = this.container.querySelector('#prev-btn');
   }
 
   /* _initIndicator - dynamic creation of indicators */
