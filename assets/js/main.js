@@ -9,8 +9,9 @@
   let prevBtn = controls.querySelector('#prev-btn');
 
   let currentSlide = 0;
+  let slidesCount = slides.length;
   let interval = time;
-  let isPlay = true;
+  let isPlaying = true;
   let timerID = null;
   let swipeStartX = null;
   let swipeEndX = null;
@@ -25,7 +26,7 @@
   let gotoNSlide = (n) => {
     slides[currentSlide].classList.toggle('active');
     indicators[currentSlide].classList.toggle('active');
-    currentSlide = (n + slides.length) % slides.length;
+    currentSlide = (n + slidesCount) % slidesCount;
     slides[currentSlide].classList.toggle('active');
     indicators[currentSlide].classList.toggle('active');
   };
@@ -36,20 +37,20 @@
 
 // controls
   let pause = () => {
-    if (isPlay) {
+    if (isPlaying) {
       pausePlayBtn.innerHTML = FA_PLAY;
-      isPlay = !isPlay;
+      isPlaying = !isPlaying;
       clearInterval(timerID);
     }
   };
 
   let play = () => {
     pausePlayBtn.innerHTML = FA_PAUSE;
-    isPlay = !isPlay;
+    isPlaying = !isPlaying;
     timerID = setInterval(gotoNextSlide, interval);
   };
 
-  let clickPause = () => isPlay ? pause() : play();
+  let clickPause = () => isPlaying ? pause() : play();
 
   let clickNext = () => {
     pause();
