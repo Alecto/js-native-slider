@@ -2,7 +2,7 @@
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
- * @revised 2018-02-06
+ * @revised 2020-04-06
  */
 
 /* Carousel Class */
@@ -18,13 +18,13 @@ class Carousel {
   /* _initConfig - initialization of the config; no this, therefore arrow function used */
   _initConfig = (s) => {
     let settings = {
-      containerID: '.carousel',
+      containerID: '#carousel',
       interval: 5000,
       slideID: '.slide',
     };
 
     if (s !== undefined) {
-      settings.containerID = s.containerID || '.carousel';
+      settings.containerID = s.containerID || '#carousel';
       settings.interval = s.interval || 5000;
       settings.slideID = s.slideID || '.slide';
     }
@@ -32,7 +32,7 @@ class Carousel {
     return settings;
   };
 
-  /* _initProps - initialization properties */
+  /* private, _initProps - initialization properties */
   _initProps() {
     this.slidesCount = this.slideItems.length;
     this.currentSlide = 0;
@@ -47,8 +47,8 @@ class Carousel {
     this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
   }
 
-  /* _initControl - dynamic creation of controls */
-  _initControl() {
+  /* private, _initControls - dynamic creation of controls */
+  _initControls() {
     let controls = document.createElement('div');
     const PAUSE = `<span id="pause-btn" class="control-pause">${this.FA_PAUSE}</span>`;
     const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
@@ -64,8 +64,8 @@ class Carousel {
     this.prevBtn = this.container.querySelector('#prev-btn');
   }
 
-  /* _initIndicator - dynamic creation of indicators */
-  _initIndicator() {
+  /* private, _initIndicators - dynamic creation of indicators */
+  _initIndicators() {
     let generate = () => {
       let indicators = document.createElement('ol');
 
@@ -89,16 +89,16 @@ class Carousel {
     this.indItems = this.container.querySelectorAll('.indicator');
   }
 
-  /* _addElemListener - adding events to the elements */
-  _addElemListener() {
+  /* private, _addElemListener - adding events to the elements */
+  _setListeners () {
     document.addEventListener('keydown', this._keyPress.bind(this));
     this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
     this.nextBtn.addEventListener('click', this.next.bind(this));
     this.prevBtn.addEventListener('click', this.prev.bind(this));
-    this.indContainer.addEventListener('click', this._indicator.bind(this));
+    this.indContainer.addEventListener('click', this._indicate.bind(this));
   }
 
-  /* _gotoNth function */
+  /* private, _gotoNth function */
   _gotoNth(n) {
     this.slideItems[this.currentSlide].classList.toggle('active');
     this.indItems[this.currentSlide].classList.toggle('active');
@@ -107,39 +107,39 @@ class Carousel {
     this.indItems[this.currentSlide].classList.toggle('active');
   }
 
-  /* _gotoNext function */
+  /* private, _gotoNext function */
   _gotoNext() {
     this._gotoNth(this.currentSlide + 1);
   }
 
-  /* _gotoNext function */
+  /* private, _gotoNext function */
   _gotoPrev() {
     this._gotoNth(this.currentSlide - 1);
   }
 
-  /* _pause function */
+  /* private, _pause function */
   _pause() {
     if (this.playbackStatus) {
       this.pauseBtn.innerHTML = this.FA_PLAY;
       this.playbackStatus = !this.playbackStatus;
-      clearInterval(this.intervalID);
+      clearInterval(this.timerID);
     }
   }
 
-  /* _play function */
+  /* private, _play function */
   _play() {
     this.pauseBtn.innerHTML = this.FA_PAUSE;
     this.playbackStatus = !this.playbackStatus;
 
     let that = this;
 
-    this.intervalID = setInterval(() => {
+    this.timerID = setInterval(() => {
       that._gotoNext();
     }, this.interval);
   }
 
-  /* _indicator function */
-  _indicator(e) {
+  /*private,  _indicate function */
+  _indicate(e) {
     let target = e.target;
 
     if (target.classList.contains('indicator')) {
@@ -148,42 +148,40 @@ class Carousel {
     }
   }
 
-  /* _keyPress function */
+  /* private, _keyPress function */
   _keyPress(e) {
     if (e.key === this.KEY_LEFT_ARROW) this.prev();
     if (e.key === this.KEY_RIGHT_ARROW) this.next();
     if (e.key === this.KEY_SPACE) this.pausePlay();
   }
 
-  /* pausePlay function */
+  /* public, pausePlay function */
   pausePlay() {
     this.playbackStatus ? this._pause() : this._play();
   }
 
-  /* next function */
+  /* public, next function */
   next() {
     this._pause();
     this._gotoNext();
   }
 
-  /* prev function */
+  /* public, prev function */
   prev() {
     this._pause();
     this._gotoPrev();
   }
 
-  /* init carousel function */
+  /* public, init carousel function */
   init() {
     this._initProps();
-    this._initControl();
-    this._initIndicator();
-    this._addElemListener();
+    this._initControls();
+    this._initIndicators();
+    this._setListeners();
 
     let that = this;
 
-    this.intervalID = setInterval(() => {
-      that._gotoNext();
-    }, this.interval);
+    this.timerID = setInterval(() => that._gotoNext(), this.interval);
   }
 }
 
@@ -200,12 +198,12 @@ class SwipeCarousel extends Carousel {
     this.container.addEventListener('touchend', this._swipeEnd.bind(this));
   }
 
-  /* _swipeStart function */
+  /* private, _swipeStart function */
   _swipeStart(e) {
     this.swipeStartX = e.changedTouches[0].pageX;
   }
 
-  /* _swipeEnd function */
+  /* private, _swipeEnd function */
   _swipeEnd(e) {
     this.swipeEndX = e.changedTouches[0].pageX;
     this.swipeStartX - this.swipeEndX > 100 && this.next();
