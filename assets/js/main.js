@@ -84,8 +84,8 @@
 
   const swipeEnd = (e) => {
     swipeEndX = e.changedTouches[0].pageX;
-    swipeStartX - swipeEndX >  100 && prev();
-    swipeStartX - swipeEndX < -100 && next();
+    swipeStartX - swipeEndX >  100 && next();
+    swipeStartX - swipeEndX < -100 && prev();
   };
 
   // listeners activation
