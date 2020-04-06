@@ -1,10 +1,10 @@
 (function(time) {
-  let carousel = document.querySelector('.carousel');
-  let slides = carousel.querySelectorAll('.slide');
-  let indicatorsContainer = carousel.querySelector('.indicators');
+  let container = document.querySelector('#carousel');
+  let slides = container.querySelectorAll('.slide');
+  let indicatorsContainer = container.querySelector('#indicators-container');
   let indicators = indicatorsContainer.querySelectorAll('.indicator');
-  let controls = carousel.querySelector('.controls');
-  let pausePlayBtn = controls.querySelector('#pause-play-btn');
+  let controls = container.querySelector('#controls-container');
+  let pausePlayBtn = controls.querySelector('#pause-btn');
   let nextBtn = controls.querySelector('#next-btn');
   let prevBtn = controls.querySelector('#prev-btn');
 
@@ -23,7 +23,7 @@
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
 
 // carousel basic engine
-  let gotoNSlide = (n) => {
+  const gotoNth = (n) => {
     slides[currentSlide].classList.toggle('active');
     indicators[currentSlide].classList.toggle('active');
     currentSlide = (n + slidesCount) % slidesCount;
@@ -31,12 +31,12 @@
     indicators[currentSlide].classList.toggle('active');
   };
 
-  let gotoNextSlide = () => gotoNSlide(currentSlide + 1);
+  const gotoNext = () => gotoNth(currentSlide + 1);
 
-  let gotoPrevSlide = () => gotoNSlide(currentSlide - 1);
+  const gotoPrev = () => gotoNth(currentSlide - 1);
 
 // controls
-  let pause = () => {
+  const pause = () => {
     if (isPlaying) {
       pausePlayBtn.innerHTML = FA_PLAY;
       isPlaying = !isPlaying;
@@ -44,69 +44,67 @@
     }
   };
 
-  let play = () => {
+  const play = () => {
     pausePlayBtn.innerHTML = FA_PAUSE;
     isPlaying = !isPlaying;
-    timerID = setInterval(gotoNextSlide, interval);
+    timerID = setInterval(gotoNext, interval);
   };
 
-  let clickPause = () => isPlaying ? pause() : play();
+  const pausePlay = () => isPlaying ? pause() : play();
 
-  let clickNext = () => {
+  const next = () => {
     pause();
-    gotoNextSlide();
+    gotoNext();
   };
 
-  let clickPrev = () => {
+  const prev = () => {
     pause();
-    gotoPrevSlide();
+    gotoPrev();
   };
 
 // indicators
-  let clickIndicatorBtn = (e) => {
+  const indicate = (e) => {
     let target = e.target;
 
     if (target.classList.contains('indicator')) {
       pause();
-      gotoNSlide(+target.getAttribute('data-slide-to'));
+      gotoNth(+target.getAttribute('data-slide-to'));
     }
   };
 
 // set keyboard controls
-  let pressKey = (e) => {
-    if (e.key === LEFT_ARROW) clickPrev();
-    if (e.key === RIGHT_ARROW) clickNext();
-    if (e.key === SPACE) clickPause();
+  const pressKey = (e) => {
+    if (e.key === LEFT_ARROW) prev();
+    if (e.key === RIGHT_ARROW) next();
+    if (e.key === SPACE) pausePlay();
   };
 
 // add swipe support
-  let swipeStart = (e) => {
-    swipeStartX = e.changedTouches[0].pageX;
-  };
+  const swipeStart = (e) => swipeStartX = e.changedTouches[0].pageX;
 
-  let swipeEnd = (e) => {
+  const swipeEnd = (e) => {
     swipeEndX = e.changedTouches[0].pageX;
-    swipeStartX - swipeEndX >  100 && clickPrev();
-    swipeStartX - swipeEndX < -100 && clickNext();
+    swipeStartX - swipeEndX >  100 && prev();
+    swipeStartX - swipeEndX < -100 && next();
   };
 
   // listeners activation
-  let setListeners = () => {
-    pausePlayBtn.addEventListener('click', clickPause);
-    nextBtn.addEventListener('click', clickNext);
-    prevBtn.addEventListener('click', clickPrev);
-    indicatorsContainer.addEventListener('click', clickIndicatorBtn);
-    carousel.addEventListener('touchstart', swipeStart);
-    carousel.addEventListener('touchend', swipeEnd);
+  const setListeners = () => {
+    pausePlayBtn.addEventListener('click', pausePlay);
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
+    indicatorsContainer.addEventListener('click', indicate);
+    container.addEventListener('touchstart', swipeStart);
+    container.addEventListener('touchend', swipeEnd);
     document.addEventListener('keydown', pressKey);
   };
 
   // activate controls, if javascript is enabled
-  let init = () => {
+  const init = () => {
     indicatorsContainer.style.display = 'flex'; // flex
     controls.style.display = 'block'; // block
     setListeners();
-    timerID = setInterval(gotoNextSlide, interval);
+    timerID = setInterval(gotoNext, interval);
   };
 
   init();
