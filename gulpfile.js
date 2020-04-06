@@ -1,25 +1,21 @@
-require('../../gulp/gulp-init.js')({HTML: '.'});
+'use strict';
 
-const comb = require('../../gulp/tasks/comb');
-const cs = require('../../gulp/tasks/create-structure');
-const {scss, scssDev} = require('../../gulp/tasks/scss.js');
-const mincss = require('../../gulp/tasks/mincss');
-const uglifyes = require('../../gulp/tasks/uglify').uglifyes;
-const {sync, syncInit} = require('../../gulp/tasks/sync');
+require('../../gulp/gulp-init.js')({ HTML: '.' });
+
+const comb = require('../../gulp/tasks/comb.js'),
+    scssDC = require('../../gulp/tasks/scss.js').scssDC,
+    mincss = require('../../gulp/tasks/mincss.js'),
+    uglifyes = require('../../gulp/tasks/uglify.js').uglifyes,
+    { sync, syncInit } = require('../../gulp/tasks/sync.js');
 
 function watchFiles() {
   syncInit();
-  watch($.PATH.scss.files, series(scss));
-  watch([
-    $.PATH.js.files,
-    `!${$.PATH.js.filesMin}`
-  ], sync);
+  watch($.PATH.scss.files, series(scssDC));
+  watch([$.PATH.js.files, '!' + $.PATH.js.filesMin], series(sync));
   watch($.PATH.html.files, sync);
 }
 
-task('cs', cs);
 task('combScss', comb);
 task('uglifyEs6', series(uglifyes, sync));
-task('sass', series(scss));
-task('sassDev', series(scssDev));
+task('sass', series(scssDC));
 task('watch', watchFiles);
