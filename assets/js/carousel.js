@@ -36,7 +36,7 @@ class Carousel {
   _initProps() {
     this.slidesCount = this.slideItems.length;
     this.currentSlide = 0;
-    this.playbackStatus = true;
+    this.isPlaying = true;
 
     this.KEY_SPACE = ' ';
     this.KEY_LEFT_ARROW = 'ArrowLeft';
@@ -119,9 +119,9 @@ class Carousel {
 
   /* private, _pause function */
   _pause() {
-    if (this.playbackStatus) {
+    if (this.isPlaying) {
       this.pauseBtn.innerHTML = this.FA_PLAY;
-      this.playbackStatus = !this.playbackStatus;
+      this.isPlaying = !this.isPlaying;
       clearInterval(this.timerID);
     }
   }
@@ -129,7 +129,7 @@ class Carousel {
   /* private, _play function */
   _play() {
     this.pauseBtn.innerHTML = this.FA_PAUSE;
-    this.playbackStatus = !this.playbackStatus;
+    this.isPlaying = !this.isPlaying;
 
     let that = this;
 
@@ -157,7 +157,7 @@ class Carousel {
 
   /* public, pausePlay function */
   pausePlay() {
-    this.playbackStatus ? this._pause() : this._play();
+    this.isPlaying ? this._pause() : this._play();
   }
 
   /* public, next function */
