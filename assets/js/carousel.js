@@ -151,8 +151,8 @@ Carousel.prototype._swipeStart = function (e) {
 /* _swipeEnd */
 Carousel.prototype._swipeEnd = function (e) {
   this.swipeEndX = e.changedTouches[0].pageX;
-  this.swipeStartX - this.swipeEndX > 100 && this.prev();
-  this.swipeStartX - this.swipeEndX < -100 && this.next();
+  this.swipeStartX - this.swipeEndX > 100 && this.next();
+  this.swipeStartX - this.swipeEndX < -100 && this.prev();
 };
 
 /* pausePlay */
