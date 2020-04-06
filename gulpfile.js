@@ -3,16 +3,16 @@
 require('../../gulp/gulp-init.js')({HTML: '.'});
 
 const comb = require('../../gulp/tasks/comb.js'),
-    scss     = require('../../gulp/tasks/scss.js').scss,
+    scss     = require('../../gulp/tasks/scss.js').scssDC,
     mincss   = require('../../gulp/tasks/mincss.js'),
     uglifyes = require('../../gulp/tasks/uglify.js').uglifyes,
     { sync, syncInit } = require('../../gulp/tasks/sync.js');
 
 function watchFiles () {
     syncInit();
-    watch($.path.scss.files, series(scss, mincss));
-    watch([$.path.js.files, '!' + $.path.js.filesMin], series(uglifyes, sync));
-    watch($.path.html.files, sync);
+    watch($.PATH.scss.files, series(scss));
+    watch([$.PATH.js.files, '!' + $.PATH.js.filesMin], series(sync));
+    watch($.PATH.html.files, sync);
 }
 
 task('combScss', comb);
