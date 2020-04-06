@@ -192,8 +192,9 @@ class SwipeCarousel extends Carousel {
   //   В ES6 ключевое слово extends позволяет классу-потомку наследовать от родительского класса. Важно отметить, что конструктор класса-потомка должен вызывать super().
   // }
 
-  _addElemListener() {
-    super._addElemListener(); // В классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
+  _setListeners() {
+    super._setListeners(); // В классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
+    console.log('ttt');
     this.container.addEventListener('touchstart', this._swipeStart.bind(this));
     this.container.addEventListener('touchend', this._swipeEnd.bind(this));
   }
