@@ -89,7 +89,7 @@
   };
 
   // listeners activation
-  const setListeners = () => {
+  const initListeners = () => {
     pauseBtn.addEventListener('click', pausePlay);
     nextBtn.addEventListener('click', next);
     prevBtn.addEventListener('click', prev);
@@ -103,7 +103,7 @@
   const init = () => {
     indicatorsContainer.style.display = 'flex'; // flex
     controls.style.display = 'block'; // block
-    setListeners();
+    initListeners();
     timerID = setInterval(gotoNext, interval);
   };
 
