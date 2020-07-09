@@ -132,12 +132,7 @@ class Carousel {
   _play() {
     this.pauseBtn.innerHTML = this.FA_PAUSE;
     this.isPlaying = !this.isPlaying;
-
-    let that = this;
-
-    this.timerID = setInterval(() => {
-      that._gotoNext();
-    }, this.interval);
+    this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
 
   /* private,  _indicate function */
@@ -180,10 +175,7 @@ class Carousel {
     this._initControls();
     this._initIndicators();
     this._initListeners();
-
-    let that = this;
-
-    this.timerID = setInterval(() => that._gotoNext(), this.interval);
+    this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
 }
 
