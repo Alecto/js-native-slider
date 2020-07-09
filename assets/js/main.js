@@ -4,7 +4,7 @@
   let indicatorsContainer = container.querySelector('#indicators-container');
   let indicators = indicatorsContainer.querySelectorAll('.indicator');
   let controls = container.querySelector('#controls-container');
-  let pausePlayBtn = controls.querySelector('#pause-btn');
+  let pauseBtn = controls.querySelector('#pause-btn');
   let nextBtn = controls.querySelector('#next-btn');
   let prevBtn = controls.querySelector('#prev-btn');
 
@@ -38,14 +38,14 @@
 // controls
   const pause = () => {
     if (isPlaying) {
-      pausePlayBtn.innerHTML = FA_PLAY;
+      pauseBtn.innerHTML = FA_PLAY;
       isPlaying = !isPlaying;
       clearInterval(timerID);
     }
   };
 
   const play = () => {
-    pausePlayBtn.innerHTML = FA_PAUSE;
+    pauseBtn.innerHTML = FA_PAUSE;
     isPlaying = !isPlaying;
     timerID = setInterval(gotoNext, interval);
   };
@@ -90,7 +90,7 @@
 
   // listeners activation
   const setListeners = () => {
-    pausePlayBtn.addEventListener('click', pausePlay);
+    pauseBtn.addEventListener('click', pausePlay);
     nextBtn.addEventListener('click', next);
     prevBtn.addEventListener('click', prev);
     indicatorsContainer.addEventListener('click', indicate);
