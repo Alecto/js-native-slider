@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file,no-underscore-dangle,no-unused-vars */
 /*
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
@@ -5,32 +6,33 @@
  * @revised 2020-04-06
  */
 
-/* Carousel Class */
+/* carousel Class */
 class Carousel {
   constructor(s) {
-    let settings = this._initConfig(s);
+
+    /* initConfig - initialization of the config */
+    let initConfig = (obj) => {
+      let settings = {
+        containerID: '#carousel',
+        interval: 5000,
+        slideID: '.slide'
+      };
+
+      if (obj !== undefined) {
+        settings.containerID = obj.containerID || '#carousel';
+        settings.interval = obj.interval || 5000;
+        settings.slideID = obj.slideID || '.slide';
+      }
+
+      return settings;
+    };
+
+    let settings = initConfig(s);
 
     this.container = document.querySelector(settings.containerID);
     this.slideItems = this.container.querySelectorAll(settings.slideID);
     this.interval = settings.interval;
   }
-
-  /* _initConfig - initialization of the config; no this, therefore arrow function used */
-  _initConfig = (s) => {
-    let settings = {
-      containerID: '#carousel',
-      interval: 5000,
-      slideID: '.slide',
-    };
-
-    if (s !== undefined) {
-      settings.containerID = s.containerID || '#carousel';
-      settings.interval = s.interval || 5000;
-      settings.slideID = s.slideID || '.slide';
-    }
-
-    return settings;
-  };
 
   /* private, _initProps - initialization properties */
   _initProps() {
@@ -90,7 +92,7 @@ class Carousel {
   }
 
   /* private, _addElemListener - adding events to the elements */
-  _setListeners () {
+  _initListeners() {
     document.addEventListener('keydown', this._keyPress.bind(this));
     this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
     this.nextBtn.addEventListener('click', this.next.bind(this));
@@ -138,7 +140,7 @@ class Carousel {
     }, this.interval);
   }
 
-  /*private,  _indicate function */
+  /* private,  _indicate function */
   _indicate(e) {
     let target = e.target;
 
@@ -177,7 +179,7 @@ class Carousel {
     this._initProps();
     this._initControls();
     this._initIndicators();
-    this._setListeners();
+    this._initListeners();
 
     let that = this;
 
@@ -186,15 +188,17 @@ class Carousel {
 }
 
 class SwipeCarousel extends Carousel {
-  // в данном случае переопределение конструктора не требуется
-  // constructor(...args) {
-  //   super(...args);
-  //   В ES6 ключевое слово extends позволяет классу-потомку наследовать от родительского класса. Важно отметить, что конструктор класса-потомка должен вызывать super().
-  // }
 
-  _setListeners() {
-    super._setListeners(); // В классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
-    console.log('ttt');
+  /*
+   * в данном случае переопределение конструктора не требуется
+   * constructor(...args) {
+   *   super(...args);
+   *   В ES6 ключевое слово extends позволяет классу-потомку наследовать от родительского класса. Важно отметить, что конструктор класса-потомка должен вызывать super().
+   * }
+   */
+
+  _initListeners() {
+    super._initListeners(); // в классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
     this.container.addEventListener('touchstart', this._swipeStart.bind(this));
     this.container.addEventListener('touchend', this._swipeEnd.bind(this));
   }
