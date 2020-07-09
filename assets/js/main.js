@@ -1,4 +1,4 @@
-(function(time) {
+(function (time) {
   let container = document.querySelector('#carousel');
   let slides = container.querySelectorAll('.slide');
   let indicatorsContainer = container.querySelector('#indicators-container');
@@ -22,7 +22,7 @@
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
 
-// carousel basic engine
+  // carousel basic engine
   const gotoNth = (n) => {
     slides[currentSlide].classList.toggle('active');
     indicators[currentSlide].classList.toggle('active');
@@ -35,7 +35,7 @@
 
   const gotoPrev = () => gotoNth(currentSlide - 1);
 
-// controls
+  // controls
   const pause = () => {
     if (isPlaying) {
       pauseBtn.innerHTML = FA_PLAY;
@@ -62,7 +62,7 @@
     gotoPrev();
   };
 
-// indicators
+  // indicators
   const indicate = (e) => {
     let target = e.target;
 
@@ -72,19 +72,19 @@
     }
   };
 
-// set keyboard controls
+  // set keyboard controls
   const pressKey = (e) => {
     if (e.key === LEFT_ARROW) prev();
     if (e.key === RIGHT_ARROW) next();
     if (e.key === SPACE) pausePlay();
   };
 
-// add swipe support
+  // add swipe support
   const swipeStart = (e) => swipeStartX = e.changedTouches[0].pageX;
 
   const swipeEnd = (e) => {
     swipeEndX = e.changedTouches[0].pageX;
-    swipeStartX - swipeEndX >  100 && next();
+    swipeStartX - swipeEndX > 100 && next();
     swipeStartX - swipeEndX < -100 && prev();
   };
 
@@ -109,4 +109,4 @@
 
   init();
 
-})(2000);
+}(2000));
