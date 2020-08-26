@@ -49,9 +49,9 @@ Carousel.prototype = {
 
     this.container.appendChild(controls);
 
-    this.pauseBtn = document.querySelector('#pause-btn');
-    this.nextBtn = document.querySelector('#next-btn');
-    this.prevBtn = document.querySelector('#prev-btn');
+    this.pauseBtn = this.container.querySelector('#pause-btn');
+    this.nextBtn = this.container.querySelector('#next-btn');
+    this.prevBtn = this.container.querySelector('#prev-btn');
   },
 
   /* private, _initIndicators - dynamic creation of indicators */
