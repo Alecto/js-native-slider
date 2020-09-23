@@ -1,9 +1,9 @@
-/* eslint-disable prefer-rest-params,sort-keys,prefer-reflect,no-underscore-dangle */
+/* eslint-disable prefer-rest-params,sort-keys,prefer-reflect,no-underscore-dangle,max-statements */
 /*
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
- * @revised 2020-04-06
+ * @revised 2020-09-23
  */
 
 /* super Class: Carousel */
@@ -39,7 +39,7 @@ Carousel.prototype = {
 
   /* private, _initControls - dynamic creation of controls */
   _initControls: function () {
-    let controls = document.createElement('div');
+    const controls = document.createElement('div');
     const PAUSE = `<span id="pause-btn" class="control-pause">${this.FA_PAUSE}</span>`;
     const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
     const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
@@ -56,24 +56,20 @@ Carousel.prototype = {
 
   /* private, _initIndicators - dynamic creation of indicators */
   _initIndicators: function () {
-    let generate = () => {
-      let indicators = document.createElement('ol');
+    const indicators = document.createElement('ol');
 
-      indicators.setAttribute('class', 'indicators');
+    indicators.setAttribute('class', 'indicators');
 
-      for (let i = 0, n = this.slidesCount; i < n; i++) {
-        let indicator = document.createElement('li');
+    for (let i = 0, n = this.slidesCount; i < n; i++) {
+      const indicator = document.createElement('li');
 
-        indicator.setAttribute('class', 'indicator');
-        indicator.setAttribute('data-slide-to', `${i}`);
-        i === 0 && indicator.classList.add('active');
-        indicators.appendChild(indicator);
-      }
+      indicator.setAttribute('class', 'indicator');
+      indicator.dataset.slideTo = `${i}`;
+      i === 0 && indicator.classList.add('active');
+      indicators.appendChild(indicator);
+    }
 
-      return indicators;
-    };
-
-    this.container.appendChild(generate());
+    this.container.appendChild(indicators);
 
     this.indContainer = this.container.querySelector('.indicators');
     this.indItems = this.container.querySelectorAll('.indicator');
@@ -129,7 +125,7 @@ Carousel.prototype = {
 
     if (target.classList.contains('indicator')) {
       this._pause();
-      this._gotoNth(+target.getAttribute('data-slide-to'));
+      this._gotoNth(+target.dataset.slideTo);
     }
   },
 
@@ -173,6 +169,7 @@ function SwipeCarousel() {
  * let subClass = { method1: function() {console.log('method1')}, method2: function() {console.log('method2')} };
  * SwipeCarousel.prototype = Object.assign(superClass, subClass);
  */
+
 SwipeCarousel.prototype = Object.create(Carousel.prototype);
 SwipeCarousel.prototype.constructor = SwipeCarousel;
 
