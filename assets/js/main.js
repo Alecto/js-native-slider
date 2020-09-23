@@ -68,7 +68,7 @@
 
     if (target.classList.contains('indicator')) {
       pause();
-      gotoNth(+target.getAttribute('data-slide-to'));
+      gotoNth(+target.dataset.slideTo);
     }
   };
 
