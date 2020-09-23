@@ -1,37 +1,44 @@
-/* eslint-disable max-classes-per-file,no-underscore-dangle,no-unused-vars */
+/* eslint-disable max-classes-per-file,no-underscore-dangle,no-unused-vars,class-methods-use-this,object-property-newline */
 /*
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
- * @revised 2020-04-06
+ * @revised 2020-09-23
  */
 
 /* carousel Class */
 class Carousel {
   constructor(s) {
-
-    /* initConfig - initialization of the config */
-    let initConfig = (obj) => {
-      let settings = {
-        containerID: '#carousel',
-        interval: 5000,
-        slideID: '.slide'
-      };
-
-      if (obj !== undefined) {
-        settings.containerID = obj.containerID || '#carousel';
-        settings.interval = obj.interval || 5000;
-        settings.slideID = obj.slideID || '.slide';
-      }
-
-      return settings;
-    };
-
-    let settings = initConfig(s);
+    let settings = this._initConfig(s);
 
     this.container = document.querySelector(settings.containerID);
     this.slideItems = this.container.querySelectorAll(settings.slideID);
     this.interval = settings.interval;
+  }
+
+  /* private, _initConfig - initialization of the config */
+  _initConfig(o) {
+
+    /*
+     * let settings = {
+     *   containerID: '#carousel',
+     *   interval: 5000,
+     *   slideID: '.slide'
+     * };
+     *
+     * if (o !== undefined) {
+     *   settings.containerID = o.containerID || '#carousel';
+     *   settings.interval = o.interval || 5000;
+     *   settings.slideID = o.slideID || '.slide';
+     * }
+     *
+     *   Код ниже является оптимизацией.
+     *   Используется оператор Spread и деструктуризация объектов.
+     */
+
+    const p = {containerID: '#carousel', interval: 5000, slideID: '.slide'};
+
+    return {...p, ...o};
   }
 
   /* private, _initProps - initialization properties */
@@ -77,7 +84,7 @@ class Carousel {
         let indicator = document.createElement('li');
 
         indicator.setAttribute('class', 'indicator');
-        indicator.setAttribute('data-slide-to', `${i}`);
+        indicator.dataset.slideTo = `${i}`;
         i === 0 && indicator.classList.add('active');
         indicators.appendChild(indicator);
       }
@@ -141,7 +148,7 @@ class Carousel {
 
     if (target.classList.contains('indicator')) {
       this._pause();
-      this._gotoNth(+target.getAttribute('data-slide-to'));
+      this._gotoNth(+target.dataset.slideTo);
     }
   }
 
@@ -183,9 +190,13 @@ class SwipeCarousel extends Carousel {
 
   /*
    * в данном случае переопределение конструктора не требуется
+   *
    * constructor(...args) {
    *   super(...args);
-   *   В ES6 ключевое слово extends позволяет классу-потомку наследовать от родительского класса. Важно отметить, что конструктор класса-потомка должен вызывать super().
+   *   В ES6 ключевое слово extends позволяет классу-потомку
+   *   наследовать от родительского класса.
+   *   Важно отметить, что конструктор класса-потомка
+   *   должен вызывать super().
    * }
    */
 
