@@ -3,13 +3,13 @@
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
- * @revised 2020-09-23
+ * @revised 2021-01-12
  */
 
 /* carousel Class */
 class Carousel {
-  constructor(s) {
-    let settings = this._initConfig(s);
+  constructor(params) {
+    let settings = this._initConfig(params);
 
     this.container = document.querySelector(settings.containerID);
     this.slideItems = this.container.querySelectorAll(settings.slideID);
@@ -26,14 +26,14 @@ class Carousel {
      *   slideID: '.slide'
      * };
      *
-     * if (o !== undefined) {
-     *   settings.containerID = o.containerID || '#carousel';
-     *   settings.interval = o.interval || 5000;
-     *   settings.slideID = o.slideID || '.slide';
+     * if (typeof o !== 'undefined') {
+     *   settings.containerID = o.containerID || settings.containerID;
+     *   settings.interval = o.interval || settings.interval;
+     *   settings.slideID = o.slideID || settings.slideID;
      * }
      *
      *   Код ниже является оптимизацией.
-     *   Используется оператор Spread и деструктуризация объектов.
+     *   Используется оператор Spread и деструктуризация и мерж объектов.
      */
 
     const p = {containerID: '#carousel', interval: 5000, slideID: '.slide'};
@@ -75,27 +75,22 @@ class Carousel {
 
   /* private, _initIndicators - dynamic creation of indicators */
   _initIndicators() {
-    let generate = () => {
-      let indicators = document.createElement('ol');
+    let indicators = document.createElement('ol');
 
-      indicators.setAttribute('class', 'indicators');
+    indicators.setAttribute('class', 'indicators');
 
-      for (let i = 0, n = this.slidesCount; i < n; i++) {
-        let indicator = document.createElement('li');
+    for (let i = 0, n = this.slidesCount; i < n; i++) {
+      let indicator = document.createElement('li');
 
-        indicator.setAttribute('class', 'indicator');
-        indicator.dataset.slideTo = `${i}`;
-        i === 0 && indicator.classList.add('active');
-        indicators.appendChild(indicator);
-      }
+      indicator.setAttribute('class', 'indicator');
+      indicator.dataset.slideTo = `${i}`;
+      i === 0 && indicator.classList.add('active');
+      indicators.appendChild(indicator);
+    }
+    this.container.appendChild(indicators);
 
-      return indicators;
-    };
-
-    this.container.appendChild(generate());
-
-    this.indContainer = this.container.querySelector('.indicators');
-    this.indItems = this.container.querySelectorAll('.indicator');
+    this.indicatorsContainer = this.container.querySelector('.indicators');
+    this.indicatorItems = this.container.querySelectorAll('.indicator');
   }
 
   /* private, _addElemListener - adding events to the elements */
@@ -104,16 +99,16 @@ class Carousel {
     this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
     this.nextBtn.addEventListener('click', this.next.bind(this));
     this.prevBtn.addEventListener('click', this.prev.bind(this));
-    this.indContainer.addEventListener('click', this._indicate.bind(this));
+    this.indicatorsContainer.addEventListener('click', this._indicate.bind(this));
   }
 
   /* private, _gotoNth function */
   _gotoNth(n) {
     this.slideItems[this.currentSlide].classList.toggle('active');
-    this.indItems[this.currentSlide].classList.toggle('active');
+    this.indicatorItems[this.currentSlide].classList.toggle('active');
     this.currentSlide = (n + this.slidesCount) % this.slidesCount;
     this.slideItems[this.currentSlide].classList.toggle('active');
-    this.indItems[this.currentSlide].classList.toggle('active');
+    this.indicatorItems[this.currentSlide].classList.toggle('active');
   }
 
   /* private, _gotoNext function */
