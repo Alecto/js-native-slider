@@ -123,7 +123,7 @@ Carousel.prototype = {
   _indicate: function (e) {
     let target = e.target;
 
-    if (target.classList.contains('indicator')) {
+    if (target && target.classList.contains('indicator')) {
       this._pause();
       this._gotoNth(+target.dataset.slideTo);
     }
