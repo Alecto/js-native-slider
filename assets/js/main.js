@@ -66,7 +66,7 @@
   const indicate = (e) => {
     let target = e.target;
 
-    if (target.classList.contains('indicator')) {
+    if (target && target.classList.contains('indicator')) {
       pause();
       gotoNth(+target.dataset.slideTo);
     }
