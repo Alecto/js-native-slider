@@ -141,7 +141,7 @@ class Carousel {
   _indicate(e) {
     let target = e.target;
 
-    if (target && target.classList.contains('indicator')) {
+    if (target && target.matches('li.indicator')) {
       this._pause();
       this._gotoNth(+target.dataset.slideTo);
     }
