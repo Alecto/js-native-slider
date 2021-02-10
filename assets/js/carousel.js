@@ -8,38 +8,50 @@
 
 /* carousel Class */
 class Carousel {
-  constructor(params) {
-    let settings = this._initConfig(params);
+  constructor(p) {
+    let settings = (() => ({...{containerID: '#carousel', interval: 5000, slideID: '.slide'}, ...p}))();
+    // let settings = this._initConfig(params);
 
     this.container = document.querySelector(settings.containerID);
     this.slideItems = this.container.querySelectorAll(settings.slideID);
     this.interval = settings.interval;
   }
 
-  /* private, _initConfig - initialization of the config */
-  _initConfig(o) {
-
-    /*
-     * let settings = {
-     *   containerID: '#carousel',
-     *   interval: 5000,
-     *   slideID: '.slide'
-     * };
-     *
-     * if (typeof o !== 'undefined') {
-     *   settings.containerID = o.containerID || settings.containerID;
-     *   settings.interval = o.interval || settings.interval;
-     *   settings.slideID = o.slideID || settings.slideID;
-     * }
-     *
-     *   Код ниже является оптимизацией.
-     *   Используется оператор Spread и деструктуризация и мерж объектов.
-     */
-
-    const p = {containerID: '#carousel', interval: 5000, slideID: '.slide'};
-
-    return {...p, ...o};
-  }
+  /*
+   *
+   *_initConfig(o) {
+   *
+   * Вариант 1
+   *
+   * let settings = {
+   *   containerID: '#carousel',
+   *   interval: 5000,
+   *   slideID: '.slide'
+   * };
+   *
+   * if (typeof o !== 'undefined') {
+   *   settings.containerID = o.containerID || settings.containerID;
+   *   settings.interval = o.interval || settings.interval;
+   *   settings.slideID = o.slideID || settings.slideID;
+   * }
+   *
+   * return settings;
+   *
+   *
+   * Вариант 2
+   *
+   * const p = {containerID: '#carousel', interval: 5000, slideID: '.slide'};
+   *
+   * return {...p, ...o};
+   *
+   *
+   * Вариант 3
+   *
+   * return {...{containerID: '#carousel', interval: 5000, slideID: '.slide'}, ...o};
+   *
+   * }
+   *
+   */
 
   /* private, _initProps - initialization properties */
   _initProps() {
