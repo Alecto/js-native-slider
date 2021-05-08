@@ -9,7 +9,14 @@
 /* carousel Class */
 class Carousel {
   constructor(p) {
-    let settings = (() => ({...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p}))();
+    let settings = (() => ({
+      ...{
+        containerID: '#carousel',
+        interval: 5000,
+        isPlaying: true,
+        slideID: '.slide'
+      }, ...p
+    }))();
     // let settings = this._initConfig(params);
 
     this.container = document.querySelector(settings.containerID);
@@ -71,7 +78,10 @@ class Carousel {
   /* private, _initControls - dynamic creation of controls */
   _initControls() {
     let controls = document.createElement('div');
-    const PAUSE = `<span id="pause-btn" class="control-pause">${this.isPlaying ? this.FA_PAUSE : this.FA_PLAY}</span>`;
+    const PAUSE = `<span id="pause-btn" class="control-pause">
+                      <span id="fa-pause-icon">${this.FA_PAUSE}</span>
+                      <span id="fa-play-icon">${this.FA_PLAY}</span>
+                   </span>`;
     const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
     const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
 
@@ -83,6 +93,11 @@ class Carousel {
     this.pauseBtn = this.container.querySelector('#pause-btn');
     this.nextBtn = this.container.querySelector('#next-btn');
     this.prevBtn = this.container.querySelector('#prev-btn');
+
+    this.pauseIcon = this.container.querySelector('#fa-pause-icon');
+    this.playIcon = this.container.querySelector('#fa-play-icon');
+
+    this.isPlaying ? this.pauseIcon.style.opacity = 1 : this.playIcon.style.opacity = 1;
   }
 
   /* private, _initIndicators - dynamic creation of indicators */
@@ -138,7 +153,8 @@ class Carousel {
   /* private, _pause function */
   _pause() {
     if (this.isPlaying) {
-      this.pauseBtn.innerHTML = this.FA_PLAY;
+      this.pauseIcon.style.opacity = 0;
+      this.playIcon.style.opacity = 1;
       this.isPlaying = false;
       clearInterval(this.timerID);
     }
@@ -147,7 +163,8 @@ class Carousel {
   /* private, _play function */
   _play() {
     if (!this.isPlaying) {
-      this.pauseBtn.innerHTML = this.FA_PAUSE;
+      this.pauseIcon.style.opacity = 1;
+      this.playIcon.style.opacity = 0;
       this.isPlaying = true;
       this.timerID = setInterval(() => this._gotoNext(), this.interval);
     }

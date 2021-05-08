@@ -13,9 +13,9 @@
   bottom: 0;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
+
   @include lg-min {
     cursor: pointer;
   }
@@ -26,7 +26,7 @@
     top: calc(50% - 20vh);
     left: calc(50% - 20vh);
 
-    height: 40vh;
+    height: 0;
     padding: 0;
 
     transition: opacity 0.25s ease-out;
@@ -41,6 +41,16 @@
 
       opacity: 1;
       text-shadow: 0 0 30px rgba($color-light, 0.3);
+    }
+
+    span {
+      position: absolute;
+
+      display: block;
+
+      transform: translate(50%, 50%);
+
+      opacity: 0;
     }
   }
 

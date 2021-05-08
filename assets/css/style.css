@@ -103,7 +103,7 @@ body {
   top: calc(50% - 20vh);
   left: calc(50% - 20vh);
 
-  height: 40vh;
+  height: 0;
   padding: 0;
 
   -webkit-transition: opacity 0.25s ease-out;
@@ -121,6 +121,18 @@ body {
 
   opacity: 1;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.control-pause span {
+  position: absolute;
+
+  display: block;
+
+  -webkit-transform: translate(50%, 50%);
+  -ms-transform: translate(50%, 50%);
+  transform: translate(50%, 50%);
+
+  opacity: 0;
 }
 
 .control-prev {
