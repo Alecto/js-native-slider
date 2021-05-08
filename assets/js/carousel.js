@@ -59,9 +59,9 @@ class Carousel {
     this.slidesCount = this.slideItems.length;
     this.currentSlide = 0;
 
-    this.KEY_SPACE = ' ';
-    this.KEY_LEFT_ARROW = 'ArrowLeft';
-    this.KEY_RIGHT_ARROW = 'ArrowRight';
+    this.CODE_SPACE = 'Space';
+    this.CODE_LEFT_ARROW = 'ArrowLeft';
+    this.CODE_RIGHT_ARROW = 'ArrowRight';
     this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
     this.FA_PLAY = '<i class="far fa-play-circle"></i>';
     this.FA_PREV = '<i class="fas fa-angle-left"></i>';
@@ -139,16 +139,18 @@ class Carousel {
   _pause() {
     if (this.isPlaying) {
       this.pauseBtn.innerHTML = this.FA_PLAY;
-      this.isPlaying = !this.isPlaying;
+      this.isPlaying = false;
       clearInterval(this.timerID);
     }
   }
 
   /* private, _play function */
   _play() {
-    this.pauseBtn.innerHTML = this.FA_PAUSE;
-    this.isPlaying = !this.isPlaying;
-    this.timerID = setInterval(() => this._gotoNext(), this.interval);
+    if (!this.isPlaying) {
+      this.pauseBtn.innerHTML = this.FA_PAUSE;
+      this.isPlaying = true;
+      this.timerID = setInterval(() => this._gotoNext(), this.interval);
+    }
   }
 
   /* private,  _indicate function */
@@ -163,9 +165,9 @@ class Carousel {
 
   /* private, _keyPress function */
   _keyPress(e) {
-    if (e.key === this.KEY_LEFT_ARROW) this.prev();
-    if (e.key === this.KEY_RIGHT_ARROW) this.next();
-    if (e.key === this.KEY_SPACE) this.pausePlay();
+    if (e.code === this.CODE_LEFT_ARROW) this.prev();
+    if (e.code === this.CODE_RIGHT_ARROW) this.next();
+    if (e.code === this.CODE_SPACE) this.pausePlay();
   }
 
   /* public, pausePlay function */
@@ -191,7 +193,6 @@ class Carousel {
     this._initControls();
     this._initIndicators();
     this._initListeners();
-    console.log(this.isPlaying);
     if (this.isPlaying) this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
 }
