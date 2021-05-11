@@ -1,5 +1,8 @@
-/* eslint-disable no-undef,multiline-comment-style */
-// let carousel = new Carousel({
+/* eslint-disable no-unused-vars */
+
+import Carousel from './carousel.js';
+import SwipeCarousel from './swipe-carousel.js';
+
 let carousel = new SwipeCarousel({
   containerID: '#carousel',
   interval: 2000

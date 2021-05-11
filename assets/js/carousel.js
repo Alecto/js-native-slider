@@ -1,22 +1,16 @@
-/* eslint-disable max-classes-per-file,no-underscore-dangle,no-unused-vars,class-methods-use-this,object-property-newline */
 /*
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
- * @revised 2021-01-12
+ * @revised 2021-05-11
  */
+
+/* eslint-disable no-underscore-dangle,no-unused-vars,object-property-newline */
 
 /* carousel Class */
 class Carousel {
   constructor(p) {
-    let settings = (() => ({
-      ...{
-        containerID: '#carousel',
-        interval: 5000,
-        isPlaying: true,
-        slideID: '.slide'
-      }, ...p
-    }))();
+    let settings = (() => ({...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p}))();
     // let settings = this._initConfig(params);
 
     this.container = document.querySelector(settings.containerID);
@@ -214,35 +208,4 @@ class Carousel {
   }
 }
 
-class SwipeCarousel extends Carousel {
-
-  /*
-   * в данном случае переопределение конструктора не требуется
-   *
-   * constructor(...args) {
-   *   super(...args);
-   *   В ES6 ключевое слово extends позволяет классу-потомку
-   *   наследовать от родительского класса.
-   *   Важно отметить, что конструктор класса-потомка
-   *   должен вызывать super().
-   * }
-   */
-
-  _initListeners() {
-    super._initListeners(); // в классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
-    this.container.addEventListener('touchstart', this._swipeStart.bind(this));
-    this.container.addEventListener('touchend', this._swipeEnd.bind(this));
-  }
-
-  /* private, _swipeStart function */
-  _swipeStart(e) {
-    this.swipeStartX = e.changedTouches[0].pageX;
-  }
-
-  /* private, _swipeEnd function */
-  _swipeEnd(e) {
-    this.swipeEndX = e.changedTouches[0].pageX;
-    this.swipeStartX - this.swipeEndX > 100 && this.next();
-    this.swipeStartX - this.swipeEndX < -100 && this.prev();
-  }
-}
+export default Carousel;
