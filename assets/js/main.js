@@ -1,12 +1,12 @@
 (function (time) {
-  let container = document.querySelector('#carousel');
-  let slides = container.querySelectorAll('.slide');
-  let indicatorsContainer = container.querySelector('#indicators-container');
-  let indicators = indicatorsContainer.querySelectorAll('.indicator');
-  let controls = container.querySelector('#controls-container');
-  let pauseBtn = controls.querySelector('#pause-btn');
-  let nextBtn = controls.querySelector('#next-btn');
-  let prevBtn = controls.querySelector('#prev-btn');
+  const container = document.querySelector('#carousel');
+  const slides = container.querySelectorAll('.slide');
+  const indicatorsContainer = container.querySelector('#indicators-container');
+  const indicators = indicatorsContainer.querySelectorAll('.indicator');
+  const controls = container.querySelector('#controls-container');
+  const pauseBtn = controls.querySelector('#pause-btn');
+  const nextBtn = controls.querySelector('#next-btn');
+  const prevBtn = controls.querySelector('#prev-btn');
 
   let currentSlide = 0;
   let slidesCount = slides.length;
@@ -16,9 +16,9 @@
   let swipeStartX = null;
   let swipeEndX = null;
 
-  const SPACE = ' ';
-  const LEFT_ARROW = 'ArrowLeft';
-  const RIGHT_ARROW = 'ArrowRight';
+  const CODE_SPACE = 'Space';
+  const CODE_LEFT_ARROW = 'ArrowLeft';
+  const CODE_RIGHT_ARROW = 'ArrowRight';
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
 
@@ -74,9 +74,9 @@
 
   // set keyboard controls
   const pressKey = (e) => {
-    if (e.key === LEFT_ARROW) prev();
-    if (e.key === RIGHT_ARROW) next();
-    if (e.key === SPACE) pausePlay();
+    if (e.code === CODE_LEFT_ARROW) prev();
+    if (e.code === CODE_RIGHT_ARROW) next();
+    if (e.code === CODE_SPACE) pausePlay();
   };
 
   // add swipe support
@@ -101,8 +101,6 @@
 
   // activate controls, if javascript is enabled
   const init = () => {
-    indicatorsContainer.style.display = 'flex'; // flex
-    controls.style.display = 'block'; // block
     initListeners();
     timerID = setInterval(gotoNext, interval);
   };
