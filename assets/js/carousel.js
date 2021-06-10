@@ -12,11 +12,6 @@ function Carousel(containerID = '#carousel', slideID = '.slide') {
   this.slideItems = this.container.querySelectorAll(slideID);
 
   this.interval = 2000;
-
-  this._initProps();
-  this._initControls();
-  this._initIndicators();
-  this._initListeners();
 }
 
 Carousel.prototype = {
@@ -28,9 +23,9 @@ Carousel.prototype = {
     this.currentSlide = 0;
     this.isPlaying = true;
 
-    this.KEY_SPACE = ' ';
-    this.KEY_LEFT_ARROW = 'ArrowLeft';
-    this.KEY_RIGHT_ARROW = 'ArrowRight';
+    this.CODE_SPACE = 'Space';
+    this.CODE_LEFT_ARROW = 'ArrowLeft';
+    this.CODE_RIGHT_ARROW = 'ArrowRight';
     this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
     this.FA_PLAY = '<i class="far fa-play-circle"></i>';
     this.FA_PREV = '<i class="fas fa-angle-left"></i>';
@@ -131,9 +126,9 @@ Carousel.prototype = {
 
   /* private, _pressKey */
   _pressKey: function (e) {
-    if (e.key === this.KEY_LEFT_ARROW) this.prev();
-    if (e.key === this.KEY_RIGHT_ARROW) this.next();
-    if (e.key === this.KEY_SPACE) this.pausePlay();
+    if (e.key === this.CODE_LEFT_ARROW) this.prev();
+    if (e.key === this.CODE_RIGHT_ARROW) this.next();
+    if (e.key === this.CODE_SPACE) this.pausePlay();
   },
 
   /* public, pausePlay */
@@ -155,6 +150,11 @@ Carousel.prototype = {
 
   /* public, init carousel */
   init: function () {
+    this._initProps();
+    this._initControls();
+    this._initIndicators();
+    this._initListeners();
+
     this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
 };
