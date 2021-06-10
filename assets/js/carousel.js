@@ -10,7 +10,7 @@
 /* carousel Class */
 class Carousel {
   constructor(p) {
-    let settings = (() => ({...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p}))();
+    let settings = {...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p};
     // let settings = this._initConfig(params);
 
     this.container = document.querySelector(settings.containerID);
@@ -21,20 +21,21 @@ class Carousel {
 
   /*
    *
-   *_initConfig(o) {
+   *_initConfig(objectParams) {
    *
    * Вариант 1
    *
-   * let settings = {
+   * const defaultSettings = {
    *   containerID: '#carousel',
    *   interval: 5000,
    *   slideID: '.slide'
    * };
    *
    * if (typeof o !== 'undefined') {
-   *   settings.containerID = o.containerID || settings.containerID;
-   *   settings.interval = o.interval || settings.interval;
-   *   settings.slideID = o.slideID || settings.slideID;
+   *   defaultSettings.containerID = objectParams.containerID || defaultSettings.containerID;
+   *   defaultSettings.interval = objectParams.interval || defaultSettings.interval;
+   *   defaultSettings.slideID = objectParams.slideID || defaultSettings.slideID;
+   *   defaultSettings.isPlaying = objectParams.isPlaying || defaultSettings.isPlaying;
    * }
    *
    * return settings;
