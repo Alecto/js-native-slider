@@ -9,9 +9,9 @@
   const prevBtn = controls.querySelector('#prev-btn');
 
   const slidesCount = slides.length;
-  const CODE_SPACE = 'Space';
   const CODE_LEFT_ARROW = 'ArrowLeft';
   const CODE_RIGHT_ARROW = 'ArrowRight';
+  const CODE_SPACE = 'Space';
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
 
@@ -52,14 +52,14 @@
 
   const pausePlay = () => isPlaying ? pause() : play();
 
-  const next = () => {
-    pause();
-    gotoNext();
-  };
-
   const prev = () => {
     pause();
     gotoPrev();
+  };
+
+  const next = () => {
+    pause();
+    gotoNext();
   };
 
   // indicators
