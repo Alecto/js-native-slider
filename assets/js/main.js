@@ -8,19 +8,19 @@
   const nextBtn = controls.querySelector('#next-btn');
   const prevBtn = controls.querySelector('#prev-btn');
 
-  let currentSlide = 0;
-  let slidesCount = slides.length;
-  let interval = time;
-  let isPlaying = true;
-  let timerID = null;
-  let swipeStartX = null;
-  let swipeEndX = null;
-
+  const slidesCount = slides.length;
   const CODE_SPACE = 'Space';
   const CODE_LEFT_ARROW = 'ArrowLeft';
   const CODE_RIGHT_ARROW = 'ArrowRight';
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
+
+  let currentSlide = 0;
+  let isPlaying = true;
+  let timerID = null;
+  let swipeStartX = null;
+  let swipeEndX = null;
+  let interval = time;
 
   // carousel basic engine
   const gotoNth = (n) => {
@@ -31,9 +31,9 @@
     indicators[currentSlide].classList.toggle('active');
   };
 
-  const gotoNext = () => gotoNth(currentSlide + 1);
-
   const gotoPrev = () => gotoNth(currentSlide - 1);
+
+  const gotoNext = () => gotoNth(currentSlide + 1);
 
   // controls
   const pause = () => {
