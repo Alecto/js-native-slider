@@ -89,13 +89,13 @@ Carousel.prototype = {
   },
 
   /* private, _gotoNext */
-  _gotoNext: function () {
-    this._gotoNth(this.currentSlide + 1);
+  _gotoPrev: function () {
+    this._gotoNth(this.currentSlide - 1);
   },
 
   /* private, _gotoNext */
-  _gotoPrev: function () {
-    this._gotoNth(this.currentSlide - 1);
+  _gotoNext: function () {
+    this._gotoNth(this.currentSlide + 1);
   },
 
   /* private, _pause */
