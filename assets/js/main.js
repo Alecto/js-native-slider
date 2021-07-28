@@ -3,12 +3,12 @@
   const slides = container.querySelectorAll('.slide');
   const indicatorsContainer = container.querySelector('#indicators-container');
   const indicators = indicatorsContainer.querySelectorAll('.indicator');
-  const controls = container.querySelector('#controls-container');
-  const pauseBtn = controls.querySelector('#pause-btn');
-  const nextBtn = controls.querySelector('#next-btn');
-  const prevBtn = controls.querySelector('#prev-btn');
+  const controlsContainer = container.querySelector('#controls-container');
+  const pauseBtn = controlsContainer.querySelector('#pause-btn');
+  const nextBtn = controlsContainer.querySelector('#next-btn');
+  const prevBtn = controlsContainer.querySelector('#prev-btn');
 
-  const slidesCount = slides.length;
+  const SLIDES_COUNT = slides.length;
   const CODE_LEFT_ARROW = 'ArrowLeft';
   const CODE_RIGHT_ARROW = 'ArrowRight';
   const CODE_SPACE = 'Space';
@@ -26,7 +26,7 @@
   const gotoNth = (n) => {
     slides[currentSlide].classList.toggle('active');
     indicators[currentSlide].classList.toggle('active');
-    currentSlide = (n + slidesCount) % slidesCount;
+    currentSlide = (n + SLIDES_COUNT) % SLIDES_COUNT;
     slides[currentSlide].classList.toggle('active');
     indicators[currentSlide].classList.toggle('active');
   };
@@ -64,7 +64,7 @@
 
   // indicators
   const indicate = (e) => {
-    let target = e.target;
+    const target = e.target;
 
     if (target && target.classList.contains('indicator')) {
       pause();
