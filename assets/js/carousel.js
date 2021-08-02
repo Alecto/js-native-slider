@@ -38,7 +38,7 @@ class Carousel {
    *   defaultSettings.isPlaying = objectParams.isPlaying || defaultSettings.isPlaying;
    * }
    *
-   * return settings;
+   * return defaultSettings;
    *
    *
    * Вариант 2
@@ -58,9 +58,7 @@ class Carousel {
 
   /* private, _initProps - initialization properties */
   _initProps() {
-    this.slidesCount = this.slideItems.length;
-    this.currentSlide = 0;
-
+    this.SLIDES_COUNT = this.slideItems.length;
     this.CODE_SPACE = 'Space';
     this.CODE_LEFT_ARROW = 'ArrowLeft';
     this.CODE_RIGHT_ARROW = 'ArrowRight';
@@ -68,6 +66,8 @@ class Carousel {
     this.FA_PLAY = '<i class="far fa-play-circle"></i>';
     this.FA_PREV = '<i class="fas fa-angle-left"></i>';
     this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
+
+    this.currentSlide = 0;
   }
 
   /* private, _initControls - dynamic creation of controls */
@@ -101,7 +101,7 @@ class Carousel {
 
     indicators.setAttribute('class', 'indicators');
 
-    for (let i = 0, n = this.slidesCount; i < n; i++) {
+    for (let i = 0, n = this.SLIDES_COUNT; i < n; i++) {
       let indicator = document.createElement('li');
 
       indicator.setAttribute('class', 'indicator');
@@ -130,7 +130,7 @@ class Carousel {
   _gotoNth(n) {
     this.slideItems[this.currentSlide].classList.toggle('active');
     this.indicatorItems[this.currentSlide].classList.toggle('active');
-    this.currentSlide = (n + this.slidesCount) % this.slidesCount;
+    this.currentSlide = (n + this.SLIDES_COUNT) % this.SLIDES_COUNT;
     this.slideItems[this.currentSlide].classList.toggle('active');
     this.indicatorItems[this.currentSlide].classList.toggle('active');
   }
