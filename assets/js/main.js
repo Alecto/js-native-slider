@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
 // let carousel = new Carousel();
-let carousel = new SwipeCarousel();
+const carousel = new SwipeCarousel();
 
 carousel.init();

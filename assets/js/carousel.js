@@ -18,11 +18,10 @@ Carousel.prototype = {
 
   /* private, _initProps */
   _initProps: function () {
-
-    this.slidesCount = this.slideItems.length;
     this.currentSlide = 0;
     this.isPlaying = true;
 
+    this.SLIDES_COUNT = this.slideItems.length;
     this.CODE_SPACE = 'Space';
     this.CODE_LEFT_ARROW = 'ArrowLeft';
     this.CODE_RIGHT_ARROW = 'ArrowRight';
@@ -55,7 +54,7 @@ Carousel.prototype = {
 
     indicators.setAttribute('class', 'indicators');
 
-    for (let i = 0, n = this.slidesCount; i < n; i++) {
+    for (let i = 0, n = this.SLIDES_COUNT; i < n; i++) {
       const indicator = document.createElement('li');
 
       indicator.setAttribute('class', 'indicator');
@@ -83,7 +82,7 @@ Carousel.prototype = {
   _gotoNth: function (n) {
     this.slideItems[this.currentSlide].classList.toggle('active');
     this.indItems[this.currentSlide].classList.toggle('active');
-    this.currentSlide = (n + this.slidesCount) % this.slidesCount;
+    this.currentSlide = (n + this.SLIDES_COUNT) % this.SLIDES_COUNT;
     this.slideItems[this.currentSlide].classList.toggle('active');
     this.indItems[this.currentSlide].classList.toggle('active');
   },
