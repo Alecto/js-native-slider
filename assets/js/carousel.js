@@ -50,12 +50,12 @@ Carousel.prototype = {
 
   /* private, _initIndicators - dynamic creation of indicators */
   _initIndicators: function () {
-    const indicators = document.createElement('ol');
+    const indicators = document.createElement('div');
 
     indicators.setAttribute('class', 'indicators');
 
     for (let i = 0, n = this.SLIDES_COUNT; i < n; i++) {
-      const indicator = document.createElement('li');
+      const indicator = document.createElement('div');
 
       indicator.setAttribute('class', 'indicator');
       indicator.dataset.slideTo = `${i}`;
