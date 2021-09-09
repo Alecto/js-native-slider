@@ -10,8 +10,8 @@
 /* carousel Class */
 class Carousel {
   constructor(p) {
-    let settings = {...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p};
-    // let settings = this._initConfig(params);
+    const settings = {...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p};
+    // const settings = this._initConfig(params);
 
     this.container = document.querySelector(settings.containerID);
     this.slideItems = this.container.querySelectorAll(settings.slideID);
@@ -35,7 +35,7 @@ class Carousel {
    *   defaultSettings.containerID = objectParams.containerID || defaultSettings.containerID;
    *   defaultSettings.interval = objectParams.interval || defaultSettings.interval;
    *   defaultSettings.slideID = objectParams.slideID || defaultSettings.slideID;
-   *   defaultSettings.isPlaying = objectParams.isPlaying || defaultSettings.isPlaying;
+   *   defaultSettings.isPlaying = objectParams.isPlaying ?? defaultSettings.isPlaying;
    * }
    *
    * return defaultSettings;
@@ -58,6 +58,8 @@ class Carousel {
 
   /* private, _initProps - initialization properties */
   _initProps() {
+    this.currentSlide = 0;
+
     this.SLIDES_COUNT = this.slideItems.length;
     this.CODE_SPACE = 'Space';
     this.CODE_LEFT_ARROW = 'ArrowLeft';
@@ -66,8 +68,6 @@ class Carousel {
     this.FA_PLAY = '<i class="far fa-play-circle"></i>';
     this.FA_PREV = '<i class="fas fa-angle-left"></i>';
     this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
-
-    this.currentSlide = 0;
   }
 
   /* private, _initControls - dynamic creation of controls */
