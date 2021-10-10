@@ -25,8 +25,8 @@ Carousel.prototype = {
     this.CODE_SPACE = 'Space';
     this.CODE_LEFT_ARROW = 'ArrowLeft';
     this.CODE_RIGHT_ARROW = 'ArrowRight';
-    this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
-    this.FA_PLAY = '<i class="far fa-play-circle"></i>';
+    this.FA_PAUSE = '<i class="fas fa-pause-circle"></i>';
+    this.FA_PLAY = '<i class="fas fa-play-circle"></i>';
     this.FA_PREV = '<i class="fas fa-angle-left"></i>';
     this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
   },
@@ -41,7 +41,7 @@ Carousel.prototype = {
     controls.setAttribute('class', 'controls');
     controls.innerHTML = PAUSE + PREV + NEXT;
 
-    this.container.appendChild(controls);
+    this.container.append(controls);
 
     this.pauseBtn = this.container.querySelector('#pause-btn');
     this.nextBtn = this.container.querySelector('#next-btn');
@@ -60,10 +60,10 @@ Carousel.prototype = {
       indicator.setAttribute('class', 'indicator');
       indicator.dataset.slideTo = `${i}`;
       i === 0 && indicator.classList.add('active');
-      indicators.appendChild(indicator);
+      indicators.append(indicator);
     }
 
-    this.container.appendChild(indicators);
+    this.container.append(indicators);
 
     this.indContainer = this.container.querySelector('.indicators');
     this.indItems = this.container.querySelectorAll('.indicator');
@@ -158,35 +158,4 @@ Carousel.prototype = {
   }
 };
 
-/* sub Class: SwipeCarousel */
-function SwipeCarousel() {
-  Carousel.apply(this, arguments);
-}
-
-/*
- * let superClass = Object.create(Carousel.prototype);
- * let subClass = { method1: function() {console.log('method1')}, method2: function() {console.log('method2')} };
- * SwipeCarousel.prototype = Object.assign(superClass, subClass);
- */
-
-SwipeCarousel.prototype = Object.create(Carousel.prototype);
-SwipeCarousel.prototype.constructor = SwipeCarousel;
-
-/* private, _initListeners - set events to the elements */
-SwipeCarousel.prototype._initListeners = function () {
-  Carousel.prototype._initListeners.apply(this);
-  this.container.addEventListener('touchstart', this._swipeStart.bind(this));
-  this.container.addEventListener('touchend', this._swipeEnd.bind(this));
-};
-
-/* private, _swipeStart */
-SwipeCarousel.prototype._swipeStart = function (e) {
-  this.swipeStartX = e.changedTouches[0].pageX;
-};
-
-/* private, _swipeEnd */
-SwipeCarousel.prototype._swipeEnd = function (e) {
-  this.swipeEndX = e.changedTouches[0].pageX;
-  this.swipeStartX - this.swipeEndX > 100 && this.next();
-  this.swipeStartX - this.swipeEndX < -100 && this.prev();
-};
+Carousel.prototype.constructor = Carousel;
