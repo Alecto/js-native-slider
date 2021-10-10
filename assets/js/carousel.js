@@ -28,7 +28,8 @@ class Carousel {
    * const defaultSettings = {
    *   containerID: '#carousel',
    *   interval: 5000,
-   *   slideID: '.slide'
+   *   slideID: '.slide',
+   *   isPlaying: true
    * };
    *
    * if (typeof o !== 'undefined') {
@@ -43,7 +44,7 @@ class Carousel {
    *
    * Вариант 2
    *
-   * const p = {containerID: '#carousel', interval: 5000, slideID: '.slide'};
+   * const p = {containerID: '#carousel', slideID: '.slide', interval: 5000, isPlaying: true};
    *
    * return {...p, ...o};
    *
