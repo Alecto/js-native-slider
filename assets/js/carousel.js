@@ -110,7 +110,7 @@ Carousel.prototype = {
   _play: function () {
     this.pauseBtn.innerHTML = this.FA_PAUSE;
     this.isPlaying = !this.isPlaying;
-    this.timerID = setInterval(() => this._gotoNext(), this.interval);
+    this._tick();
   },
 
   /* private, _indicate */
@@ -128,6 +128,11 @@ Carousel.prototype = {
     if (e.key === this.CODE_LEFT_ARROW) this.prev();
     if (e.key === this.CODE_RIGHT_ARROW) this.next();
     if (e.key === this.CODE_SPACE) this.pausePlay();
+  },
+
+  /* private, _tick */
+  _tick() {
+    this.timerID = setInterval(() => this._gotoNext(), this.interval);
   },
 
   /* public, pausePlay */
@@ -153,8 +158,7 @@ Carousel.prototype = {
     this._initControls();
     this._initIndicators();
     this._initListeners();
-
-    this.timerID = setInterval(() => this._gotoNext(), this.interval);
+    this._tick();
   }
 };
 
