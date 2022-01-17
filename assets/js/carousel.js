@@ -162,7 +162,7 @@ class Carousel {
       this.pauseIcon.style.opacity = 1;
       this.playIcon.style.opacity = 0;
       this.isPlaying = true;
-      this.timerID = setInterval(() => this._gotoNext(), this.interval);
+      this._tick();
     }
   }
 
@@ -181,6 +181,12 @@ class Carousel {
     if (e.code === this.CODE_LEFT_ARROW) this.prev();
     if (e.code === this.CODE_RIGHT_ARROW) this.next();
     if (e.code === this.CODE_SPACE) this.pausePlay();
+  }
+
+  /* private, _tick function */
+  _tick(flag = true) {
+    if (!flag) return;
+    this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
 
   /* public, pausePlay function */
@@ -206,7 +212,7 @@ class Carousel {
     this._initControls();
     this._initIndicators();
     this._initListeners();
-    if (this.isPlaying) this.timerID = setInterval(() => this._gotoNext(), this.interval);
+    this._tick(this.isPlaying);
   }
 }
 
