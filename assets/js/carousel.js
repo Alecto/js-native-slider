@@ -32,7 +32,7 @@ class Carousel {
    *   isPlaying: true
    * };
    *
-   * if (typeof o !== 'undefined') {
+   * if (typeof objectParams !== 'undefined') {
    *   defaultSettings.containerID = objectParams.containerID || defaultSettings.containerID;
    *   defaultSettings.interval = objectParams.interval || defaultSettings.interval;
    *   defaultSettings.slideID = objectParams.slideID || defaultSettings.slideID;
@@ -93,7 +93,7 @@ class Carousel {
     this.pauseIcon = this.container.querySelector('#fa-pause-icon');
     this.playIcon = this.container.querySelector('#fa-play-icon');
 
-    this.isPlaying ? this.pauseIcon.style.opacity = 1 : this.playIcon.style.opacity = 1;
+    this.isPlaying ? this._pauseVisible() : this._playVisible();
   }
 
   /* private, _initIndicators - dynamic creation of indicators */
@@ -105,9 +105,8 @@ class Carousel {
     for (let i = 0, n = this.SLIDES_COUNT; i < n; i++) {
       let indicator = document.createElement('li');
 
-      indicator.setAttribute('class', 'indicator');
+      indicator.setAttribute('class', i !== 0 ? 'indicator' : 'indicator active');
       indicator.dataset.slideTo = `${i}`;
-      i === 0 && indicator.classList.add('active');
       indicators.append(indicator);
     }
     this.container.append(indicators);
@@ -149,8 +148,7 @@ class Carousel {
   /* private, _pause function */
   _pause() {
     if (this.isPlaying) {
-      this.pauseIcon.style.opacity = 0;
-      this.playIcon.style.opacity = 1;
+      this._playVisible();
       this.isPlaying = false;
       clearInterval(this.timerID);
     }
@@ -159,8 +157,7 @@ class Carousel {
   /* private, _play function */
   _play() {
     if (!this.isPlaying) {
-      this.pauseIcon.style.opacity = 1;
-      this.playIcon.style.opacity = 0;
+      this._pauseVisible();
       this.isPlaying = true;
       this._tick();
     }
@@ -187,6 +184,17 @@ class Carousel {
   _tick(flag = true) {
     if (!flag) return;
     this.timerID = setInterval(() => this._gotoNext(), this.interval);
+  }
+
+  /* private, _pauseVisible function */
+  _pauseVisible(isVisible = true) {
+    isVisible ? this.pauseIcon.style.opacity = 1 : this.pauseIcon.style.opacity = 0;
+    !isVisible ? this.playIcon.style.opacity = 1 : this.playIcon.style.opacity = 0;
+  }
+
+  /* private, _playVisible function */
+  _playVisible() {
+    this._pauseVisible(false);
   }
 
   /* public, pausePlay function */
