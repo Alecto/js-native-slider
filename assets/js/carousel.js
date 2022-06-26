@@ -2,7 +2,7 @@
  * @description
  *          Script creates a slide-show for structure .carousel>.slides>.slide[style=background-image:url()].
  * @author  Andrii.A.Fomenko
- * @revised 2021-05-11
+ * @revised 2022-06-26
  */
 
 /* eslint-disable no-underscore-dangle,no-unused-vars,object-property-newline */
@@ -54,6 +54,9 @@ class Carousel {
    * return {...{containerID: '#carousel', interval: 5000, slideID: '.slide'}, ...o};
    *
    * }
+   *
+   * Вариант 4 - переписать метод через стрелочную функцию (ругается линтер, но работает)
+   * _initConfig = (o) => ({...{containerID: '#carousel', interval: 5000, slideID: '.slide'}, ...o})
    *
    */
 
@@ -188,8 +191,8 @@ class Carousel {
 
   /* private, _pauseVisible function */
   _pauseVisible(isVisible = true) {
-    isVisible ? this.pauseIcon.style.opacity = 1 : this.pauseIcon.style.opacity = 0;
-    !isVisible ? this.playIcon.style.opacity = 1 : this.playIcon.style.opacity = 0;
+    this.pauseIcon.style.opacity = isVisible ?  1 : 0;
+    this.playIcon.style.opacity = !isVisible ? 1 : 0;
   }
 
   /* private, _playVisible function */
