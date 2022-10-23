@@ -18,8 +18,8 @@
   let currentSlide = 0;
   let isPlaying = true;
   let timerID = null;
-  let swipeStartX = null;
-  let swipeEndX = null;
+  let startPosX = null;
+  let endPosX = null;
   let interval = time;
 
   // carousel basic engine
@@ -80,13 +80,29 @@
   };
 
   // add swipe support
-  const swipeStart = (e) => swipeStartX = e.changedTouches[0].pageX;
+  const swipeStart = (e) => {
+    if (e instanceof MouseEvent) {
+      startPosX = e.pageX;
 
-  const swipeEnd = (e) => {
-    swipeEndX = e.changedTouches[0].pageX;
-    swipeStartX - swipeEndX < -100 && prev();
-    swipeStartX - swipeEndX > 100 && next();
+      return;
+    }
+
+    if (e instanceof TouchEvent) {
+      startPosX = e.changedTouches[0].pageX;
+    }
   };
+
+  // add swipe support
+  function swipeEnd(e) {
+    if (e instanceof MouseEvent) {
+      endPosX = e.pageX;
+    } else if (e instanceof TouchEvent) {
+      endPosX = e.changedTouches[0].pageX;
+    }
+
+    if (endPosX - startPosX > -100) prev();
+    if (endPosX - startPosX < 100) next();
+  }
 
   // listeners activation
   const initListeners = () => {
@@ -95,7 +111,9 @@
     prevBtn.addEventListener('click', prev);
     indicatorsContainer.addEventListener('click', indicate);
     container.addEventListener('touchstart', swipeStart);
+    container.addEventListener('mousedown', swipeStart);
     container.addEventListener('touchend', swipeEnd);
+    container.addEventListener('mouseup', swipeEnd);
     document.addEventListener('keydown', pressKey);
   };
 
