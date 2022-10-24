@@ -2,6 +2,7 @@
 /* sub Class: SwipeCarousel */
 function SwipeCarousel() {
   Carousel.apply(this, arguments);
+  this.slidesContainer = this.container.querySelector('.slides');
 }
 
 /*
@@ -17,17 +18,33 @@ SwipeCarousel.prototype.constructor = SwipeCarousel;
 SwipeCarousel.prototype._initListeners = function () {
   Carousel.prototype._initListeners.apply(this);
   this.container.addEventListener('touchstart', this._swipeStart.bind(this));
+  this.slidesContainer.addEventListener('mousedown', this._swipeStart.bind(this));
   this.container.addEventListener('touchend', this._swipeEnd.bind(this));
+  this.slidesContainer.addEventListener('mouseup', this._swipeEnd.bind(this));
 };
 
 /* private, _swipeStart */
 SwipeCarousel.prototype._swipeStart = function (e) {
-  this.swipeStartX = e.changedTouches[0].pageX;
+  if (e instanceof MouseEvent) {
+    this.startPosX = e.pageX;
+
+    return;
+  }
+
+  if (e instanceof TouchEvent) {
+    this.startPosX = e.changedTouches[0].pageX;
+  }
 };
+
 
 /* private, _swipeEnd */
 SwipeCarousel.prototype._swipeEnd = function (e) {
-  this.swipeEndX = e.changedTouches[0].pageX;
-  this.swipeStartX - this.swipeEndX > 100 && this.next();
-  this.swipeStartX - this.swipeEndX < -100 && this.prev();
+  if (e instanceof MouseEvent) {
+    this.endPosX = e.pageX;
+  } else if (e instanceof TouchEvent) {
+    this.endPosX = e.changedTouches[0].pageX;
+  }
+
+  if (this.endPosX - this.startPosX > -100) this.prev();
+  if (this.endPosX - this.startPosX < 100) this.next();
 };
