@@ -21,7 +21,7 @@ class Carousel {
 
   /*
    *
-   *_initConfig(objectParams) {
+   *_initConfig(objectWithInnerParams) {
    *
    * Вариант 1
    *
@@ -32,11 +32,11 @@ class Carousel {
    *   isPlaying: true
    * };
    *
-   * if (typeof objectParams !== 'undefined') {
-   *   defaultSettings.containerID = objectParams.containerID || defaultSettings.containerID;
-   *   defaultSettings.interval = objectParams.interval || defaultSettings.interval;
-   *   defaultSettings.slideID = objectParams.slideID || defaultSettings.slideID;
-   *   defaultSettings.isPlaying = objectParams.isPlaying ?? defaultSettings.isPlaying;
+   * if (typeof objectWithInnerParams !== 'undefined') {
+   *   defaultSettings.containerID = objectWithInnerParams.containerID || defaultSettings.containerID;
+   *   defaultSettings.interval = objectWithInnerParams.interval || defaultSettings.interval;
+   *   defaultSettings.slideID = objectWithInnerParams.slideID || defaultSettings.slideID;
+   *   defaultSettings.isPlaying = objectWithInnerParams.isPlaying ?? defaultSettings.isPlaying;
    * }
    *
    * return defaultSettings;

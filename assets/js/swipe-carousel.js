@@ -3,18 +3,10 @@
 import Carousel from './carousel.js';
 
 class SwipeCarousel extends Carousel {
-
-  /*
-   * в данном случае переопределение конструктора не требуется
-   *
-   * constructor(...args) {
-   *   super(...args);
-   *   В ES6 ключевое слово extends позволяет классу-потомку
-   *   наследовать от родительского класса.
-   *   Важно отметить, что конструктор класса-потомка
-   *   должен вызывать super().
-   * }
-   */
+  constructor(...args) {
+    super(...args);
+    this.slidesContainer = this.slideItems[0].parentElement;
+  }
 
   _initListeners() {
     super._initListeners(); // в классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
