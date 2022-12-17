@@ -9,8 +9,8 @@
   const prevBtn = controlsContainer.querySelector('#prev-btn');
 
   const SLIDES_COUNT = slides.length;
-  const CODE_LEFT_ARROW = 'ArrowLeft';
-  const CODE_RIGHT_ARROW = 'ArrowRight';
+  const CODE_ARROW_LEFT = 'ArrowLeft';
+  const CODE_ARROW_RIGHT = 'ArrowRight';
   const CODE_SPACE = 'Space';
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
@@ -74,8 +74,8 @@
 
   // set keyboard controls
   const pressKey = (e) => {
-    if (e.code === CODE_LEFT_ARROW) prev();
-    if (e.code === CODE_RIGHT_ARROW) next();
+    if (e.code === CODE_ARROW_LEFT) prev();
+    if (e.code === CODE_ARROW_RIGHT) next();
     if (e.code === CODE_SPACE) pausePlay();
   };
 
