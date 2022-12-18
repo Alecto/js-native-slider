@@ -81,27 +81,32 @@
 
   // add swipe support
   const swipeStart = (e) => {
-    if (e instanceof MouseEvent) {
-      startPosX = e.pageX;
-
-      return;
-    }
-
-    if (e instanceof TouchEvent) {
-      startPosX = e.changedTouches[0].pageX;
-    }
+    // if (e instanceof MouseEvent) {
+    //   startPosX = e.pageX;
+    //   return;
+    // }
+    //
+    // if (e instanceof TouchEvent) {
+    //   startPosX = e.changedTouches[0].pageX;
+    // }
+    startPosX = e instanceof MouseEvent
+        ? e.pageX // MouseEvent
+        : e.changedTouches[0].pageX; // TouchEvent
   };
 
   // add swipe support
   function swipeEnd(e) {
-    if (e instanceof MouseEvent) {
-      endPosX = e.pageX;
-    } else if (e instanceof TouchEvent) {
-      endPosX = e.changedTouches[0].pageX;
-    }
+    // if (e instanceof MouseEvent) {
+    //   endPosX = e.pageX;
+    // } else if (e instanceof TouchEvent) {
+    //   endPosX = e.changedTouches[0].pageX;
+    // }
+    endPosX = e instanceof MouseEvent
+        ? e.pageX // MouseEvent
+        : e.changedTouches[0].pageX; // TouchEvent
 
-    if (endPosX - startPosX > -100) prev();
-    if (endPosX - startPosX < 100) next();
+    if (endPosX - startPosX > 100) prev();
+    if (endPosX - startPosX < -100) next();
   }
 
   // listeners activation
