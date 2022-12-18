@@ -8,22 +8,30 @@ class SwipeCarousel extends Carousel {
     this.slidesContainer = this.slideItems[0].parentElement;
   }
 
+  /* private, _initListeners function */
   _initListeners() {
-    super._initListeners(); // в классе-потомке можно вызвать метод родительского класса с помощью super.имяМетодаРодителя().
+    super._initListeners();
     this.container.addEventListener('touchstart', this._swipeStart.bind(this));
+    this.slidesContainer.addEventListener('mousedown', this._swipeStart.bind(this));
     this.container.addEventListener('touchend', this._swipeEnd.bind(this));
+    this.slidesContainer.addEventListener('mouseup', this._swipeEnd.bind(this));
   }
 
   /* private, _swipeStart function */
   _swipeStart(e) {
-    this.swipeStartX = e.changedTouches[0].pageX;
+    this.startPosX = e instanceof MouseEvent
+        ? e.pageX
+        : e.changedTouches[0].pageX;
   }
 
   /* private, _swipeEnd function */
   _swipeEnd(e) {
-    this.swipeEndX = e.changedTouches[0].pageX;
-    this.swipeStartX - this.swipeEndX > 100 && this.next();
-    this.swipeStartX - this.swipeEndX < -100 && this.prev();
+    this.endPosX = e instanceof MouseEvent
+        ? e.pageX
+        : e.changedTouches[0].pageX;
+
+    if (this.endPosX - this.startPosX > 100) this.prev();
+    if (this.endPosX - this.startPosX < -100) this.next();
   }
 }
 

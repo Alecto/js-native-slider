@@ -32,14 +32,18 @@ class Carousel {
    *   isPlaying: true
    * };
    *
-   * if (typeof objectWithInnerParams !== 'undefined') {
-   *   defaultSettings.containerID = objectWithInnerParams.containerID || defaultSettings.containerID;
-   *   defaultSettings.interval = objectWithInnerParams.interval || defaultSettings.interval;
-   *   defaultSettings.slideID = objectWithInnerParams.slideID || defaultSettings.slideID;
-   *   defaultSettings.isPlaying = objectWithInnerParams.isPlaying ?? defaultSettings.isPlaying;
+   * const resultObject = {};
+   *
+   * if (typeof objectWithInnerParams === 'undefined') {
+   *   return defaultSetting;
    * }
    *
-   * return defaultSettings;
+   * resultObject.containerID = objectWithInnerParams.containerID || defaultSetting.containerID;
+   * resultObject.slideID = objectWithInnerParams.slideID || defaultSetting.slideID;
+   * resultObject.interval = objectWithInnerParams.interval || defaultSetting.interval;
+   * resultObject.isPlaying = objectWithInnerParams.isPlaying || defaultSetting.isPlaying;
+   *
+   * return resultObject;
    *
    *
    * Вариант 2
