@@ -2,7 +2,7 @@
   const container = document.querySelector('#carousel');
   const slides = container.querySelectorAll('.slide');
   const indicatorsContainer = container.querySelector('#indicators-container');
-  const indicators = indicatorsContainer.querySelectorAll('.indicator');
+  const indicatorItems = indicatorsContainer.querySelectorAll('.indicator');
   const controlsContainer = container.querySelector('#controls-container');
   const pauseBtn = controlsContainer.querySelector('#pause-btn');
   const nextBtn = controlsContainer.querySelector('#next-btn');
@@ -25,10 +25,10 @@
   // carousel basic engine
   const gotoNth = (n) => {
     slides[currentSlide].classList.toggle('active');
-    indicators[currentSlide].classList.toggle('active');
+    indicatorItems[currentSlide].classList.toggle('active');
     currentSlide = (n + SLIDES_COUNT) % SLIDES_COUNT;
     slides[currentSlide].classList.toggle('active');
-    indicators[currentSlide].classList.toggle('active');
+    indicatorItems[currentSlide].classList.toggle('active');
   };
 
   const gotoPrev = () => gotoNth(currentSlide - 1);
