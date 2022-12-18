@@ -54,7 +54,7 @@ Carousel.prototype = {
 
     indicators.setAttribute('class', 'indicators');
 
-    for (let i = 0, n = this.SLIDES_COUNT; i < n; i++) {
+    for (let i = 0; i < this.SLIDES_COUNT; i++) {
       const indicator = document.createElement('div');
 
       indicator.setAttribute('class', i !== 0 ? 'indicator' : 'indicator active');
@@ -64,8 +64,8 @@ Carousel.prototype = {
 
     this.container.append(indicators);
 
-    this.indContainer = this.container.querySelector('.indicators');
-    this.indItems = this.container.querySelectorAll('.indicator');
+    this.indicatorsContainer = this.container.querySelector('.indicators');
+    this.indicatorItems = this.container.querySelectorAll('.indicator');
   },
 
   /* private, _initListeners - set events to the elements */
@@ -74,16 +74,16 @@ Carousel.prototype = {
     this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
     this.nextBtn.addEventListener('click', this.next.bind(this));
     this.prevBtn.addEventListener('click', this.prev.bind(this));
-    this.indContainer.addEventListener('click', this._indicate.bind(this));
+    this.indicatorsContainer.addEventListener('click', this._indicate.bind(this));
   },
 
   /* private, _gotoNth */
   _gotoNth: function (n) {
     this.slideItems[this.currentSlide].classList.toggle('active');
-    this.indItems[this.currentSlide].classList.toggle('active');
+    this.indicatorItems[this.currentSlide].classList.toggle('active');
     this.currentSlide = (n + this.SLIDES_COUNT) % this.SLIDES_COUNT;
     this.slideItems[this.currentSlide].classList.toggle('active');
-    this.indItems[this.currentSlide].classList.toggle('active');
+    this.indicatorItems[this.currentSlide].classList.toggle('active');
   },
 
   /* private, _gotoNext */

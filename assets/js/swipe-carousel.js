@@ -25,26 +25,17 @@ SwipeCarousel.prototype._initListeners = function () {
 
 /* private, _swipeStart */
 SwipeCarousel.prototype._swipeStart = function (e) {
-  if (e instanceof MouseEvent) {
-    this.startPosX = e.pageX;
-
-    return;
-  }
-
-  if (e instanceof TouchEvent) {
-    this.startPosX = e.changedTouches[0].pageX;
-  }
+  this.startPosX = e instanceof MouseEvent
+      ? e.pageX
+      : e.changedTouches[0].pageX;
 };
-
 
 /* private, _swipeEnd */
 SwipeCarousel.prototype._swipeEnd = function (e) {
-  if (e instanceof MouseEvent) {
-    this.endPosX = e.pageX;
-  } else if (e instanceof TouchEvent) {
-    this.endPosX = e.changedTouches[0].pageX;
-  }
+  this.endPosX = e instanceof MouseEvent
+      ? e.pageX
+      : e.changedTouches[0].pageX;
 
-  if (this.endPosX - this.startPosX > -100) this.prev();
-  if (this.endPosX - this.startPosX < 100) this.next();
+  if (this.endPosX - this.startPosX > 100) this.prev();
+  if (this.endPosX - this.startPosX < -100) this.next();
 };
