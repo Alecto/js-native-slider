@@ -35,6 +35,11 @@
 
   const gotoNext = () => gotoNth(currentSlide + 1);
 
+  // tick -> setInterval
+  function tick() {
+    timerID = setInterval(gotoNext, interval);
+  }
+
   // controls
   const pause = () => {
     if (isPlaying) {
@@ -47,7 +52,7 @@
   const play = () => {
     pauseBtn.innerHTML = FA_PAUSE;
     isPlaying = !isPlaying;
-    timerID = setInterval(gotoNext, interval);
+    tick();
   };
 
   const pausePlay = () => isPlaying ? pause() : play();
@@ -123,11 +128,11 @@
   };
 
   // activate controls, if javascript is enabled
-  const init = () => {
+  const initApp = () => {
     initListeners();
-    timerID = setInterval(gotoNext, interval);
+    tick();
   };
 
-  init();
+  initApp();
 
 }(2000));
