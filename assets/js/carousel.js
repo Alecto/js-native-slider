@@ -38,6 +38,7 @@ Carousel.prototype = {
     const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
     const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
 
+    controls.setAttribute('id', 'controls-container');
     controls.setAttribute('class', 'controls');
     controls.innerHTML = PAUSE + PREV + NEXT;
 

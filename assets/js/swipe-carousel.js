@@ -17,9 +17,9 @@ SwipeCarousel.prototype.constructor = SwipeCarousel;
 /* private, _initListeners - set events to the elements */
 SwipeCarousel.prototype._initListeners = function () {
   Carousel.prototype._initListeners.apply(this);
-  this.container.addEventListener('touchstart', this._swipeStart.bind(this));
+  this.slidesContainer.addEventListener('touchstart', this._swipeStart.bind(this));
   this.slidesContainer.addEventListener('mousedown', this._swipeStart.bind(this));
-  this.container.addEventListener('touchend', this._swipeEnd.bind(this));
+  this.slidesContainer.addEventListener('touchend', this._swipeEnd.bind(this));
   this.slidesContainer.addEventListener('mouseup', this._swipeEnd.bind(this));
 };
 
