@@ -158,6 +158,7 @@ class Carousel {
       this._playVisible();
       this.isPlaying = false;
       clearInterval(this.timerID);
+      this.timerID = null;
     }
   }
 
@@ -190,6 +191,8 @@ class Carousel {
   /* private, _tick function */
   _tick(flag = true) {
     if (!flag) return;
+    if (this.timerID) return;
+
     this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
 
