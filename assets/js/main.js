@@ -41,7 +41,7 @@
   }
 
   // controls
-  const pause = () => {
+  const pauseHandler = () => {
     if (isPlaying) {
       pauseBtn.innerHTML = FA_PLAY;
       isPlaying = !isPlaying;
@@ -49,21 +49,21 @@
     }
   };
 
-  const play = () => {
+  const playHandler = () => {
     pauseBtn.innerHTML = FA_PAUSE;
     isPlaying = !isPlaying;
     tick();
   };
 
-  const pausePlay = () => isPlaying ? pause() : play();
+  const pausePlayHandler = () => isPlaying ? pauseHandler() : playHandler();
 
-  const prev = () => {
-    pause();
+  const prevHandler = () => {
+    pauseHandler();
     gotoPrev();
   };
 
-  const next = () => {
-    pause();
+  const nextHandler = () => {
+    pauseHandler();
     gotoNext();
   };
 
@@ -72,16 +72,16 @@
     const target = e.target;
 
     if (target && target.classList.contains('indicator')) {
-      pause();
+      pauseHandler();
       gotoNth(+target.dataset.slideTo);
     }
   };
 
   // set keyboard controls
   const pressKey = (e) => {
-    if (e.code === CODE_ARROW_LEFT) prev();
-    if (e.code === CODE_ARROW_RIGHT) next();
-    if (e.code === CODE_SPACE) pausePlay();
+    if (e.code === CODE_ARROW_LEFT) prevHandler();
+    if (e.code === CODE_ARROW_RIGHT) nextHandler();
+    if (e.code === CODE_SPACE) pausePlayHandler();
   };
 
   // add swipe support
@@ -110,15 +110,15 @@
         ? e.pageX // MouseEvent
         : e.changedTouches[0].pageX; // TouchEvent
 
-    if (endPosX - startPosX > 100) prev();
-    if (endPosX - startPosX < -100) next();
+    if (endPosX - startPosX > 100) prevHandler();
+    if (endPosX - startPosX < -100) nextHandler();
   }
 
   // listeners activation
   const initListeners = () => {
-    pauseBtn.addEventListener('click', pausePlay);
-    nextBtn.addEventListener('click', next);
-    prevBtn.addEventListener('click', prev);
+    pauseBtn.addEventListener('click', pausePlayHandler);
+    nextBtn.addEventListener('click', nextHandler);
+    prevBtn.addEventListener('click', prevHandler);
     indicatorsContainer.addEventListener('click', indicate);
     container.addEventListener('touchstart', swipeStart);
     container.addEventListener('mousedown', swipeStart);
