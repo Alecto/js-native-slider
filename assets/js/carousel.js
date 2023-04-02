@@ -183,6 +183,7 @@ class Carousel {
 
   /* private, _keyPress function */
   _keyPress(e) {
+    e.preventDefault();
     if (e.code === this.CODE_LEFT_ARROW) this.prev();
     if (e.code === this.CODE_RIGHT_ARROW) this.next();
     if (e.code === this.CODE_SPACE) this.pausePlay();
