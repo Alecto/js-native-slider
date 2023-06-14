@@ -58,7 +58,7 @@ Carousel.prototype = {
     for (let i = 0; i < this.SLIDES_COUNT; i++) {
       const indicator = document.createElement('div');
 
-      indicator.setAttribute('class', i === 0 ? 'indicator active' : 'indicator'));
+      indicator.setAttribute('class', i ? 'indicator' : 'indicator active');
       indicator.dataset.slideTo = `${i}`;
       indicators.append(indicator);
     }
