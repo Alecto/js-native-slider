@@ -190,9 +190,9 @@ class Carousel {
   }
 
   /* private, _tick function */
-  _tick(flag = true) {
-    if (!flag) return;
-    if (this.timerID) return;
+  _tick() {
+    if (!this.isPlaying) return
+    if (this.timerID) return
 
     this.timerID = setInterval(() => this._gotoNext(), this.interval);
   }
@@ -231,7 +231,7 @@ class Carousel {
     this._initControls();
     this._initIndicators();
     this._initListeners();
-    this._tick(this.isPlaying);
+    this._tick();
   }
 }
 
