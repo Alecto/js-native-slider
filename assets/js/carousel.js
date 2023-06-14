@@ -112,7 +112,7 @@ class Carousel {
     for (let i = 0, n = this.SLIDES_COUNT; i < n; i++) {
       let indicator = document.createElement('li');
 
-      indicator.setAttribute('class', i !== 0 ? 'indicator' : 'indicator active');
+      indicator.setAttribute('class', i ? 'indicator' : 'indicator active');
       indicator.dataset.slideTo = `${i}`;
       indicators.append(indicator);
     }
@@ -200,7 +200,7 @@ class Carousel {
   /* private, _pauseVisible function */
   _pauseVisible(isVisible = true) {
     this.pauseIcon.style.opacity = isVisible ?  1 : 0;
-    this.playIcon.style.opacity = !isVisible ? 1 : 0;
+    this.playIcon.style.opacity = isVisible ? 0 : 1;
   }
 
   /* private, _playVisible function */
