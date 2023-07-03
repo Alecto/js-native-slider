@@ -1,4 +1,4 @@
-(function (time) {
+(function () {
   const container = document.querySelector('#carousel');
   const slides = container.querySelectorAll('.slide');
   const indicatorsContainer = container.querySelector('#indicators-container');
@@ -14,78 +14,86 @@
   const CODE_SPACE = 'Space';
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
+  const INTERVAL = 2000;
 
   let currentSlide = 0;
   let isPlaying = true;
   let timerID = null;
   let startPosX = null;
   let endPosX = null;
-  let interval = time;
 
   // carousel basic engine
-  const gotoNth = (n) => {
+  function gotoNth (n) {
     slides[currentSlide].classList.toggle('active');
     indicatorItems[currentSlide].classList.toggle('active');
     currentSlide = (n + SLIDES_COUNT) % SLIDES_COUNT;
     slides[currentSlide].classList.toggle('active');
     indicatorItems[currentSlide].classList.toggle('active');
-  };
+  }
 
-  const gotoPrev = () => gotoNth(currentSlide - 1);
+  function gotoPrev() {
+    gotoNth(currentSlide - 1)
+  }
 
-  const gotoNext = () => gotoNth(currentSlide + 1);
+  function gotoNext() {
+    gotoNth(currentSlide + 1)
+  }
 
   // tick -> setInterval
   function tick() {
-    timerID = setInterval(gotoNext, interval);
+    timerID = setInterval(gotoNext, INTERVAL);
   }
 
   // controls
-  const pauseHandler = () => {
-    if (isPlaying) {
-      pauseBtn.innerHTML = FA_PLAY;
-      isPlaying = !isPlaying;
-      clearInterval(timerID);
-    }
-  };
+  function pauseHandler (){
+    if (!isPLaying) return
+    pauseBtn.innerHTML = FA_PLAY;
+    isPlaying = !isPlaying;
+    clearInterval(timerID);
+  }
 
-  const playHandler = () => {
+  function playHandler () {
     pauseBtn.innerHTML = FA_PAUSE;
     isPlaying = !isPlaying;
     tick();
-  };
+  }
 
-  const pausePlayHandler = () => isPlaying ? pauseHandler() : playHandler();
+  function pausePlayHandler() {
+    if (isPLaying) pauseHandler()
+    else playHandler()
+  }
 
-  const prevHandler = () => {
+  function prevHandler () {
     pauseHandler();
     gotoPrev();
-  };
+  }
 
-  const nextHandler = () => {
+  function nextHandler () {
     pauseHandler();
     gotoNext();
-  };
+  }
 
   // indicators
-  const indicate = (e) => {
-    const target = e.target;
+  function indicate (e) {
+    const { target } = e
 
     if (target && target.classList.contains('indicator')) {
       pauseHandler();
       gotoNth(+target.dataset.slideTo);
     }
-  };
+  }
 
   // set keyboard controls
-  const pressKey = (e) => {
-    if (e.code === CODE_ARROW_LEFT) prevHandler();
-    if (e.code === CODE_ARROW_RIGHT) nextHandler();
-    if (e.code === CODE_SPACE) pausePlayHandler();
-  };
+  function pressKey (e) {
+    const { code } = e
+
+    if (code === CODE_ARROW_LEFT) prevHandler();
+    if (code === CODE_ARROW_RIGHT) nextHandler();
+    if (code === CODE_SPACE) pausePlayHandler();
+  }
 
   // add swipe support
-  const swipeStart = (e) => {
+  function swipeStart (e) {
     // if (e instanceof MouseEvent) {
     //   startPosX = e.pageX;
     //   return;
@@ -97,7 +105,7 @@
     startPosX = e instanceof MouseEvent
         ? e.pageX // MouseEvent
         : e.changedTouches[0].pageX; // TouchEvent
-  };
+  }
 
   // add swipe support
   function swipeEnd(e) {
@@ -115,7 +123,7 @@
   }
 
   // listeners activation
-  const initListeners = () => {
+  function initListeners () {
     pauseBtn.addEventListener('click', pausePlayHandler);
     nextBtn.addEventListener('click', nextHandler);
     prevBtn.addEventListener('click', prevHandler);
@@ -125,14 +133,14 @@
     container.addEventListener('touchend', swipeEnd);
     container.addEventListener('mouseup', swipeEnd);
     document.addEventListener('keydown', pressKey);
-  };
+  }
 
   // activate controls, if javascript is enabled
-  const initApp = () => {
+  function init () {
     initListeners();
     tick();
-  };
+  }
 
-  initApp();
+  init();
 
-}(2000));
+}());
