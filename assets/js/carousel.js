@@ -97,28 +97,12 @@ Carousel.prototype = {
     this._gotoNth(this.currentSlide + 1);
   },
 
-  /* private, _pause */
-  _pause: function () {
-    if (this.isPlaying) {
-      this.pauseBtn.innerHTML = this.FA_PLAY;
-      this.isPlaying = !this.isPlaying;
-      clearInterval(this.timerID);
-    }
-  },
-
-  /* private, _play */
-  _play: function () {
-    this.pauseBtn.innerHTML = this.FA_PAUSE;
-    this.isPlaying = !this.isPlaying;
-    this._tick();
-  },
-
   /* private, _indicate */
   _indicate: function (e) {
     let target = e.target;
 
     if (target && target.classList.contains('indicator')) {
-      this._pause();
+      this.pause();
       this._gotoNth(+target.dataset.slideTo);
     }
   },
@@ -135,20 +119,36 @@ Carousel.prototype = {
     this.timerID = setInterval(() => this._gotoNext(), this.interval);
   },
 
+  /* public, _pause */
+  pause: function () {
+    if (this.isPlaying) {
+      this.pauseBtn.innerHTML = this.FA_PLAY;
+      this.isPlaying = !this.isPlaying;
+      clearInterval(this.timerID);
+    }
+  },
+
+  /* public, _play */
+  play: function () {
+    this.pauseBtn.innerHTML = this.FA_PAUSE;
+    this.isPlaying = !this.isPlaying;
+    this._tick();
+  },
+
   /* public, pausePlay */
   pausePlay: function () {
-    this.isPlaying ? this._pause() : this._play();
+    this.isPlaying ? this.pause() : this.play();
   },
 
   /* public, next */
   next: function () {
-    this._pause();
+    this.pause();
     this._gotoNext();
   },
 
   /* public, prev */
   prev: function () {
-    this._pause();
+    this.pause();
     this._gotoPrev();
   },
 
