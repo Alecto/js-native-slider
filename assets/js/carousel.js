@@ -129,8 +129,8 @@ class Carousel {
     this.nextBtn.addEventListener('click', this.next.bind(this));
     this.prevBtn.addEventListener('click', this.prev.bind(this));
     this.indicatorsContainer.addEventListener('click', this._indicate.bind(this));
-    this.container.addEventListener('mouseenter', this._pause.bind(this));
-    this.container.addEventListener('mouseleave', this._play.bind(this));
+    this.container.addEventListener('mouseenter', this.pause.bind(this));
+    this.container.addEventListener('mouseleave', this.play.bind(this));
   }
 
   /* private, _gotoNth function */
@@ -152,31 +152,12 @@ class Carousel {
     this._gotoNth(this.currentSlide - 1);
   }
 
-  /* private, _pause function */
-  _pause() {
-    if (this.isPlaying) {
-      this._playVisible();
-      this.isPlaying = false;
-      clearInterval(this.timerID);
-      this.timerID = null;
-    }
-  }
-
-  /* private, _play function */
-  _play() {
-    if (!this.isPlaying) {
-      this._pauseVisible();
-      this.isPlaying = true;
-      this._tick();
-    }
-  }
-
   /* private,  _indicate function */
   _indicate(e) {
     let target = e.target;
 
     if (target && target.matches('li.indicator')) {
-      this._pause();
+      this.pause();
       this._gotoNth(+target.dataset.slideTo);
     }
   }
@@ -210,18 +191,35 @@ class Carousel {
 
   /* public, pausePlay function */
   pausePlay() {
-    this.isPlaying ? this._pause() : this._play();
+    this.isPlaying ? this.pause() : this.play();
+  }
+
+  /* public, _pause function */
+  pause() {
+    if (!this.isPLaying) return
+    this._playVisible();
+    this.isPlaying = false;
+    clearInterval(this.timerID);
+    this.timerID = null;
+  }
+
+  /* public, _play function */
+  play() {
+    if (this.isPLaying) return
+    this._pauseVisible();
+    this.isPlaying = true;
+    this._tick();
   }
 
   /* public, next function */
   next() {
-    this._pause();
+    this.pause();
     this._gotoNext();
   }
 
   /* public, prev function */
   prev() {
-    this._pause();
+    this.pause();
     this._gotoPrev();
   }
 
