@@ -53,6 +53,7 @@ Carousel.prototype = {
   _initIndicators: function () {
     const indicators = document.createElement('div');
 
+    indicators.setAttribute('id', 'indicators-container')
     indicators.setAttribute('class', 'indicators');
 
     for (let i = 0; i < this.SLIDES_COUNT; i++) {
