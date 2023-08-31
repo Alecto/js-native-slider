@@ -74,7 +74,7 @@
   }
 
   // indicators
-  function indicate (e) {
+  function indicateHandler (e) {
     const { target } = e
 
     if (target && target.classList.contains('indicator')) {
@@ -86,7 +86,7 @@
   // set keyboard controls
   function pressKey (e) {
     const { code } = e
-
+    e.preventDefault()
     if (code === CODE_ARROW_LEFT) prevHandler();
     if (code === CODE_ARROW_RIGHT) nextHandler();
     if (code === CODE_SPACE) pausePlayHandler();
@@ -127,7 +127,7 @@
     pauseBtn.addEventListener('click', pausePlayHandler);
     nextBtn.addEventListener('click', nextHandler);
     prevBtn.addEventListener('click', prevHandler);
-    indicatorsContainer.addEventListener('click', indicate);
+    indicatorsContainer.addEventListener('click', indicateHandler);
     container.addEventListener('touchstart', swipeStart);
     container.addEventListener('mousedown', swipeStart);
     container.addEventListener('touchend', swipeEnd);
