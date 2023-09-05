@@ -124,11 +124,11 @@ class Carousel {
 
   /* private, _addElemListener - adding events to the elements */
   _initListeners() {
-    document.addEventListener('keydown', this._keyPress.bind(this));
+    document.addEventListener('keydown', this._pressKey.bind(this));
     this.pauseBtn.addEventListener('click', this.pausePlay.bind(this));
     this.nextBtn.addEventListener('click', this.next.bind(this));
     this.prevBtn.addEventListener('click', this.prev.bind(this));
-    this.indicatorsContainer.addEventListener('click', this._indicate.bind(this));
+    this.indicatorsContainer.addEventListener('click', this._indicateHandler.bind(this));
     this.container.addEventListener('mouseenter', this.pause.bind(this));
     this.container.addEventListener('mouseleave', this.play.bind(this));
   }
@@ -153,7 +153,7 @@ class Carousel {
   }
 
   /* private,  _indicate function */
-  _indicate(e) {
+  _indicateHandler(e) {
     let target = e.target;
 
     if (target && target.matches('li.indicator')) {
@@ -163,7 +163,7 @@ class Carousel {
   }
 
   /* private, _keyPress function */
-  _keyPress(e) {
+  _pressKey(e) {
     e.preventDefault();
     if (e.code === this.CODE_LEFT_ARROW) this.prev();
     if (e.code === this.CODE_RIGHT_ARROW) this.next();
