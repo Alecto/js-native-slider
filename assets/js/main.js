@@ -46,7 +46,7 @@
 
   // controls
   function pauseHandler (){
-    if (!isPLaying) return
+    if (!isPlaying) return
     pauseBtn.innerHTML = FA_PLAY;
     isPlaying = !isPlaying;
     clearInterval(timerID);
@@ -59,7 +59,7 @@
   }
 
   function pausePlayHandler() {
-    if (isPLaying) pauseHandler()
+    if (isPlaying) pauseHandler()
     else playHandler()
   }
 
