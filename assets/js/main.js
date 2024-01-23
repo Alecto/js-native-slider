@@ -59,8 +59,7 @@
   }
 
   function pausePlayHandler() {
-    if (isPlaying) pauseHandler()
-    else playHandler()
+    isPlaying ? pauseHandler() : playHandler()
   }
 
   function prevHandler () {
