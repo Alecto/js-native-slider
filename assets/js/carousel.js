@@ -196,7 +196,7 @@ class Carousel {
 
   /* public, _pause function */
   pause() {
-    if (!this.isPLaying) return
+    if (!this.isPlaying) return
     this._playVisible();
     this.isPlaying = false;
     clearInterval(this.timerID);
@@ -205,7 +205,7 @@ class Carousel {
 
   /* public, _play function */
   play() {
-    if (this.isPLaying) return
+    if (this.isPlaying) return
     this._pauseVisible();
     this.isPlaying = true;
     this._tick();
