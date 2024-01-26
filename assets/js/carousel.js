@@ -72,10 +72,10 @@ class Carousel {
     this.CODE_SPACE = 'Space';
     this.CODE_LEFT_ARROW = 'ArrowLeft';
     this.CODE_RIGHT_ARROW = 'ArrowRight';
-    this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
-    this.FA_PLAY = '<i class="far fa-play-circle"></i>';
-    this.FA_PREV = '<i class="fas fa-angle-left"></i>';
-    this.FA_NEXT = '<i class="fas fa-angle-right"></i>';
+    this.FA_PAUSE = '<i class="fa-regular fa-pause-circle"></i>';
+    this.FA_PLAY = '<i class="fa-regular fa-play-circle"></i>';
+    this.FA_PREV = '<i class="fa-solid fa-angle-left"></i>';
+    this.FA_NEXT = '<i class="fa-solid fa-angle-right"></i>';
   }
 
   /* private, _initControls - dynamic creation of controls */
