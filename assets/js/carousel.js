@@ -34,7 +34,7 @@ class Carousel {
    *
    * const resultObject = {};
    *
-   * if (typeof objectWithInnerParams === 'undefined') {
+   * if (objectWithInitParams === undefined) {
    *   return defaultSetting;
    * }
    *
