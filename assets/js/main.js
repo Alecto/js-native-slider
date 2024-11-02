@@ -83,16 +83,19 @@
   }
 
   // set keyboard controls
-  function pressKey (e) {
+  function pressKeyHandler (e) {
     const { code } = e
     e.preventDefault()
     if (code === CODE_ARROW_LEFT) prevHandler();
     if (code === CODE_ARROW_RIGHT) nextHandler();
-    if (code === CODE_SPACE) pausePlayHandler();
+    if (code === CODE_SPACE) {
+      e.preventDefault()
+      pausePlayHandler()
+    }
   }
 
   // add swipe support
-  function swipeStart (e) {
+  function swipeStartHandler (e) {
     // if (e instanceof MouseEvent) {
     //   startPosX = e.pageX;
     //   return;
@@ -107,7 +110,7 @@
   }
 
   // add swipe support
-  function swipeEnd(e) {
+  function swipeEndHandler(e) {
     // if (e instanceof MouseEvent) {
     //   endPosX = e.pageX;
     // } else if (e instanceof TouchEvent) {
@@ -127,11 +130,11 @@
     nextBtn.addEventListener('click', nextHandler);
     prevBtn.addEventListener('click', prevHandler);
     indicatorsContainer.addEventListener('click', indicateHandler);
-    container.addEventListener('touchstart', swipeStart);
-    container.addEventListener('mousedown', swipeStart);
-    container.addEventListener('touchend', swipeEnd);
-    container.addEventListener('mouseup', swipeEnd);
-    document.addEventListener('keydown', pressKey);
+    container.addEventListener('touchstart', swipeStartHandler);
+    container.addEventListener('mousedown', swipeStartHandler);
+    container.addEventListener('touchend', swipeEndHandler);
+    container.addEventListener('mouseup', swipeEndHandler);
+    document.addEventListener('keydown', pressKeyHandler);
   }
 
   // activate controls, if javascript is enabled
