@@ -2,7 +2,7 @@
 /* sub Class: SwipeCarousel */
 function SwipeCarousel() {
   Carousel.apply(this, arguments);
-  this.slidesContainer = this.container.querySelector('.slides');
+  this.slidesContainer = this.container.querySelector('#slides-container');
 }
 
 /*
