@@ -1,4 +1,5 @@
 (function () {
+
   const container = document.querySelector('#carousel');
   const slides = container.querySelectorAll('.slide');
   const indicatorsContainer = container.querySelector('#indicators-container');
@@ -14,7 +15,7 @@
   const CODE_SPACE = 'Space';
   const FA_PAUSE = '<i class="far fa-pause-circle"></i>';
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
-  const INTERVAL = 2000;
+  const TIMER_INTERVAL = 2000;
 
   let currentSlide = 0;
   let isPlaying = true;
@@ -41,7 +42,7 @@
 
   // tick -> setInterval
   function tick() {
-    timerID = setInterval(gotoNext, INTERVAL);
+    timerID = setInterval(gotoNext, TIMER_INTERVAL);
   }
 
   // controls
@@ -85,7 +86,6 @@
   // set keyboard controls
   function pressKeyHandler (e) {
     const { code } = e
-    e.preventDefault()
     if (code === CODE_ARROW_LEFT) prevHandler();
     if (code === CODE_ARROW_RIGHT) nextHandler();
     if (code === CODE_SPACE) {
@@ -97,28 +97,28 @@
   // add swipe support
   function swipeStartHandler (e) {
     // if (e instanceof MouseEvent) {
-    //   startPosX = e.pageX;
+    //   startPosX = e.clientX;
     //   return;
     // }
     //
     // if (e instanceof TouchEvent) {
-    //   startPosX = e.changedTouches[0].pageX;
+    //   startPosX = e.changedTouches[0].clientX;
     // }
     startPosX = e instanceof MouseEvent
-        ? e.pageX // MouseEvent
-        : e.changedTouches[0].pageX; // TouchEvent
+        ? e.clientX // MouseEvent
+        : e.changedTouches[0].clientX; // TouchEvent
   }
 
   // add swipe support
   function swipeEndHandler(e) {
     // if (e instanceof MouseEvent) {
-    //   endPosX = e.pageX;
+    //   endPosX = e.clientX;
     // } else if (e instanceof TouchEvent) {
-    //   endPosX = e.changedTouches[0].pageX;
+    //   endPosX = e.changedTouches[0].clientX;
     // }
     endPosX = e instanceof MouseEvent
-        ? e.pageX // MouseEvent
-        : e.changedTouches[0].pageX; // TouchEvent
+        ? e.clientX // MouseEvent
+        : e.changedTouches[0].clientX; // TouchEvent
 
     if (endPosX - startPosX > 100) prevHandler();
     if (endPosX - startPosX < -100) nextHandler();
@@ -130,7 +130,7 @@
     nextBtn.addEventListener('click', nextHandler);
     prevBtn.addEventListener('click', prevHandler);
     indicatorsContainer.addEventListener('click', indicateHandler);
-    container.addEventListener('touchstart', swipeStartHandler);
+    container.addEventListener('touchstart', swipeStartHandler, { passive: true });
     container.addEventListener('mousedown', swipeStartHandler);
     container.addEventListener('touchend', swipeEndHandler);
     container.addEventListener('mouseup', swipeEndHandler);
