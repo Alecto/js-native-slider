@@ -7,9 +7,9 @@
  */
 
 /* super Class: Carousel */
-function Carousel(containerID = '#carousel', slideID = '.slide') {
-  this.container = document.querySelector(containerID);
-  this.slideItems = this.container.querySelectorAll(slideID);
+function Carousel(containerId = '#carousel', slideId = '.slide') {
+  this.container = document.querySelector(containerId);
+  this.slideItems = this.container.querySelectorAll(slideId);
 
   this.interval = 2000;
 }
