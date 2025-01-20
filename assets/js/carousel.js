@@ -10,13 +10,13 @@
 /* carousel Class */
 class Carousel {
   constructor(p) {
-    const settings = {...{containerID: '#carousel', interval: 5000, isPlaying: true, slideID: '.slide'}, ...p};
+    const settings = {...{containerId: '#carousel', interval: 5000, isPlaying: true, slideId: '.slide'}, ...p};
     // const settings = this._initConfig(params);
 
-    this.container = document.querySelector(settings.containerID);
-    this.slideItems = this.container.querySelectorAll(settings.slideID);
-    this.interval = settings.interval;
-    this.isPlaying = settings.isPlaying;
+    this.container = document.querySelector(settings.containerId);
+    this.slideItems = this.container.querySelectorAll(settings.slideId);
+    this.TIMER_INTERVAL = settings.interval;
+    this.isPlaying  = settings.isPlaying;
   }
 
   /*
@@ -173,9 +173,9 @@ class Carousel {
   /* private, _tick function */
   _tick() {
     if (!this.isPlaying) return
-    if (this.timerID) return
+    if (this.timerId) return
 
-    this.timerID = setInterval(() => this._gotoNext(), this.interval);
+    this.timerId = setInterval(() => this._gotoNext(), this.TIMER_INTERVAL);
   }
 
   /* private, _pauseVisible function */
@@ -199,7 +199,7 @@ class Carousel {
     if (!this.isPlaying) return
     this._playVisible();
     this.isPlaying = false;
-    clearInterval(this.timerID);
+    clearInterval(this.timerId);
     this.timerID = null;
   }
 
