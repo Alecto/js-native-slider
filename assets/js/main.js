@@ -1,5 +1,6 @@
 (function () {
 
+  // DOM elements selectors
   const container = document.querySelector('#carousel');
   const slides = container.querySelectorAll('.slide');
   const indicatorsContainer = container.querySelector('#indicators-container');
@@ -9,6 +10,7 @@
   const nextBtn = controlsContainer.querySelector('#next-btn');
   const prevBtn = controlsContainer.querySelector('#prev-btn');
 
+  // Constants for carousel functionality
   const SLIDES_COUNT = slides.length;
   const CODE_ARROW_LEFT = 'ArrowLeft';
   const CODE_ARROW_RIGHT = 'ArrowRight';
@@ -17,13 +19,14 @@
   const FA_PLAY = '<i class="far fa-play-circle"></i>';
   const TIMER_INTERVAL = 2000;
 
+  // Variables for carousel state
   let currentSlide = 0;
   let isPlaying = true;
   let timerID = null;
   let startPosX = null;
   let endPosX = null;
 
-  // carousel basic engine
+  // Carousel basic engine
   function gotoNth (n) {
     slides[currentSlide].classList.toggle('active');
     indicatorItems[currentSlide].classList.toggle('active');
@@ -40,12 +43,12 @@
     gotoNth(currentSlide + 1)
   }
 
-  // tick -> setInterval
+  // Tick -> setInterval
   function tick() {
     timerID = setInterval(gotoNext, TIMER_INTERVAL);
   }
 
-  // controls
+  // Controls
   function pauseHandler (){
     if (!isPlaying) return
     pauseBtn.innerHTML = FA_PLAY;
@@ -73,7 +76,7 @@
     gotoNext();
   }
 
-  // indicators
+  // Indicators
   function indicateHandler (e) {
     const { target } = e
 
@@ -83,7 +86,7 @@
     }
   }
 
-  // set keyboard controls
+  // Set keyboard controls
   function pressKeyHandler (e) {
     const { code } = e
     if (code === CODE_ARROW_LEFT) prevHandler();
@@ -94,7 +97,7 @@
     }
   }
 
-  // add swipe support
+  // Add swipe support
   function swipeStartHandler (e) {
     // if (e instanceof MouseEvent) {
     //   startPosX = e.clientX;
@@ -109,7 +112,7 @@
         : e.changedTouches[0].clientX; // TouchEvent
   }
 
-  // add swipe support
+  // Add swipe support
   function swipeEndHandler(e) {
     // if (e instanceof MouseEvent) {
     //   endPosX = e.clientX;
@@ -124,7 +127,7 @@
     if (endPosX - startPosX < -100) nextHandler();
   }
 
-  // listeners activation
+  // Listeners activation
   function initListeners () {
     pauseBtn.addEventListener('click', pausePlayHandler);
     nextBtn.addEventListener('click', nextHandler);
@@ -137,7 +140,7 @@
     document.addEventListener('keydown', pressKeyHandler);
   }
 
-  // activate controls, if javascript is enabled
+  // Activate controls, if javascript is enabled
   function init () {
     initListeners();
     tick();
