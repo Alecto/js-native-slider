@@ -1,43 +1,48 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Slider JS</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="libs/@fortawesome/fontawesome-free/css/all.min.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<div id="carousel" class="carousel">
+  <div id="carousel" class="carousel">
 
-  <div id="slides-container" class="slides">
-    <div class="slide active" style="background-image: url(assets/img/dubaj.jpg)"><!--<a href="#"></a>--></div>
-    <div class="slide" style="background-image: url(assets/img/goldengate.jpg)"><!--<a href="#"></a>--></div>
-    <div class="slide" style="background-image: url(assets/img/london.jpg)"><!--<a href="#"></a>--></div>
-    <div class="slide" style="background-image: url(assets/img/praga.jpg)"><!--<a href="#"></a>--></div>
-    <div class="slide" style="background-image: url(assets/img/sydney.jpg)"><!--<a href="#"></a>--></div>
+    <div id="slides-container" class="slides">
+      <div class="slide active" style="background-image: url(assets/img/dubaj.jpg)"></div>
+      <div class="slide" style="background-image: url(assets/img/goldengate.jpg)"></div>
+      <div class="slide" style="background-image: url(assets/img/london.jpg)"></div>
+      <div class="slide" style="background-image: url(assets/img/praga.jpg)"></div>
+      <div class="slide" style="background-image: url(assets/img/sydney.jpg)"></div>
+    </div>
+
+    <div id="controls-container" class="controls">
+      <span id="pause-btn" class="control control-pause"><i class="fas fa-pause-circle"></i></span>
+      <span id="prev-btn" class="control control-prev"><i class="fas fa-angle-left"></i></span>
+      <span id="next-btn" class="control control-next"><i class="fas fa-angle-right"></i></span>
+    </div>
+
+    <div id="indicators-container" class="indicators">
+      <div class="indicator active" data-slide-to="0"></div>
+      <div class="indicator" data-slide-to="1"></div>
+      <div class="indicator" data-slide-to="2"></div>
+      <div class="indicator" data-slide-to="3"></div>
+      <div class="indicator" data-slide-to="4"></div>
+    </div>
+
   </div>
 
-  <div id="controls-container" class="controls">
-    <span id="pause-btn" class="control control-pause"><i class="fas fa-pause-circle"></i></span>
-    <span id="prev-btn" class="control control-prev"><i class="fas fa-angle-left"></i></span>
-    <span id="next-btn" class="control control-next"><i class="fas fa-angle-right"></i></span>
-  </div>
+  <script src="assets/js/main.js"></script>
 
-  <div id="indicators-container" class="indicators">
-    <div class="indicator active" data-slide-to="0"></div>
-    <div class="indicator" data-slide-to="1"></div>
-    <div class="indicator" data-slide-to="2"></div>
-    <div class="indicator" data-slide-to="3"></div>
-    <div class="indicator" data-slide-to="4"></div>
-  </div>
-
-</div>
-
-<script src="assets/js/main.js"></script>
 </body>
+
 </html>
