@@ -4,7 +4,7 @@
 }
 
 html {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
 
@@ -12,18 +12,18 @@ body {
   margin: 0;
 }
 
-.fa-angle-left,
-.fa-angle-right {
+.fa-chevron-left,
+.fa-chevron-right {
   color: rgba(255, 255, 255, 0.4);
 
-  font-size: 40px;
+  font-size: 80px;
 }
 
-.fa-play-circle,
-.fa-pause-circle {
+.fa-play,
+.fa-pause {
   color: rgba(255, 255, 255, 0.4);
 
-  font-size: 40vh;
+  font-size: 20vh;
 }
 
 .slides {
@@ -100,10 +100,10 @@ body {
 }
 
 .control-pause {
-  top: calc(50% - 20vh);
-  left: calc(50% - 20vh);
+  top: calc(50% - 10vh);
+  left: calc(50% - 10vh);
 
-  height: 40vh;
+  height: 20vh;
   padding: 0;
 
   -webkit-transition: opacity 0.25s ease-out;
@@ -132,7 +132,13 @@ body {
 .control-prev:hover,
 .control-prev:focus {
   color: #ffffff;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0)));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgba(0, 0, 0, 0.8)),
+    to(rgba(0, 0, 0, 0))
+  );
   background: -o-linear-gradient(left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   text-shadow: 0 0 10px #ffffff;
@@ -147,7 +153,13 @@ body {
 .control-next:hover,
 .control-next:focus {
   color: #ffffff;
-  background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.8)), to(rgba(0, 0, 0, 0)));
+  background: -webkit-gradient(
+    linear,
+    right top,
+    left top,
+    from(rgba(0, 0, 0, 0.8)),
+    to(rgba(0, 0, 0, 0))
+  );
   background: -o-linear-gradient(right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   text-shadow: 0 0 10px #ffffff;
