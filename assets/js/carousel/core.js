@@ -92,8 +92,8 @@ class Carousel {
   }
 
   #initIndicators() {
-    let indicators = document.createElement('ol')
-
+    const indicators = document.createElement('ol')
+    indicators.setAttribute('id', ELEMENT_IDS.INDICATORS_CONTAINER)
     indicators.setAttribute('class', CSS_CLASSES.INDICATORS)
 
     for (let i = 0, n = this.#SLIDES_COUNT; i < n; i++) {
@@ -105,11 +105,12 @@ class Carousel {
     }
     this.container.append(indicators)
 
-    this.#indicatorsContainer = this.container.querySelector(`.${CSS_CLASSES.INDICATORS}`)
+    // this.#indicatorsContainer = this.container.querySelector(`.${CSS_CLASSES.INDICATORS}`)
+    this.#indicatorsContainer = this.container.querySelector(`#${ELEMENT_IDS.INDICATORS_CONTAINER}`)
     this.#indicatorItems = this.container.querySelectorAll(`.${CSS_CLASSES.INDICATOR}`)
   }
 
-  #initListeners() {
+  #initEventListeners() {
     document.addEventListener('keydown', this.#keydown.bind(this))
     this.#pauseBtn.addEventListener('click', this.pausePlay.bind(this))
     this.#nextBtn.addEventListener('click', this.next.bind(this))
@@ -144,9 +145,9 @@ class Carousel {
   /* ========== PRIVATE EVENT HANDLERS ========== */
 
   #indicatorClick(e) {
-    let target = e.target
+    const target = e.target
 
-    if (target && target.matches(`li.${CSS_CLASSES.INDICATOR}`)) {
+    if (target && target.classList.contains(CSS_CLASSES.INDICATOR)) {
       this.pause()
       this.#gotoNth(+target.dataset.slideTo)
     }
@@ -220,7 +221,7 @@ class Carousel {
     this.#initProps()
     this.#initControls()
     this.#initIndicators()
-    this.#initListeners()
+    this.#initEventListeners()
     this.#tick()
   }
 }
