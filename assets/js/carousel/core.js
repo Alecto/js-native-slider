@@ -145,7 +145,7 @@ class Carousel {
   /* ========== PRIVATE EVENT HANDLERS ========== */
 
   #indicatorClick(e) {
-    const target = e.target
+    const { target } = e
 
     if (target && target.classList.contains(CSS_CLASSES.INDICATOR)) {
       this.pause()
@@ -154,17 +154,16 @@ class Carousel {
   }
 
   #keydown(e) {
+    const { code } = e
     // Перевіряємо, чи натиснута клавіша використовується карусельою
-    const isCarouselKey = [this.#CODE_LEFT_ARROW, this.#CODE_RIGHT_ARROW, this.#CODE_SPACE].includes(e.code)
+    const isCarouselKey = [this.#CODE_ARROW_LEFT, this.#CODE_ARROW_RIGHT, this.#CODE_SPACE].includes(code)
 
     // Відміняємо стандартну поведінку тільки для клавіш карусельки
     if (isCarouselKey) {
       e.preventDefault()
-
-      // Обробляємо натискання відповідних клавіш
-      if (e.code === this.#CODE_LEFT_ARROW) this.prev()
-      if (e.code === this.#CODE_RIGHT_ARROW) this.next()
-      if (e.code === this.#CODE_SPACE) this.pausePlay()
+      if (code === this.#CODE_ARROW_LEFT) this.prev()
+      if (code === this.#CODE_ARROW_RIGHT) this.next()
+      if (code === this.#CODE_SPACE) this.pausePlay()
     }
   }
 
