@@ -17,6 +17,7 @@ const CODE_SPACE = 'Space'
 const FA_PAUSE = '<i class="fas fa-pause"></i>'
 const FA_PLAY = '<i class="fas fa-play"></i>'
 const TIMER_INTERVAL = 2000
+const SWIPE_THRESHOLD = 100
 
 // Variables for carousel state
 let currentSlide = 0
@@ -124,8 +125,10 @@ function swipeEndHandler(e) {
       ? e.clientX // MouseEvent
       : e.changedTouches[0].clientX // TouchEvent
 
-  if (swipeEndX - swipeStartX > 100) prevHandler()
-  if (swipeEndX - swipeStartX < -100) nextHandler()
+  const diffX = swipeEndX - swipeStartX
+
+  if (diffX > SWIPE_THRESHOLD) prevHandler()
+  if (diffX < -SWIPE_THRESHOLD) nextHandler()
 }
 
 // Listeners activation
