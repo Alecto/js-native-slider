@@ -11,6 +11,7 @@ Carousel.prototype = {
     this.CODE_ARROW_RIGHT = 'ArrowRight'
     this.SLIDES_COUNT = this.slides.length
     this.TIMER_INTERVAL = 2000
+    this.SWIPE_THRESHOLD = 100
 
     this.currentSlide = 0
     this.isPaused = true
@@ -58,7 +59,7 @@ Carousel.prototype = {
     this.pauseBtn.addEventListener('click', this.pausePlayHandler.bind(this))
     this.prevBtn.addEventListener('click', this.prevHandler.bind(this))
     this.nextBtn.addEventListener('click', this.nextHandler.bind(this))
-    this.indicatorsContainer.addEventListener('click', this.indicatorClickHandler.bind(this))
+    this.indicatorsContainer.addEventListener('click', this._indicatorClickHandler.bind(this))
     document.addEventListener('keydown', this._keydownHandler.bind(this))
   },
 
@@ -80,6 +81,14 @@ Carousel.prototype = {
 
   _tick() {
     this.timerId = setInterval(() => this._gotoNext(), this.TIMER_INTERVAL)
+  },
+
+  _indicatorClickHandler(e) {
+    const target = e.target
+    if (target.classList.contains('indicator')) {
+      this.pauseHandler()
+      this._gotoNth(+target.dataset.slideTo)
+    }
   },
 
   _keydownHandler(e) {
@@ -118,14 +127,6 @@ Carousel.prototype = {
     this._gotoNext()
   },
 
-  indicatorClickHandler(e) {
-    const target = e.target
-    if (target.classList.contains('indicator')) {
-      this.pauseHandler()
-      this._gotoNth(+target.dataset.slideTo)
-    }
-  },
-
   init() {
     this._initProps()
     this._initControls()
@@ -159,8 +160,10 @@ SwipeCarousel.prototype._swipeStartHandler = function (e) {
 SwipeCarousel.prototype._swipeEndHandler = function (e) {
   this.swipeEndX = e instanceof MouseEvent ? e.clientX : e.changedTouches[0].clientX
 
-  if (this.swipeEndX - this.swipeStartX > 100) this.prevHandler()
-  if (this.swipeEndX - this.swipeStartX < -100) this.nextHandler()
+  const diffX = this.swipeEndX - this.swipeStartX
+
+  if (diffX > this.SWIPE_THRESHOLD) this.prevHandler()
+  if (diffX < -this.SWIPE_THRESHOLD) this.nextHandler()
 }
 
 const carousel = new SwipeCarousel()
