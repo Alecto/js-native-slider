@@ -30,10 +30,18 @@ let swipeEndX = null
 function gotoNth(n) {
   slides[currentSlide].classList.toggle('active')
   indicators[currentSlide].classList.toggle('active')
+
+  // Reset the background color of the current slide
+  indicators[currentSlide].style.background = null
+
   currentSlide = (n + SLIDES_COUNT) % SLIDES_COUNT
   slides[currentSlide].classList.toggle('active')
   indicators[currentSlide].classList.toggle('active')
-}
+
+  // Get the background color of the current slide
+  indicators[currentSlide].style.background = window.getComputedStyle(slides[currentSlide]).background
+
+
 
 function gotoPrev() {
   gotoNth(currentSlide - 1)
@@ -62,7 +70,7 @@ function playHandler() {
   tick()
 }
 
-function pausePlayHandler() {
+function togglePlayHandler() {
   isPlaying ? pauseHandler() : playHandler()
 }
 
@@ -93,7 +101,7 @@ function keydownHandler(e) {
   if (code === CODE_ARROW_RIGHT) nextHandler()
   if (code === CODE_SPACE) {
     e.preventDefault()
-    pausePlayHandler()
+    togglePlayHandler()
   }
 }
 
@@ -133,7 +141,7 @@ function swipeEndHandler(e) {
 
 // Listeners activation
 function initEventListeners() {
-  pauseBtn.addEventListener('click', pausePlayHandler)
+  pauseBtn.addEventListener('click', togglePlayHandler)
   nextBtn.addEventListener('click', nextHandler)
   prevBtn.addEventListener('click', prevHandler)
   indicatorsContainer.addEventListener('click', indicatorClickHandler)
