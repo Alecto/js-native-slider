@@ -24,8 +24,6 @@ class Carousel {
     this.currentSlide = 0
     this.isPlaying = true
     this.timerId = null
-    this.swipeStartX = null
-    this.swipeEndX = null
   }
 
   _initControls() {
@@ -148,7 +146,7 @@ class Carousel {
   }
 }
 
-class SwipeCorousel extends Carousel {
+class SwipeCarousel extends Carousel {
   constructor(options) {
     super(options)
   }
@@ -175,7 +173,7 @@ class SwipeCorousel extends Carousel {
   }
 }
 
-const carousel = new SwipeCorousel({
+const carousel = new SwipeCarousel({
   slideId: '.item',
   interval: 1000
 })
