@@ -16,7 +16,7 @@ const CODE_ARROW_RIGHT = 'ArrowRight'
 const CODE_SPACE = 'Space'
 const FA_PAUSE = '<i class="fas fa-pause"></i>'
 const FA_PLAY = '<i class="fas fa-play"></i>'
-const TIMER_INTERVAL = 2000
+const SLIDES_INTERVAL_MS = 2000
 const SWIPE_THRESHOLD = 100
 
 // Variables for carousel state
@@ -28,15 +28,15 @@ let swipeEndX = null
 
 // Carousel basic engine
 function gotoNth(n) {
-  slides[currentSlide].classList.toggle('active')
-  indicators[currentSlide].classList.toggle('active')
+  slides[currentSlide]?.classList.toggle('active')
+  indicators[currentSlide]?.classList.toggle('active')
 
   // Reset the background color of the current slide
   indicators[currentSlide].style.background = null
 
   currentSlide = (n + SLIDES_COUNT) % SLIDES_COUNT
-  slides[currentSlide].classList.toggle('active')
-  indicators[currentSlide].classList.toggle('active')
+  slides[currentSlide]?.classList.toggle('active')
+  indicators[currentSlide]?.classList.toggle('active')
 
   // Get the background color of the current slide
   indicators[currentSlide].style.background = window.getComputedStyle(slides[currentSlide]).background
@@ -53,7 +53,7 @@ function gotoNext() {
 
 // Tick -> setInterval
 function tick() {
-  timerId = setInterval(gotoNext, TIMER_INTERVAL)
+  timerId = setInterval(gotoNext, SLIDES_INTERVAL_MS)
 }
 
 // Controls
@@ -97,8 +97,8 @@ function indicatorClickHandler(e) {
 // Set keyboard controls
 function keydownHandler(e) {
   const { code } = e
-  if (code === CODE_ARROW_LEFT) prevHandler()
-  if (code === CODE_ARROW_RIGHT) nextHandler()
+  if (code === CODE_ARROW_LEFT) return prevHandler()
+  if (code === CODE_ARROW_RIGHT) return nextHandler()
   if (code === CODE_SPACE) {
     e.preventDefault()
     togglePlayHandler()
