@@ -1,10 +1,10 @@
 class Carousel {
   constructor(o) {
-    const settings = { ...{ containerId: '#carousel', slideId: '.slide', interval: 5000, isPlaying: true }, ...o }
+    const settings = { ...{ containerId: '#carousel', slideId: '.slide', intervalMs: 5000, isPlaying: true }, ...o }
 
     this.container = document.querySelector(settings.containerId)
     this.slides = this.container.querySelectorAll(settings.slideId)
-    this.TIMER_INTERVAL = settings.interval
+    this.SLIDES_INTERVAL_MS = settings.intervalMs
     this.isPlaying = settings.isPlaying
   }
 
@@ -87,7 +87,7 @@ class Carousel {
   }
 
   _tick() {
-    this.timerId = setInterval(() => this._gotoNext(), this.TIMER_INTERVAL)
+    this.timerId = setInterval(() => this._gotoNext(), this.SLIDES_INTERVAL_MS)
   }
 
   _indicatorClickHandler(e) {
@@ -175,7 +175,7 @@ class SwipeCarousel extends Carousel {
 
 const carousel = new SwipeCarousel({
   slideId: '.item',
-  interval: 1000
+  intervalMs: 1000
 })
 
 carousel.init()
